@@ -49,7 +49,7 @@
 </head>
 <body class="bg-apple-bg dark:bg-apple-darkBg text-[#1d1d1f] dark:text-[#f5f5f7] font-sans antialiased selection:bg-apple-blue selection:text-white pb-36 transition-colors duration-300">
 
-  <!-- Apple Navigation Bar -->
+  <!-- Apple Cupertino Navigation Bar (Genau ein WhatsApp-Button) -->
   <header class="sticky top-0 z-50 apple-glass bg-white/70 dark:bg-black/75 border-b border-apple-borderLight dark:border-apple-borderDark transition-colors">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
@@ -63,10 +63,14 @@
       </div>
       
       <div class="flex items-center space-x-2 sm:space-x-3">
-        <!-- WhatsApp Share Button -->
-        <button onclick="shareViaWhatsApp()" class="flex items-center space-x-2 bg-[#25D366] hover:bg-[#20ba5a] text-white px-3.5 py-1.5 rounded-full text-xs font-medium transition shadow-sm" title="Zusammenfassung per WhatsApp senden">
+        <!-- Der einzige offizielle WhatsApp-Button -->
+        <button onclick="shareViaWhatsApp()" class="flex items-center space-x-2 bg-[#25D366] hover:bg-[#20ba5a] text-white px-3.5 py-1.5 rounded-full text-xs font-medium transition shadow-sm" title="Briefing per WhatsApp teilen">
           <i data-lucide="share-2" class="w-4 h-4"></i>
           <span class="hidden md:inline">Per WhatsApp teilen</span>
+        </button>
+
+        <button onclick="scrollToNewsletter()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white transition" title="Newsletter konfigurieren">
+          <i data-lucide="bell" class="w-5 h-5"></i>
         </button>
         <button id="ttsBtn" onclick="toggleSpeech()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white transition" title="Briefing anhören">
           <i data-lucide="volume-2" id="ttsIcon" class="w-5 h-5"></i>
@@ -78,13 +82,13 @@
     </div>
   </header>
 
-  <!-- Hero & Controls -->
+  <!-- Hero Section & Search -->
   <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-6">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div class="max-w-2xl">
         <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-apple-blue/10 text-apple-blue text-xs font-semibold tracking-wide mb-3">
           <span class="w-2 h-2 rounded-full bg-apple-blue animate-pulse"></span>
-          <span>Freitag, 30. Oktober 2026 • 10:15 Uhr</span>
+          <span>Freitag, 30. Oktober 2026 • 10:30 Uhr</span>
         </div>
         <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-[#1d1d1f] dark:text-white leading-tight">
           Tagesbriefing.<br><span class="text-apple-subtle font-medium">Präzise. Tiefgründig. Lokal.</span>
@@ -94,23 +98,6 @@
         <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-apple-subtle"></i>
         <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Themen durchsuchen..." class="w-full bg-white dark:bg-[#1c1c1e] text-sm pl-10 pr-4 py-2 rounded-full border border-apple-borderLight dark:border-apple-borderDark focus:outline-none focus:ring-2 focus:ring-apple-blue text-[#1d1d1f] dark:text-white transition">
       </div>
-    </div>
-
-    <!-- WhatsApp Teaser Info Card -->
-    <div class="mt-6 p-4 rounded-3xl bg-white dark:bg-[#1c1c1e] border border-apple-borderLight dark:border-apple-borderDark apple-glass flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-2xl bg-[#25D366]/10 text-[#25D366] flex items-center justify-center shrink-0">
-          <i data-lucide="message-circle" class="w-5 h-5"></i>
-        </div>
-        <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-apple-subtle">WhatsApp-Zusammenfassung</h4>
-          <p class="text-sm font-medium text-[#1d1d1f] dark:text-white">Generiert den vollständigen Teaser mit Headlines statt nur des Links.</p>
-        </div>
-      </div>
-      <button onclick="shareViaWhatsApp()" class="shrink-0 text-xs font-semibold px-4 py-2 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white transition flex items-center space-x-2">
-        <i data-lucide="send" class="w-3.5 h-3.5"></i>
-        <span>Jetzt Vorschau senden</span>
-      </button>
     </div>
 
     <!-- Filter Pills -->
@@ -141,9 +128,54 @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="eventsGrid"></div>
     </section>
+
+    <!-- WhatsApp Newsletter Hub -->
+    <section id="newsletterSection" class="mt-20 p-8 rounded-3xl bg-white dark:bg-[#1c1c1e] apple-glass border border-apple-borderLight dark:border-apple-borderDark shadow-xl space-y-8">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-apple-borderLight dark:border-apple-borderDark">
+        <div>
+          <div class="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-[#25D366] mb-1">
+            <i data-lucide="message-square" class="w-4 h-4"></i>
+            <span>Automatisierter Service</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-[#1d1d1f] dark:text-white">WhatsApp-Newsletter Konfiguration</h2>
+          <p class="text-sm text-apple-subtle mt-1">Stelle deine Wunschzeit ein, verwalte Empfänger und halte deine Verteilerliste sauber.</p>
+        </div>
+        <div class="flex items-center space-x-3">
+          <label class="text-xs font-semibold text-apple-subtle">Tägliche Zustellzeit:</label>
+          <input type="time" id="deliveryTime" value="08:00" onchange="saveDeliveryTime(this.value)" class="bg-apple-bg dark:bg-black/40 border border-apple-borderLight dark:border-apple-borderDark px-3 py-1.5 rounded-full text-sm font-semibold text-apple-blue focus:outline-none">
+        </div>
+      </div>
+
+      <!-- Empfänger hinzufügen & Kontaktbuch -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="md:col-span-1 space-y-4">
+          <h3 class="text-base font-bold tracking-tight">Empfänger hinzufügen</h3>
+          <p class="text-xs text-apple-subtle">Trage neue Kontakte manuell ein oder importiere sie direkt aus dem Smartphone-Adressbuch.</p>
+          <div class="space-y-3">
+            <input type="text" id="subName" placeholder="Name (z.B. Luisa)" class="w-full text-xs bg-apple-bg dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark px-3.5 py-2.5 rounded-2xl focus:outline-none focus:ring-1 focus:ring-apple-blue">
+            <input type="tel" id="subPhone" placeholder="Mobilnummer (+49...)" class="w-full text-xs bg-apple-bg dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark px-3.5 py-2.5 rounded-2xl focus:outline-none focus:ring-1 focus:ring-apple-blue">
+            <div class="flex gap-2">
+              <button onclick="addSubscriberManual()" class="w-full py-2.5 rounded-2xl bg-apple-blue text-white text-xs font-semibold hover:bg-apple-blueHover transition">Abonnieren</button>
+              <button onclick="importContactFromDevice()" class="shrink-0 px-3 py-2.5 rounded-2xl border border-apple-borderLight dark:border-apple-borderDark hover:bg-black/5 dark:hover:bg-white/5 text-xs text-apple-subtle" title="Aus Kontakten importieren">
+                <i data-lucide="book-user" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aktive Verteilerliste & Abmeldeverwaltung -->
+        <div class="md:col-span-2 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold tracking-tight">Verteilerliste & Abmeldeverwaltung</h3>
+            <span id="subscriberCount" class="text-xs font-mono text-apple-subtle">0 Kontakte</span>
+          </div>
+          <div id="subscriberList" class="space-y-2 max-h-56 overflow-y-auto pr-1"></div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Detail Sheet / Modal -->
+  <!-- Article Detail Sheet / Modal -->
   <div id="articleModal" class="fixed inset-0 z-50 hidden bg-black/60 apple-glass flex items-center justify-center p-4">
     <div class="bg-white dark:bg-[#1c1c1e] max-w-2xl w-full rounded-3xl overflow-hidden shadow-2xl border border-apple-borderLight dark:border-apple-borderDark flex flex-col max-h-[90vh]">
       <div class="relative h-64 w-full overflow-hidden bg-black/10">
@@ -173,7 +205,7 @@
 
   <script>
     const NEWS_DATABASE = [
-      // Politik
+      // Politik (Top 10)
       { id: 1, cat: 'politik', badge: 'Top 1 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Spanisches Zugunglück bei Toledo: Ermittler sichern Zugsicherung und Funkdaten', summary: 'Nach der Kollision mit 64 Todesopfern schließt die Kommission die Datensicherung ab. Ein manueller Freigabebefehl nach einer Stellwerksstörung gilt als Ursache.', fullText: 'Die Bergungsarbeiten dauern an. Verkehrsminister Puente bestätigte den Teilausfall der Zugsicherung. Der nachfolgende Zug erhielt manuell freie Fahrt.', img: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/ausland' },
       { id: 2, cat: 'politik', badge: 'Top 2 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Kabinett bringt „Gebäudetyp E“ auf den Weg: Günstigeres Bauen', summary: 'Bauherren und Planer können künftig rechtssicher auf teure Komfortstandards verzichten, um Neubaukosten um 10 bis 15 Prozent zu senken.', fullText: 'Das novellierte Bauvertragsrecht im BGB soll Investitionen ankurbeln. Statische Sicherheit und Brandschutz bleiben uneingeschränkt garantiert.', img: 'https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/inland/innenpolitik' },
       { id: 3, cat: 'politik', badge: 'Top 3 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Haushalt 2027: Chefhaushälter gehen in Klausur', summary: 'Vor der Bereinigungssitzung ringt die Koalition um Einsparungen zur Einhaltung der verfassungsrechtlichen Schuldenbremse.', fullText: 'Verhandelt werden Kürzungen bei ungebundenen Förderetats und Verwaltungsausgaben. Eine Aussetzung der Schuldenbremse wird ausgeschlossen.', img: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/inland/innenpolitik' },
@@ -185,7 +217,7 @@
       { id: 9, cat: 'politik', badge: 'Top 9 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Innenminister fordern Fortführung stationärer Grenzkontrollen', summary: 'Länder fordern die Verlängerung von Binnengrenzkontrollen bis mindestens Mitte 2027.', fullText: 'Die Minister betonen den messbaren Rückgang der Schleusungskriminalität durch die Kontrollen.', img: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/inland/innenpolitik' },
       { id: 10, cat: 'politik', badge: 'Top 10 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'EU-Fahrgastrechte: Automatische Entschädigung bei Zugverspätungen', summary: 'Reisende sollen ab Ende 2027 Entschädigungen bei relevanten Verspätungen digital ohne Antragsaufwand erhalten.', fullText: 'Die Europäische Eisenbahnagentur verpflichtet Betreiber zu standardisierten APIs zur automatischen Rückerstattung.', img: 'https://images.unsplash.com/photo-1510519138171-c7a5223e7f41?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft/verbraucher' },
 
-      // Wirtschaft
+      // Wirtschaft (Top 10)
       { id: 11, cat: 'wirtschaft', badge: 'Top 1 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'ifo-Geschäftsklima steigt den sechsten Monat in Folge', summary: 'Das Barometer klettert auf 89,5 Punkte dank anziehender Auslandsnachfrage im Maschinenbau.', fullText: 'Zunehmende Aufträge aus Asien und Nordamerika kompensieren die verhaltene Binnennachfrage.', img: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft/konjunktur' },
       { id: 12, cat: 'wirtschaft', badge: 'Top 2 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Industrie fordert Senkung der Stromsteuer für alle Betriebe', summary: 'Verbände verlangen eine Senkung auf das EU-Mindestmaß auch für den produzierenden Mittelstand.', fullText: 'BDI und Handwerk warnen vor strukturellen Standortnachteilen ohne Entlastung für gewerbliche Abnehmer.', img: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft' },
       { id: 13, cat: 'wirtschaft', badge: 'Top 3 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Regionalisierungsmittel: Länder warnen vor ÖPNV-Kürzungen', summary: 'Verkehrsminister fordern Bundesmittel zum Ausgleich von Personal- und Energiekosten ab 2027.', fullText: 'Ohne Aufstockung drohen Taktausdünnungen und Streckenstreichungen im ländlichen Bus- und Schienennetz.', img: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft' },
@@ -197,14 +229,14 @@
       { id: 19, cat: 'wirtschaft', badge: 'Top 9 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Rohstoffmärkte: Gold behauptet Rekordniveau nahe 2.740 Dollar', summary: 'Sicherheitsbedürfnis stützt Goldpreis; Rohöl Brent stabil bei 75 US-Dollar pro Barrel.', fullText: 'Disziplinierte Förderquoten der OPEC+ sorgen für eine stabile Preisspanne am Rohölmarkt.', img: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft/boerse' },
       { id: 20, cat: 'wirtschaft', badge: 'Top 10 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Forschungsförderung: Mittelstand mahnt verbindliche Antragsfristen an', summary: 'BVMW fordert Beschleunigung und unbürokratische Pauschalierung der steuerlichen Forschungszulage.', fullText: 'Lange Bearbeitungszeiten bei der Bescheinigungsstelle hemmen Investitionen in Technologieprojekte.', img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft' },
 
-      // Technik
+      // Technik (Top 5)
       { id: 21, cat: 'technik', badge: 'Top 1 Technik', date: '30.10.2026', source: 'BSI', title: 'BSI erneuert Dringlichkeitswarnung vor Angriffen auf Web-Frameworks', summary: 'Automatisierte Angriffswellen auf serverseitige PHP-Frameworks erfordern sofortige Patches.', fullText: 'Sicherheitslücken zur Remote-Code-Ausführung werden aktiv ausgenutzt. Einsatz von WAFs dringend empfohlen.', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80', url: 'https://www.bsi.bund.de' },
       { id: 22, cat: 'technik', badge: 'Top 2 Technik', date: '30.10.2026', source: 'Tagesschau', title: 'Endlager Onkalo: Finnische Multibarrieren-Technologie setzt Maßstäbe', summary: 'Kupferkapseln und Bentonit-Ton im 450-Meter-Urgestein als weltweites Referenzmodell genehmigt.', fullText: 'Das finnische Endlager gilt international als Pionier für die sichere 100.000-jährige Verwahrung.', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wissen' },
       { id: 23, cat: 'technik', badge: 'Top 3 Technik', date: '30.10.2026', source: 'Tagesschau', title: 'Cybersicherheit bei vernetzten Fahrzeugen: API-Schutz im Zentrum', summary: 'Studie belegt: Cloud-Schnittstellen und Apps sind die primären Angriffsvektoren, nicht der CAN-Bus.', fullText: 'Automobilhersteller härten Schnittstellen mit Zero-Trust-Architekturen gegen mobile Attacken ab.', img: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wissen/digitales' },
       { id: 24, cat: 'technik', badge: 'Top 4 Technik', date: '30.10.2026', source: 'Tagesschau', title: 'Edge-KI revolutioniert visuelle Prozesskontrollen in der Fertigung', summary: 'NPU-basierte Industrie-Controller analysieren Fertigungsschritte lokal und in Echtzeit.', fullText: 'Lokale Auswertungen verhindern Latenzen und den Abfluss sensibler Konstruktionsdaten in Clouds.', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wissen/digitales' },
       { id: 25, cat: 'technik', badge: 'Top 5 Technik', date: '30.10.2026', source: 'Tagesschau', title: 'Prüfverbände warnen vor Firmware-Tuning bei E-Bikes und Scootern', summary: 'TÜV warnt: Manipulierte Geschwindigkeitsgrenzen überlasten Bremsen und vernichten Versicherungsschutz.', fullText: 'Getunte Pedelecs gelten rechtlich als Kraftfahrzeuge; bei Unfällen droht vollständiger Haftungsausschluss.', img: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft/verbraucher' },
 
-      // Regional Duderstadt
+      // Regional Duderstadt (Top 5)
       { id: 26, cat: 'regional', badge: 'Top 1 Regional', date: '30.10.2026', source: 'Eichsfelder Tageblatt', title: 'Stabsübergabe im Stadthaus Duderstadt: Heutige Bürgerbegegnung', summary: 'Bürgermeister Thorsten Feike verabschiedet sich heute von 10:30 bis 13:00 Uhr von den Bürgern.', fullText: 'Gerald Werner übernimmt am Montag die Amtsgeschäfte als neuer Bürgermeister der Stadt Duderstadt.', img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80', url: 'https://www.goettinger-tageblatt.de/themen/duderstadt/' },
       { id: 27, cat: 'regional', badge: 'Top 2 Regional', date: '30.10.2026', source: 'Eichsfelder Tageblatt', title: 'Eingeschränkte Öffnungszeiten der Stadtverwaltung Duderstadt', summary: 'Wegen organisatorischer Umstellungen ist der Bürgerservice am Freitag und Montag eingeschränkt.', fullText: 'Dringende Angelegenheiten sollten vorab abgestimmt werden. Ab Dienstag läuft der Betrieb regulär.', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80', url: 'https://www.duderstadt.de' },
       { id: 28, cat: 'regional', badge: 'Top 3 Regional', date: '30.10.2026', source: 'Fachwerk5Eck', title: 'Fachwerk5Eck startet Vortragsreihe zur energetischen Sanierung', summary: 'Kostenlose Fachvorträge zu Dämmung, Heiztechnik und Denkmalschutz ab 9. November.', fullText: 'Eigentümer historischer Gebäude erhalten wertvolle Praxistipps für energieeffiziente Sanierungen.', img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80', url: 'https://fachwerk5eck.de' },
@@ -223,6 +255,12 @@
 
     let currentFilter = 'all';
     let searchQuery = '';
+
+    // Standard-Abonnenten
+    let subscribers = JSON.parse(localStorage.getItem('goedecke_subscribers')) || [
+      { id: 1, name: 'Niklas', phone: '+491701234567', active: true },
+      { id: 2, name: 'Luisa', phone: '+491712345678', active: true }
+    ];
 
     function renderNews() {
       const grid = document.getElementById('newsGrid');
@@ -305,6 +343,108 @@
       lucide.createIcons();
     }
 
+    // Verteilerliste rendern
+    function renderSubscribers() {
+      const list = document.getElementById('subscriberList');
+      const count = document.getElementById('subscriberCount');
+      list.innerHTML = '';
+      count.innerText = `${subscribers.length} Empfänger`;
+
+      if (subscribers.length === 0) {
+        list.innerHTML = `<div class="p-4 text-center text-xs text-apple-subtle">Noch keine Empfänger eingetragen.</div>`;
+        return;
+      }
+
+      subscribers.forEach(sub => {
+        const item = document.createElement('div');
+        item.className = "flex items-center justify-between p-3 rounded-2xl bg-apple-bg dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark text-xs";
+        item.innerHTML = `
+          <div class="flex items-center space-x-3">
+            <div class="w-2 h-2 rounded-full ${sub.active ? 'bg-[#25D366]' : 'bg-apple-subtle'}"></div>
+            <div>
+              <span class="font-semibold text-[#1d1d1f] dark:text-white block">${sub.name}</span>
+              <span class="text-apple-subtle font-mono text-[10px]">${sub.phone}</span>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button onclick="toggleSubscriberActive(${sub.id})" class="px-2.5 py-1 rounded-full text-[10px] font-semibold border ${sub.active ? 'border-apple-borderLight dark:border-apple-borderDark text-apple-subtle hover:text-[#1d1d1f]' : 'bg-apple-blue text-white'} transition">
+              ${sub.active ? 'Pausieren' : 'Aktivieren'}
+            </button>
+            <button onclick="removeSubscriber(${sub.id})" class="p-1 rounded-full text-red-500 hover:bg-red-500/10 transition" title="Newsletter abbestellen">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        `;
+        list.appendChild(item);
+      });
+      lucide.createIcons();
+      localStorage.setItem('goedecke_subscribers', JSON.stringify(subscribers));
+    }
+
+    function addSubscriberManual() {
+      const nameInput = document.getElementById('subName');
+      const phoneInput = document.getElementById('subPhone');
+      const name = nameInput.value.trim();
+      const phone = phoneInput.value.trim();
+
+      if (!name || !phone) {
+        alert('Bitte Name und Mobilnummer eingeben.');
+        return;
+      }
+
+      subscribers.push({
+        id: Date.now(),
+        name: name,
+        phone: phone,
+        active: true
+      });
+
+      nameInput.value = '';
+      phoneInput.value = '';
+      renderSubscribers();
+    }
+
+    // Zugriff auf Smartphone-Adressbuch (Web Contacts API)
+    async function importContactFromDevice() {
+      if ('contacts' in navigator && 'ContactsManager' in window) {
+        try {
+          const props = ['name', 'tel'];
+          const opts = { multiple: false };
+          const contacts = await navigator.contacts.select(props, opts);
+          if (contacts.length && contacts[0].tel && contacts[0].tel.length) {
+            const name = contacts[0].name ? contacts[0].name[0] : 'Neuer Kontakt';
+            const phone = contacts[0].tel[0];
+            subscribers.push({ id: Date.now(), name: name, phone: phone, active: true });
+            renderSubscribers();
+          }
+        } catch (ex) {
+          alert('Kontakt-Auswahl wurde abgebrochen oder ist nicht erlaubt.');
+        }
+      } else {
+        alert('Dein Browser unterstützt den direkten Adressbuch-Zugriff leider nicht. Bitte trage den Kontakt manuell in das Formular ein.');
+      }
+    }
+
+    function toggleSubscriberActive(id) {
+      subscribers = subscribers.map(s => s.id === id ? { ...s, active: !s.active } : s);
+      renderSubscribers();
+    }
+
+    function removeSubscriber(id) {
+      if (confirm('Diesen Kontakt wirklich aus dem täglichen WhatsApp-Newsletter austragen?')) {
+        subscribers = subscribers.filter(s => s.id !== id);
+        renderSubscribers();
+      }
+    }
+
+    function saveDeliveryTime(time) {
+      localStorage.setItem('goedecke_delivery_time', time);
+    }
+
+    function scrollToNewsletter() {
+      document.getElementById('newsletterSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
     function filterCategory(cat) {
       currentFilter = cat;
       document.querySelectorAll('.cat-pill').forEach(btn => {
@@ -377,7 +517,6 @@
       const textToRead = "Tägliche Zusammenfassung des heutigen Tages für Familie Gödecke. Top-Meldungen: Zugunglück bei Toledo, Kabinett verabschiedet Gebäudetyp E, ifo-Geschäftsklima steigt, BSI warnt vor Web-Exploits, und Stabsübergabe im Stadthaus Duderstadt von Thorsten Feike zu Gerald Werner.";
       const utterance = new SpeechSynthesisUtterance(textToRead);
       utterance.lang = 'de-DE';
-      utterance.rate = 1.0;
       utterance.onend = () => {
         isSpeaking = false;
         ttsIcon.setAttribute('data-lucide', 'volume-2');
@@ -389,7 +528,7 @@
       lucide.createIcons();
     }
 
-    // Vollständig formatierte WhatsApp-Nachricht
+    // Formatierter WhatsApp-Versand mit der vorgeschriebenen Einleitung
     function shareViaWhatsApp() {
       const currentUrl = window.location.href.includes('http') ? window.location.href : 'https://salkin180.github.io/agent-nachrichten-goedecke/';
       
@@ -430,6 +569,13 @@ ${currentUrl}`;
     document.addEventListener('DOMContentLoaded', () => {
       renderNews();
       renderEvents();
+      renderSubscribers();
+      
+      const savedTime = localStorage.getItem('goedecke_delivery_time');
+      if (savedTime) {
+        document.getElementById('deliveryTime').value = savedTime;
+      }
+      
       lucide.createIcons();
     });
   </script>
