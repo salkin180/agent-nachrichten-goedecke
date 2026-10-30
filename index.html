@@ -342,6 +342,11 @@
       events: { label: 'Events', tone: 'bg-pink-500/10 text-pink-700 dark:text-pink-300' }
     };
 
+    function makeSearchUrl(source, title) {
+      const query = [source, title].filter(Boolean).join(' ');
+      return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+    }
+
     const BASE_HEADLINES = [
       { source: 'Tagesschau', title: 'Spanisches Zugunglück: Sicherungsdaten und Kommunikation im Fokus', url: 'https://www.tagesschau.de/' },
       { source: 'Reuters', title: 'Bundesregierung setzt neue Investitionspläne im Ausbauprogramm um', url: 'https://www.reuters.com/' },
@@ -352,6 +357,34 @@
       { source: 'Eichsfeld', title: 'Herbstlicher Vogelzug und Naturerlebnisse ziehen Gäste in die Region', url: 'https://www.eichsfeld.de/' },
       { source: 'NDR', title: 'Landespolitik verschärft Debatte um ÖPNV-Finanzierung und Streckenausbau', url: 'https://www.ndr.de/' }
     ];
+
+    function makeCoverArt(title, source, colorA, colorB) {
+      const safeTitle = (title || 'Nachrichten').slice(0, 48).replace(/&/g, '&amp;');
+      const safeSource = (source || 'Agent').slice(0, 20).replace(/&/g, '&amp;');
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="${colorA}"/>
+              <stop offset="100%" stop-color="${colorB}"/>
+            </linearGradient>
+            <radialGradient id="glow" cx="75%" cy="25%" r="65%">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.75)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+            </radialGradient>
+          </defs>
+          <rect width="1200" height="800" fill="url(#g)"/>
+          <rect width="1200" height="800" fill="url(#glow)"/>
+          <circle cx="200" cy="180" r="140" fill="rgba(255,255,255,0.12)"/>
+          <circle cx="940" cy="640" r="170" fill="rgba(255,255,255,0.08)"/>
+          <path d="M0 610 C 180 560, 260 680, 420 620 S 760 500, 1200 620 L1200 800 L0 800 Z" fill="rgba(15,23,42,0.10)"/>
+          <rect x="70" y="60" width="150" height="28" rx="14" fill="rgba(255,255,255,0.18)"/>
+          <text x="70" y="118" fill="rgba(255,255,255,0.8)" font-size="24" font-family="Arial, sans-serif" letter-spacing="6">${safeSource.toUpperCase()}</text>
+          <text x="70" y="410" fill="rgba(255,255,255,0.92)" font-size="68" font-weight="700" font-family="Arial, sans-serif">${safeTitle}</text>
+        </svg>
+      `;
+      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+    }
 
     const BASE_NEWS = [
       { id: 1, cat: 'politik', badge: 'Top 1 Politik', source: 'Tagesschau', date: TODAY_SHORT, title: 'Spanisches Zugunglück bei Toledo: Ermittler sichern Funk- und Sicherungsdaten', summary: 'Die Ermittlungen konzentrieren sich auf Funk- und Sicherungsdaten, damit die Ursache des Zugunglücks und mögliche Kommunikationsfehler besser eingeordnet werden können.', fullText: 'Nach dem Zugunglück in der Nähe von Toledo stehen nun Funkdaten, Sicherungsprotokolle und die Kommunikation der Fahrleitung im Fokus. Die zuständigen Behörden prüfen, ob technische Ausfälle, Signalfehler oder organisatorische Fehler zu dem Unfall beigetragen haben. Die Untersuchung ist noch offen, die Sicherheitsbehörden haben mehrere Datenquellen gesichert und die Abstimmungen mit Infrastruktur- und Bahnexperten intensiviert.', url: 'https://www.tagesschau.de/', img: makeCoverArt('Spanisches Zugunglück bei Toledo', 'Tagesschau', '#0f172a', '#2563eb') },
@@ -387,34 +420,6 @@
     let searchQuery = '';
     let isSpeaking = false;
 
-    function makeCoverArt(title, source, colorA, colorB) {
-      const safeTitle = (title || 'Nachrichten').slice(0, 48).replace(/&/g, '&amp;');
-      const safeSource = (source || 'Agent').slice(0, 20).replace(/&/g, '&amp;');
-      const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
-          <defs>
-            <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
-              <stop offset="0%" stop-color="${colorA}"/>
-              <stop offset="100%" stop-color="${colorB}"/>
-            </linearGradient>
-            <radialGradient id="glow" cx="75%" cy="25%" r="65%">
-              <stop offset="0%" stop-color="rgba(255,255,255,0.75)"/>
-              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-            </radialGradient>
-          </defs>
-          <rect width="1200" height="800" fill="url(#g)"/>
-          <rect width="1200" height="800" fill="url(#glow)"/>
-          <circle cx="200" cy="180" r="140" fill="rgba(255,255,255,0.12)"/>
-          <circle cx="940" cy="640" r="170" fill="rgba(255,255,255,0.08)"/>
-          <path d="M0 610 C 180 560, 260 680, 420 620 S 760 500, 1200 620 L1200 800 L0 800 Z" fill="rgba(15,23,42,0.10)"/>
-          <rect x="70" y="60" width="150" height="28" rx="14" fill="rgba(255,255,255,0.18)"/>
-          <text x="70" y="118" fill="rgba(255,255,255,0.8)" font-size="24" font-family="Arial, sans-serif" letter-spacing="6">${safeSource.toUpperCase()}</text>
-          <text x="70" y="410" fill="rgba(255,255,255,0.92)" font-size="68" font-weight="700" font-family="Arial, sans-serif">${safeTitle}</text>
-        </svg>
-      `;
-      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
-    }
-
     function rotateItems(items) {
       if (!items || !items.length) return [];
       const hourBucket = Math.floor(Date.now() / (1000 * 60 * 60));
@@ -423,17 +428,25 @@
     }
 
     function refreshRotatingContent() {
-      HEADLINE_FEED = rotateItems(BASE_HEADLINES);
+      HEADLINE_FEED = BASE_HEADLINES.map((item) => ({
+        ...item,
+        url: makeSearchUrl(item.source, item.title)
+      }));
+
       NEWS_DATABASE = rotateItems(BASE_NEWS).map((item, index) => ({
         ...item,
-        id: ((Date.now() / 3600000) % 1000) + index + 1,
+        url: makeSearchUrl(item.source, item.title),
+        id: Date.now() + index + 1,
         date: new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date())
       }));
+
+      HEADLINE_FEED = rotateItems(HEADLINE_FEED);
     }
 
     function getHeadlineUrl(item) {
       if (item && item.url) return item.url;
-      return `https://www.google.com/search?q=${encodeURIComponent(`${item.source} ${item.title}`)}`;
+      if (item && item.source && item.title) return makeSearchUrl(item.source, item.title);
+      return 'https://www.google.com/search?q=' + encodeURIComponent('Nachrichten');
     }
 
     function buildShareSummary() {
