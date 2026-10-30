@@ -2,7 +2,6 @@ name: Tägliche WhatsApp-Zusammenfassung
 
 on:
   schedule:
-    # 07:00 UTC entspricht 08:00 Uhr MEZ (Winterzeit)
     - cron: '0 7 * * *'
   workflow_dispatch:
 
@@ -13,8 +12,9 @@ jobs:
     steps:
       - name: WhatsApp Nachricht senden
         env:
+          GREEN_API_INSTANCE_ID: "710722785849"
+          GREEN_API_TOKEN: "1dfb83b441fa456fae20f912c20cd562a51393b3fb284335ab"
           PHONE: "491704131865"
-          APIKEY: "DEIN_API_KEY"
           URL: "https://salkin180.github.io/agent-nachrichten-goedecke/"
         run: |
           TODAY=$(date '+%A, %d. %B %Y')
@@ -34,8 +34,29 @@ jobs:
           EOF
           )
 
-          curl -sS -G "https://api.callmebot.com/whatsapp.php" \
-            --data-urlencode "phone=${PHONE}" \
-            --data-urlencode "text=${MESSAGE}" \
-            --data-urlencode "apikey=${APIKEY}" \
-            --fail
+          export MESSAGE
+          python3 - <<'PY'
+          import json, os, urllib.request
+
+          instance = os.environ["GREEN_API_INSTANCE_ID"]
+          token = os.environ["GREEN_API_TOKEN"]
+          phone = os.environ["PHONE"]
+          message = os.environ["MESSAGE"]
+
+          url = f"https://api.green-api.com/waInstance{instance}/SendMessage/{token}"
+
+          payload = json.dumps({
+              "chatId": f"{phone}@c.us",
+              "message": message
+          }).encode("utf-8")
+
+          req = urllib.request.Request(
+              url,
+              data=payload,
+              headers={"Content-Type": "application/json"},
+              method="POST",
+          )
+
+          with urllib.request.urlopen(req, timeout=30) as response:
+              print(response.read().decode("utf-8"))
+          PY
