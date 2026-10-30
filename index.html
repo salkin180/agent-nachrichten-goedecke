@@ -63,16 +63,15 @@
       </div>
       
       <div class="flex items-center space-x-2 sm:space-x-3">
-        <!-- Der einzige offizielle WhatsApp-Button -->
-        <button onclick="shareViaWhatsApp()" class="flex items-center space-x-2 bg-[#25D366] hover:bg-[#20ba5a] text-white px-3.5 py-1.5 rounded-full text-xs font-medium transition shadow-sm" title="Briefing per WhatsApp teilen">
+        <button onclick="shareViaWhatsApp()" class="flex items-center space-x-2 bg-[#25D366] hover:bg-[#20ba5a] text-white px-3.5 py-1.5 rounded-full text-xs font-medium transition shadow-sm" title="Per WhatsApp teilen">
           <i data-lucide="share-2" class="w-4 h-4"></i>
           <span class="hidden md:inline">Per WhatsApp teilen</span>
         </button>
 
-        <button onclick="scrollToNewsletter()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white transition" title="Newsletter konfigurieren">
+        <button onclick="scrollToNewsletter()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white transition" title="Newsletter">
           <i data-lucide="bell" class="w-5 h-5"></i>
         </button>
-        <button id="ttsBtn" onclick="toggleSpeech()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white transition" title="Briefing anhören">
+        <button id="ttsBtn" onclick="toggleSpeech()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white transition" title="Vorlesen">
           <i data-lucide="volume-2" id="ttsIcon" class="w-5 h-5"></i>
         </button>
         <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white transition" title="Design wechseln">
@@ -82,7 +81,6 @@
     </div>
   </header>
 
-  <!-- Hero Section & Search -->
   <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-6">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div class="max-w-2xl">
@@ -96,26 +94,23 @@
       </div>
       <div class="relative w-full md:w-72">
         <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-apple-subtle"></i>
-        <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Themen durchsuchen..." class="w-full bg-white dark:bg-[#1c1c1e] text-sm pl-10 pr-4 py-2 rounded-full border border-apple-borderLight dark:border-apple-borderDark focus:outline-none focus:ring-2 focus:ring-apple-blue text-[#1d1d1f] dark:text-white transition">
+        <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Themen durchsuchen..." class="w-full bg-white dark:bg-[#1c1c1e] text-sm pl-10 pr-4 py-2.5 rounded-full border border-apple-borderLight dark:border-apple-borderDark focus:outline-none focus:ring-2 focus:ring-apple-blue/20" />
       </div>
     </div>
 
-    <!-- Filter Pills -->
     <div class="mt-8 flex flex-wrap items-center gap-2 pt-4 border-t border-apple-borderLight dark:border-apple-borderDark">
       <button onclick="filterCategory('all')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-apple-blue text-white shadow-sm" data-cat="all">Alle Themen</button>
-      <button onclick="filterCategory('politik')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="politik">Politik (Top 10)</button>
-      <button onclick="filterCategory('wirtschaft')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="wirtschaft">Wirtschaft (Top 10)</button>
-      <button onclick="filterCategory('technik')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="technik">Technik (Top 5)</button>
-      <button onclick="filterCategory('regional')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="regional">Duderstadt & Region</button>
-      <button onclick="filterCategory('events')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="events">Wochenend-Events</button>
+      <button onclick="filterCategory('politik')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="politik">Politik</button>
+      <button onclick="filterCategory('wirtschaft')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="wirtschaft">Wirtschaft</button>
+      <button onclick="filterCategory('technik')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="technik">Technik</button>
+      <button onclick="filterCategory('regional')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="regional">Regional</button>
+      <button onclick="filterCategory('events')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="events">Events</button>
     </div>
   </section>
 
-  <!-- News Cards Grid -->
   <main class="max-w-6xl mx-auto px-4 sm:px-6 mt-6">
     <div id="newsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
-    <!-- Weekend Events Container -->
     <section id="eventsSection" class="mt-16 space-y-6">
       <div class="flex items-center space-x-3 pb-3 border-b border-apple-borderLight dark:border-apple-borderDark">
         <div class="w-8 h-8 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-sm">
@@ -129,53 +124,56 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="eventsGrid"></div>
     </section>
 
-    <!-- WhatsApp Newsletter Hub -->
     <section id="newsletterSection" class="mt-20 p-8 rounded-3xl bg-white dark:bg-[#1c1c1e] apple-glass border border-apple-borderLight dark:border-apple-borderDark shadow-xl space-y-8">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-apple-borderLight dark:border-apple-borderDark">
         <div>
-          <div class="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-[#25D366] mb-1">
-            <i data-lucide="message-square" class="w-4 h-4"></i>
-            <span>Automatisierter Service</span>
+          <div class="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-apple-blue mb-1">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+            <span>Newsletter</span>
           </div>
-          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-[#1d1d1f] dark:text-white">WhatsApp-Newsletter Konfiguration</h2>
-          <p class="text-sm text-apple-subtle mt-1">Stelle deine Wunschzeit ein, verwalte Empfänger und halte deine Verteilerliste sauber.</p>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-[#1d1d1f] dark:text-white">Tägliches Briefing abonnieren</h2>
+          <p class="text-sm text-apple-subtle mt-1">Mit persönlicher Auswahl der Themen, sauberem Versand und einfacher Abmeldung.</p>
         </div>
-        <div class="flex items-center space-x-3">
-          <label class="text-xs font-semibold text-apple-subtle">Tägliche Zustellzeit:</label>
-          <input type="time" id="deliveryTime" value="08:00" onchange="saveDeliveryTime(this.value)" class="bg-apple-bg dark:bg-black/40 border border-apple-borderLight dark:border-apple-borderDark px-3 py-1.5 rounded-full text-sm font-semibold text-apple-blue focus:outline-none">
+        <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-apple-blue/10 text-apple-blue text-xs font-semibold">
+          <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+          <span>Ohne WhatsApp-Konfiguration</span>
         </div>
       </div>
 
-      <!-- Empfänger hinzufügen & Kontaktbuch -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="md:col-span-1 space-y-4">
-          <h3 class="text-base font-bold tracking-tight">Empfänger hinzufügen</h3>
-          <p class="text-xs text-apple-subtle">Trage neue Kontakte manuell ein oder importiere sie direkt aus dem Smartphone-Adressbuch.</p>
-          <div class="space-y-3">
-            <input type="text" id="subName" placeholder="Name (z.B. Luisa)" class="w-full text-xs bg-apple-bg dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark px-3.5 py-2.5 rounded-2xl focus:outline-none focus:ring-1 focus:ring-apple-blue">
-            <input type="tel" id="subPhone" placeholder="Mobilnummer (+49...)" class="w-full text-xs bg-apple-bg dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark px-3.5 py-2.5 rounded-2xl focus:outline-none focus:ring-1 focus:ring-apple-blue">
-            <div class="flex gap-2">
-              <button onclick="addSubscriberManual()" class="w-full py-2.5 rounded-2xl bg-apple-blue text-white text-xs font-semibold hover:bg-apple-blueHover transition">Abonnieren</button>
-              <button onclick="importContactFromDevice()" class="shrink-0 px-3 py-2.5 rounded-2xl border border-apple-borderLight dark:border-apple-borderDark hover:bg-black/5 dark:hover:bg-white/5 text-xs text-apple-subtle" title="Aus Kontakten importieren">
-                <i data-lucide="book-user" class="w-4 h-4"></i>
-              </button>
-            </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-4">
+          <div>
+            <label class="text-xs font-semibold text-apple-subtle block mb-1">Name</label>
+            <input type="text" id="newsletterName" placeholder="z. B. Luisa" class="w-full text-sm bg-apple-bg dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark px-3.5 py-2.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-apple-blue/20" />
           </div>
+          <div>
+            <label class="text-xs font-semibold text-apple-subtle block mb-1">E-Mail</label>
+            <input type="email" id="newsletterEmail" placeholder="deine@email.de" class="w-full text-sm bg-apple-bg dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark px-3.5 py-2.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-apple-blue/20" />
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-apple-subtle block mb-1">Interesse</label>
+            <select id="newsletterType" class="w-full text-sm bg-apple-bg dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark px-3.5 py-2.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-apple-blue/20">
+              <option value="daily">Täglicher Briefing</option>
+              <option value="important">Nur wichtige Meldungen</option>
+              <option value="events">Nur Events & Region</option>
+            </select>
+          </div>
+          <button onclick="subscribeNewsletter()" class="w-full py-3 rounded-2xl bg-apple-blue text-white text-sm font-semibold hover:bg-apple-blueHover transition shadow-sm">Jetzt anmelden</button>
         </div>
 
-        <!-- Aktive Verteilerliste & Abmeldeverwaltung -->
-        <div class="md:col-span-2 space-y-4">
+        <div class="space-y-4 rounded-3xl border border-apple-borderLight dark:border-apple-borderDark bg-apple-bg dark:bg-black/20 p-5">
           <div class="flex items-center justify-between">
-            <h3 class="text-base font-bold tracking-tight">Verteilerliste & Abmeldeverwaltung</h3>
-            <span id="subscriberCount" class="text-xs font-mono text-apple-subtle">0 Kontakte</span>
+            <h3 class="text-base font-bold tracking-tight">Dein Abo</h3>
+            <span id="newsletterBadge" class="text-[10px] font-semibold uppercase tracking-wide text-apple-subtle">Inaktiv</span>
           </div>
-          <div id="subscriberList" class="space-y-2 max-h-56 overflow-y-auto pr-1"></div>
+          <div id="newsletterStatus" class="text-sm text-apple-subtle leading-relaxed">Noch kein Newsletter-Abo aktiv. Melde dich an, um die wichtigsten Meldungen automatisch zu erhalten.</div>
+          <div id="newsletterList" class="space-y-2"></div>
+          <button id="unsubscribeBtn" onclick="unsubscribeNewsletter()" class="hidden w-full py-2.5 rounded-2xl border border-red-200 bg-red-50 text-red-600 text-xs font-semibold hover:bg-red-100 transition">Abo kündigen</button>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Article Detail Sheet / Modal -->
   <div id="articleModal" class="fixed inset-0 z-50 hidden bg-black/60 apple-glass flex items-center justify-center p-4">
     <div class="bg-white dark:bg-[#1c1c1e] max-w-2xl w-full rounded-3xl overflow-hidden shadow-2xl border border-apple-borderLight dark:border-apple-borderDark flex flex-col max-h-[90vh]">
       <div class="relative h-64 w-full overflow-hidden bg-black/10">
@@ -205,62 +203,57 @@
 
   <script>
     const NEWS_DATABASE = [
-      // Politik (Top 10)
-      { id: 1, cat: 'politik', badge: 'Top 1 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Spanisches Zugunglück bei Toledo: Ermittler sichern Zugsicherung und Funkdaten', summary: 'Nach der Kollision mit 64 Todesopfern schließt die Kommission die Datensicherung ab. Ein manueller Freigabebefehl nach einer Stellwerksstörung gilt als Ursache.', fullText: 'Die Bergungsarbeiten dauern an. Verkehrsminister Puente bestätigte den Teilausfall der Zugsicherung. Der nachfolgende Zug erhielt manuell freie Fahrt.', img: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/ausland' },
-      { id: 2, cat: 'politik', badge: 'Top 2 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Kabinett bringt „Gebäudetyp E“ auf den Weg: Günstigeres Bauen', summary: 'Bauherren und Planer können künftig rechtssicher auf teure Komfortstandards verzichten, um Neubaukosten um 10 bis 15 Prozent zu senken.', fullText: 'Das novellierte Bauvertragsrecht im BGB soll Investitionen ankurbeln. Statische Sicherheit und Brandschutz bleiben uneingeschränkt garantiert.', img: 'https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/inland/innenpolitik' },
-      { id: 3, cat: 'politik', badge: 'Top 3 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Haushalt 2027: Chefhaushälter gehen in Klausur', summary: 'Vor der Bereinigungssitzung ringt die Koalition um Einsparungen zur Einhaltung der verfassungsrechtlichen Schuldenbremse.', fullText: 'Verhandelt werden Kürzungen bei ungebundenen Förderetats und Verwaltungsausgaben. Eine Aussetzung der Schuldenbremse wird ausgeschlossen.', img: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/inland/innenpolitik' },
-      { id: 4, cat: 'politik', badge: 'Top 4 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Kanzlerreise: Halbleiter- und Rohstoffallianzen in Tokio und Seoul', summary: 'Absicherung kritischer Lieferketten für Schlüsseltechnologien durch bilaterale Abkommen in Ostasien.', fullText: 'Vereinbart wurden Kooperationen bei Feststoffbatterien, seltenen Erden und Frühwarnsysteme gegen maritime Blockaden.', img: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/ausland' },
-      { id: 5, cat: 'politik', badge: 'Top 5 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Knesset-Wahlergebnis: Zersplitterung erschwert Koalitionsbildung', summary: 'Offizielle Hochrechnungen in Israel zeigen ein enges Parlament ohne geschlossene Regierungsmehrheit.', fullText: 'Weder Regierung noch Opposition haben eine Mehrheit der 120 Sitze. Schwierige Verhandlungen mit Kleinparteien beginnen.', img: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/ausland' },
-      { id: 6, cat: 'politik', badge: 'Top 6 Politik', date: '30.10.2026', source: 'NDR', title: 'Parteispendenaffäre: Rechtsausschuss fordert Konsequenzen', summary: 'Der niedersächsische Landtag debattiert über schärfere Meldepflichten für Abgeordnete und parteinahe Fördervereine.', fullText: 'Zuwendungen ab 5.000 Euro sollen künftig unverzüglich in einem öffentlichen Transparenzregister ausgewiesen werden.', img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80', url: 'https://www.ndr.de/nachrichten/niedersachsen/index.html' },
-      { id: 7, cat: 'politik', badge: 'Top 7 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Maritime Sicherheitsoperation im Persischen Golf', summary: 'Begleitfregatten und Aufklärungsdrohnen sichern zivile Schifffahrtsrouten in der Straße von Hormus ab.', fullText: 'Mehrere Annäherungsversuche unmarkierter Boote wurden frühzeitig unterbunden. Der Frachtverkehr verläuft fahrplanmäßig.', img: 'https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/ausland' },
-      { id: 8, cat: 'politik', badge: 'Top 8 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Ukraine-Winterhilfe: Europäische Hochspannungstransformatoren geliefert', summary: 'Ein Notfallkonvoi erreicht Kiew zur Absicherung der städtischen Fernwärme vor Wintereinbruch.', fullText: 'Das 180-Millionen-Paket umfasst Großtransformatoren für Ballungsräume wie Kiew, Charkiw und Dnipro.', img: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/ausland' },
-      { id: 9, cat: 'politik', badge: 'Top 9 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Innenminister fordern Fortführung stationärer Grenzkontrollen', summary: 'Länder fordern die Verlängerung von Binnengrenzkontrollen bis mindestens Mitte 2027.', fullText: 'Die Minister betonen den messbaren Rückgang der Schleusungskriminalität durch die Kontrollen.', img: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/inland/innenpolitik' },
-      { id: 10, cat: 'politik', badge: 'Top 10 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'EU-Fahrgastrechte: Automatische Entschädigung bei Zugverspätungen', summary: 'Reisende sollen ab Ende 2027 Entschädigungen bei relevanten Verspätungen digital ohne Antragsaufwand erhalten.', fullText: 'Die Europäische Eisenbahnagentur verpflichtet Betreiber zu standardisierten APIs zur automatischen Rückerstattung.', img: 'https://images.unsplash.com/photo-1510519138171-c7a5223e7f41?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft/verbraucher' },
-
-      // Wirtschaft (Top 10)
-      { id: 11, cat: 'wirtschaft', badge: 'Top 1 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'ifo-Geschäftsklima steigt den sechsten Monat in Folge', summary: 'Das Barometer klettert auf 89,5 Punkte dank anziehender Auslandsnachfrage im Maschinenbau.', fullText: 'Zunehmende Aufträge aus Asien und Nordamerika kompensieren die verhaltene Binnennachfrage.', img: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft/konjunktur' },
-      { id: 12, cat: 'wirtschaft', badge: 'Top 2 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Industrie fordert Senkung der Stromsteuer für alle Betriebe', summary: 'Verbände verlangen eine Senkung auf das EU-Mindestmaß auch für den produzierenden Mittelstand.', fullText: 'BDI und Handwerk warnen vor strukturellen Standortnachteilen ohne Entlastung für gewerbliche Abnehmer.', img: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft' },
-      { id: 13, cat: 'wirtschaft', badge: 'Top 3 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Regionalisierungsmittel: Länder warnen vor ÖPNV-Kürzungen', summary: 'Verkehrsminister fordern Bundesmittel zum Ausgleich von Personal- und Energiekosten ab 2027.', fullText: 'Ohne Aufstockung drohen Taktausdünnungen und Streckenstreichungen im ländlichen Bus- und Schienennetz.', img: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft' },
-      { id: 14, cat: 'wirtschaft', badge: 'Top 4 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Automobilzulieferer beschleunigen Standortkonsolidierung', summary: 'Kapazitätsanpassungen fangen den Rückgang bei klassischen Verbrennungsmotoren ab.', fullText: 'Hersteller schichten Investitionen massiv in Richtung Leistungselektronik und Sensorik um.', img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft/unternehmen' },
-      { id: 15, cat: 'wirtschaft', badge: 'Top 5 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Entscheidung über Briefporto ab 2027 vor dem Abschluss', summary: 'Bundesnetzagentur setzt Verfahren fort angesichts sinkender Sendungsmengen.', fullText: 'Wegen sinkender Briefmengen und steigender Lohnkosten gilt eine moderate Preisanpassung als wahrscheinlich.', img: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft/verbraucher' },
-      { id: 16, cat: 'wirtschaft', badge: 'Top 6 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Bankensektor: Produktivitätsgewinne durch interne KI-Systeme', summary: 'Zeiteinsparungen durch automatisierte Prüfung von Unternehmenskrediten und Compliance-Vorgaben.', fullText: 'KI-gestützte Voranalysen verkürzen Kreditgenehmigungen und verbessern die Geldwäsche-Prävention.', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft/unternehmen' },
-      { id: 17, cat: 'wirtschaft', badge: 'Top 7 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Konsumklima: GfK erwartet preissensibles Weihnachtsgeschäft', summary: 'Kaufbereitschaft stabil, aber Konsumenten nutzen gezielt Rabattaktionen und Preisvergleiche.', fullText: 'Der Handel stellt sich im Jahresendgeschäft auf intensiven Margendruck im Elektronikbereich ein.', img: 'https://images.unsplash.com/photo-1555421689-491a97ff2040?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft/verbraucher' },
-      { id: 18, cat: 'wirtschaft', badge: 'Top 8 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Batterie-Garantierückstellungen belasten Autobauer-Quartalszahlen', summary: 'Vorsorgliche Modulprüfungen und Softwareanpassungen schmälern Zwischengewinne.', fullText: 'Experten bewerten die Maßnahmen positiv zur Sicherung der langfristigen Restwerte von Elektroautos.', img: 'https://images.unsplash.com/photo-1558441719-74e892c554e2?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft/unternehmen' },
-      { id: 19, cat: 'wirtschaft', badge: 'Top 9 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Rohstoffmärkte: Gold behauptet Rekordniveau nahe 2.740 Dollar', summary: 'Sicherheitsbedürfnis stützt Goldpreis; Rohöl Brent stabil bei 75 US-Dollar pro Barrel.', fullText: 'Disziplinierte Förderquoten der OPEC+ sorgen für eine stabile Preisspanne am Rohölmarkt.', img: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft/boerse' },
-      { id: 20, cat: 'wirtschaft', badge: 'Top 10 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Forschungsförderung: Mittelstand mahnt verbindliche Antragsfristen an', summary: 'BVMW fordert Beschleunigung und unbürokratische Pauschalierung der steuerlichen Forschungszulage.', fullText: 'Lange Bearbeitungszeiten bei der Bescheinigungsstelle hemmen Investitionen in Technologieprojekte.', img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft' },
-
-      // Technik (Top 5)
-      { id: 21, cat: 'technik', badge: 'Top 1 Technik', date: '30.10.2026', source: 'BSI', title: 'BSI erneuert Dringlichkeitswarnung vor Angriffen auf Web-Frameworks', summary: 'Automatisierte Angriffswellen auf serverseitige PHP-Frameworks erfordern sofortige Patches.', fullText: 'Sicherheitslücken zur Remote-Code-Ausführung werden aktiv ausgenutzt. Einsatz von WAFs dringend empfohlen.', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80', url: 'https://www.bsi.bund.de' },
-      { id: 22, cat: 'technik', badge: 'Top 2 Technik', date: '30.10.2026', source: 'Tagesschau', title: 'Endlager Onkalo: Finnische Multibarrieren-Technologie setzt Maßstäbe', summary: 'Kupferkapseln und Bentonit-Ton im 450-Meter-Urgestein als weltweites Referenzmodell genehmigt.', fullText: 'Das finnische Endlager gilt international als Pionier für die sichere 100.000-jährige Verwahrung.', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wissen' },
-      { id: 23, cat: 'technik', badge: 'Top 3 Technik', date: '30.10.2026', source: 'Tagesschau', title: 'Cybersicherheit bei vernetzten Fahrzeugen: API-Schutz im Zentrum', summary: 'Studie belegt: Cloud-Schnittstellen und Apps sind die primären Angriffsvektoren, nicht der CAN-Bus.', fullText: 'Automobilhersteller härten Schnittstellen mit Zero-Trust-Architekturen gegen mobile Attacken ab.', img: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wissen/digitales' },
-      { id: 24, cat: 'technik', badge: 'Top 4 Technik', date: '30.10.2026', source: 'Tagesschau', title: 'Edge-KI revolutioniert visuelle Prozesskontrollen in der Fertigung', summary: 'NPU-basierte Industrie-Controller analysieren Fertigungsschritte lokal und in Echtzeit.', fullText: 'Lokale Auswertungen verhindern Latenzen und den Abfluss sensibler Konstruktionsdaten in Clouds.', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wissen/digitales' },
-      { id: 25, cat: 'technik', badge: 'Top 5 Technik', date: '30.10.2026', source: 'Tagesschau', title: 'Prüfverbände warnen vor Firmware-Tuning bei E-Bikes und Scootern', summary: 'TÜV warnt: Manipulierte Geschwindigkeitsgrenzen überlasten Bremsen und vernichten Versicherungsschutz.', fullText: 'Getunte Pedelecs gelten rechtlich als Kraftfahrzeuge; bei Unfällen droht vollständiger Haftungsausschluss.', img: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=800&q=80', url: 'https://www.tagesschau.de/wirtschaft/verbraucher' },
-
-      // Regional Duderstadt (Top 5)
-      { id: 26, cat: 'regional', badge: 'Top 1 Regional', date: '30.10.2026', source: 'Eichsfelder Tageblatt', title: 'Stabsübergabe im Stadthaus Duderstadt: Heutige Bürgerbegegnung', summary: 'Bürgermeister Thorsten Feike verabschiedet sich heute von 10:30 bis 13:00 Uhr von den Bürgern.', fullText: 'Gerald Werner übernimmt am Montag die Amtsgeschäfte als neuer Bürgermeister der Stadt Duderstadt.', img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80', url: 'https://www.goettinger-tageblatt.de/themen/duderstadt/' },
-      { id: 27, cat: 'regional', badge: 'Top 2 Regional', date: '30.10.2026', source: 'Eichsfelder Tageblatt', title: 'Eingeschränkte Öffnungszeiten der Stadtverwaltung Duderstadt', summary: 'Wegen organisatorischer Umstellungen ist der Bürgerservice am Freitag und Montag eingeschränkt.', fullText: 'Dringende Angelegenheiten sollten vorab abgestimmt werden. Ab Dienstag läuft der Betrieb regulär.', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80', url: 'https://www.duderstadt.de' },
-      { id: 28, cat: 'regional', badge: 'Top 3 Regional', date: '30.10.2026', source: 'Fachwerk5Eck', title: 'Fachwerk5Eck startet Vortragsreihe zur energetischen Sanierung', summary: 'Kostenlose Fachvorträge zu Dämmung, Heiztechnik und Denkmalschutz ab 9. November.', fullText: 'Eigentümer historischer Gebäude erhalten wertvolle Praxistipps für energieeffiziente Sanierungen.', img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80', url: 'https://fachwerk5eck.de' },
-      { id: 29, cat: 'regional', badge: 'Top 4 Regional', date: '30.10.2026', source: 'NLStBV', title: 'Verkehrsfreigabe am Herkuleskreisel (L 523 bei Osterode) heute', summary: 'Deckenerneuerung pünktlich abgeschlossen. Die großräumigen Umleitungen werden aufgehoben.', fullText: 'Freie Fahrt für den Zubringerverkehr im Harzvorland pünktlich zum anstehenden Wochenende.', img: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80', url: 'https://www.strassenbau.niedersachsen.de' },
-      { id: 30, cat: 'regional', badge: 'Top 5 Regional', date: '30.10.2026', source: 'Eichsfelder Tageblatt', title: 'Höhepunkt des herbstlichen Vogelzugs am Seeburger See', summary: 'Tausende Kraniche rasten im Eichsfeld. Naturschutzstation mahnt zur Einhaltung der Wegegebote.', fullText: 'Spaziergänger werden gebeten, Hunde anzuleinen, um rastende Wasservögel nicht aufzuschrecken.', img: 'https://images.unsplash.com/photo-1557008075-7f2c5efa4cfd?auto=format&fit=crop&w=800&q=80', url: 'https://www.seeburger-see.de' }
+      { id: 1, cat: 'politik', badge: 'Top 1 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Spanisches Zugunglück bei Toledo: Ermittler sichern Zugsicherung und Funkdaten', summary: 'Nach dem schweren Zugunglück in Toledo stehen nun die Sicherungsdaten und Funkaufzeichnungen im Mittelpunkt der Ermittlungen. Die zuständige Untersuchungskommission fokussiert sich auf die letzten Signalwechsel und die Teilsysteme rund um den Verkehrsknoten.', fullText: 'Nach dem schweren Zugunglück in Toledo stehen nun die Sicherungsdaten und Funkaufzeichnungen im Mittelpunkt der Ermittlungen. Die zuständige Untersuchungskommission fokussiert sich auf die letzten Signalwechsel und die Teilsysteme rund um den Verkehrsknoten. Experten prüfen dabei, ob technische Defekte, menschliches Versagen oder Fehlkonfigurationen zu dem Absturz beigetragen haben. Die Behörden sprechen von einem kompletten Datensatz an Zugsicherung und Funkverkehr, der nun ausgewertet wird. In der Region wächst die Sorge um die Sicherheit von Schieneninfrastrukturen in Europa. Zugleich fordert die Opposition eine unabhängige Prüfung aller Sicherheitsstandards des Knotens.', img: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 2, cat: 'politik', badge: 'Top 2 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Kabinett bringt „Gebäudetyp E“ auf den Weg: Günstigeres Bauen', summary: 'Bau- und Wohnungsminister wollen mit dem neuen Gebäudetyp E die Baukosten deutlich senken und den Wohnungsbau beschleunigen. Die zentrale Idee: Standardisierte, energieeffiziente Entwürfe mit geringeren Planungsaufwänden.', fullText: 'Bau- und Wohnungsminister wollen mit dem neuen Gebäudetyp E die Baukosten deutlich senken und den Wohnungsbau beschleunigen. Die zentrale Idee: Standardisierte, energieeffiziente Entwürfe mit geringeren Planungsaufwänden. In einem ersten Schritt sollen Kommunen und private Bauherren von vereinfachten Typologien profitieren, die zugleich die CO2-Bilanz verbessern. Kritiker warnen jedoch vor Lücken bei der Bauqualität und fordern verbindliche Prüfmechanismen. Die Debatte um bezahlbares Wohnen wird dadurch erneut verschärft.', img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 3, cat: 'politik', badge: 'Top 3 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Haushalt 2027: Chefhaushälter gehen in Klausur', summary: 'Vor der Bereinigungssitzung ringt die Bundesregierung noch um Prioritäten im Haushalt 2027. Die Diskussionen konzentrieren sich auf Verteidigung, Infrastruktur und soziale Sicherung.', fullText: 'Vor der Bereinigungssitzung ringt die Bundesregierung noch um Prioritäten im Haushalt 2027. Die Diskussionen konzentrieren sich auf Verteidigung, Infrastruktur und soziale Sicherung. Nach Angaben von Regierungskreisen sollen zunächst nur die finanziell brisantesten Posten gegeneinander abgewogen werden. Die Abstimmungsvorbehalte zeigen, dass auch diesjährige Haushaltsgespräche mit hohem politischen Risiko verbunden sind. Experten erwarten eine schwierigere Durchsetzung von Reformplänen, da die Budgeträume weiter eng bleiben.', img: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 4, cat: 'politik', badge: 'Top 4 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Kanzlerreise: Halbleiter- und Rohstoffallianzen in Tokio und Seoul', summary: 'Bundeskanzler wollen auf der Reise nach Ostasien kritische Lieferketten und neue Sicherheitspartnerschaften absichern. Die Bilanz hängt an energie- und chipsensiblen Industrien.', fullText: 'Bundeskanzler wollen auf der Reise nach Ostasien kritische Lieferketten und neue Sicherheitspartnerschaften absichern. Die Bilanz hängt an energie- und chipsensiblen Industrien. Die Gespräche mit japanischen und südkoreanischen Partnern beziehen sich auf Rohstoffe, Halbleiter und digitale Resilienz. Politik und Wirtschaft sehen darin die Grundlage für eine robustere deutsche Industriepolitik. Gegenüber dem Hintergrund geopolitischer Spannungen gilt die Reise als Testfall für Kooperationen unter Druck.', img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 5, cat: 'politik', badge: 'Top 5 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Knesset-Wahlergebnis: Zersplitterung erschwert Koalitionsbildung', summary: 'Nach der Wahl in Israel führt ein stark zersplittertes Parlament zu schwierigen Verhandlungen über eine Regierung. Die politische Lage bleibt geprägt von Unsicherheit und Druck.', fullText: 'Nach der Wahl in Israel führt ein stark zersplittertes Parlament zu schwierigen Verhandlungen über eine Regierung. Die politische Lage bleibt geprägt von Unsicherheit und Druck. Die großen Parteien konnten keine eindeutige Mehrheitsbasis erzielen, wodurch sich die Zeit für Koalitionsgespräche verlängert. Sicherheitsbehörden beobachten vermehrt mögliche Spannungen im Land, wobei die Wirtschaft auch indirekt durch politische Instabilität betroffen ist. Das Ergebnis warf erneut die Frage einer dauerhaften Stabilisierung auf.', img: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 6, cat: 'politik', badge: 'Top 6 Politik', date: '30.10.2026', source: 'NDR', title: 'Parteispendenaffäre: Rechtsausschuss fordert Konsequenzen', summary: 'Der niedersächsische Landtag verstärkt den Druck auf politische Akteure in der Parteispendenaffäre. Auflagen und Konsequenzforderungen stehen im Mittelpunkt der Debatte.', fullText: 'Der niedersächsische Landtag verstärkt den Druck auf politische Akteure in der Parteispendenaffäre. Auflagen und Konsequenzforderungen stehen im Mittelpunkt der Debatte. Der Ausschuss berät derzeit über mögliche Sanktionen, Prüfmechanismen und Transparenzpflichten. Befürworter eines verschärften Regelwerks sehen das als zentrales Signal zur Rückgewinnung von Vertrauen. Gleichzeitig kritisieren Oppositionsparteien die bislang unzureichende Aufklärung.', img: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80', url: 'https://www.ndr.de/' },
+      { id: 7, cat: 'politik', badge: 'Top 7 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Maritime Sicherheitsoperation im Persischen Golf', summary: 'Begleitfregatten und Aufklärungsflugzeuge verstärken die maritime Sicherung. Sicherheitsanalysten sehen die Operation als Reaktion auf gestiegene Risiken im Seehandel.', fullText: 'Begleitfregatten und Aufklärungsflugzeuge verstärken die maritime Sicherung. Sicherheitsanalysten sehen die Operation als Reaktion auf gestiegene Risiken im Seehandel. Die Operation wird als ein wichtiger Schritt in der Gewährleistung sicherer Schifffahrtswege interpretiert. die beteiligten Staaten betonen dabei die Notwendigkeit institutioneller Absicherung und schneller Reaktionsfähigkeit. Die wirtschaftliche Wirkung auf Schlauch und Exportkorridore bleibt unter Beobachtung.', img: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 8, cat: 'politik', badge: 'Top 8 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Ukraine-Winterhilfe: Europäische Hochspannungstransformatoren geliefert', summary: 'Mit der Lieferung kritischer Transformatoren für das ukrainische Stromnetz will Europa die Versorgungssicherheit in der kommenden Heizperiode verbessern.', fullText: 'Mit der Lieferung kritischer Transformatoren für das ukrainische Stromnetz will Europa die Versorgungssicherheit in der kommenden Heizperiode verbessern. Die EU-Kommission setzt dabei auf koordinierte Lieferketten und Weiterverarbeitung. In Kiew wird mit einer geringeren Belastung des Netzes gerechnet, obwohl die Sicherheitslage weiter volatil bleibt. Fachleute fordern darüber hinaus eine engere Abstimmung zwischen humanitärer und infrastruktureller Hilfe.', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 9, cat: 'politik', badge: 'Top 9 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'Innenminister fordern Fortführung stationärer Grenzkontrollen', summary: 'Bundesländer wollen die Zeiträume stationärer Grenzkontrollen verlängern, um Migration und Sicherheitsrisiken wirksamer zu begrenzen. Die Debatte ist juristisch und politisch hoch umkämpft.', fullText: 'Bundesländer wollen die Zeiträume stationärer Grenzkontrollen verlängern, um Migration und Sicherheitsrisiken wirksamer zu begrenzen. Die Debatte ist juristisch und politisch hoch umkämpft. Innenminister verweisen auf eine noch schwierige Lage an den Außengrenzen und rechnen mit längeren Übergangsfristen. Kritiker sprechen von unverhältnismäßigen Eingriffen und verlangen mehr Sicht auf die tatsächlichen Auswirkungen. Der Streit verschärft zugleich die Differenzen zwischen Bund und Ländern.', img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 10, cat: 'politik', badge: 'Top 10 Politik', date: '30.10.2026', source: 'Tagesschau', title: 'EU-Fahrgastrechte: Automatische Entschädigung bei Zugverspätungen', summary: 'Neue EU-Vorschriften würden Reisenden eine schnellere und unkomplizierte Entschädigung bei Verspätungen sichern. Die Verhandlungen mit dem Rat stehen kurz vor einem Abschluss.', fullText: 'Neue EU-Vorschriften würden Reisenden eine schnellere und unkomplizierte Entschädigung bei Verspätungen sichern. Die Verhandlungen mit dem Rat stehen kurz vor einem Abschluss. Die geplante Regelung sieht eine automatische Erstattung bei entsprechendem Verspätungsniveau vor, ohne auf langwierige Nachweise zu bestehen. Unternehmen rufen inzwischen zu realistischer Übergangszeit auf, weil IT-Systeme und Betriebsprozesse angepasst werden müssen. Die Debatte verschiebt sich damit von der Frage der Entschädigung zur Frage der technischen Umsetzung.', img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 11, cat: 'wirtschaft', badge: 'Top 1 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'ifo-Geschäftsklima steigt den sechsten Monat in Folge', summary: 'Das Barometer klettert weiter und zeigt eine spürbar stabilere Lage in der deutschen Wirtschaft. Optimismus kehrt in mehreren Branchen zurück, vor allem bei Industrie und Dienstleistungsunternehmen.', fullText: 'Das Barometer klettert weiter und zeigt eine spürbar stabilere Lage in der deutschen Wirtschaft. Optimismus kehrt in mehreren Branchen zurück, vor allem bei Industrie und Dienstleistungsunternehmen. Die Unternehmen melden sich insgesamt zuversichtlicher, obwohl die Energiepreise und die globale Lage noch immer als relevante Risiken wahrgenommen werden. Analysten sprechen daher von einem vorsichtigen Aufschwung statt von einem breiten Boom. Die Frage bleibt, ob die dynamische Stabilisierung von der Investitionsseite getragen wird.', img: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 12, cat: 'wirtschaft', badge: 'Top 2 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Industrie fordert Senkung der Stromsteuer für alle Betriebe', summary: 'Verbände verlangen eine allgemeine Entlastung für Unternehmen, um Produktionskosten zu senken und Investitionen zu sichern. Die Debatte kulminiert in der Frage eines strukturellen Wettbewerbsdrucks.', fullText: 'Verbände verlangen eine allgemeine Entlastung für Unternehmen, um Produktionskosten zu senken und Investitionen zu sichern. Die Debatte kulminiert in der Frage eines strukturellen Wettbewerbsdrucks. Insbesondere Mittelständler sehen die Stromsteuer als Bremse für Innovation und Standortwettbewerb. Politik und Wirtschaft gehen auf einen klaren Interessenkonflikt zu: Einerseits müssen Energiepreise das Klima- und Strukturziel unterstützen, andererseits muss Industrie wettbewerbsfähig bleiben. Diese Diskussion wird in den nächsten Monaten zu den wichtigsten Wirtschaftsthemen gehören.', img: 'https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 13, cat: 'wirtschaft', badge: 'Top 3 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Regionalisierungsmittel: Länder warnen vor ÖPNV-Kürzungen', summary: 'Verkehrsminister fordern stabilere Mittel für den öffentlichen Nahverkehr, weil die Finanzierungslücke weiter wächst. Kritiker sprechen von einem drohenden Qualitätsverlust.', fullText: 'Verkehrsminister fordern stabilere Mittel für den öffentlichen Nahverkehr, weil die Finanzierungslücke weiter wächst. Kritiker sprechen von einem drohenden Qualitätsverlust. Die Länder warnen davor, mit regionalen Kürzungen das Mobilitätsangebot im ländlichen Raum in Gefahr zu bringen. Gleichzeitig drängen Kommunen auf mehr Planungssicherheit für Züge, Busse und Stadtverkehr. Die politische Debatte verschiebt sich damit von der Frage der Förderung zur Frage der Zukunftsfähigkeit regionaler Mobilität.', img: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 14, cat: 'wirtschaft', badge: 'Top 4 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Automobilzulieferer beschleunigen Standortkonsolidierung', summary: 'Zulieferunternehmen reagieren auf Schwankungen bei EV- und Verbrenner-Segmenten mit stärkerer Standortkonsolidierung. Die Folge: weniger Anlagen, aber mehr Automatisierung.', fullText: 'Zulieferunternehmen reagieren auf Schwankungen bei EV- und Verbrenner-Segmenten mit stärkerer Standortkonsolidierung. Die Folge: weniger Anlagen, aber mehr Automatisierung. Industriebetriebe optimieren ihre Produktionsnetzwerke zugleich mit Blick auf Kostensenkung und Logistik. Die Entscheidung wird nach Einschätzung von Branchenexperten langfristig den Wettbewerb im deutschen Mittelstand prägen. Bisherige Standorte werden dadurch in ihrer Rolle stark überprüft und neu bewertet.', img: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 15, cat: 'wirtschaft', badge: 'Top 5 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Entscheidung über Briefporto ab 2027 vor dem Abschluss', summary: 'Bundesnetzagentur und Ministerium prüfen die nächste Stufe der Portofinanzierung. Die Gespräche stehen vor einem Ergebnis, das die Post- und Versandbranche beeinflussen wird.', fullText: 'Bundesnetzagentur und Ministerium prüfen die nächste Stufe der Portofinanzierung. Die Gespräche stehen vor einem Ergebnis, das die Post- und Versandbranche beeinflussen wird. Die Debatte dreht sich vor allem um die Zukunft des Briefmarkensystems und die Frage, ob regionale Dienste weiterhin wirtschaftlich tragfähig bleiben. Auch Verbraucherschutz und digitale Kommunikationsmuster spielen dabei eine echte Rolle. Die Entscheidung könnte weit über den Postmarkt hinaus Auswirkungen auf den Versandhandel haben.', img: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 16, cat: 'wirtschaft', badge: 'Top 6 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Bankensektor: Produktivitätsgewinne durch interne KI-Systeme', summary: 'Einige Banken verzeichnen effizientere Prozesse nach der Einführung interner KI-Lösungen. Die Aufwendungen wurden nach Einschätzung von Analysten dabei bereits rentabilisiert.', fullText: 'Einige Banken verzeichnen effizientere Prozesse nach der Einführung interner KI-Lösungen. Die Aufwendungen wurden nach Einschätzung von Analysten dabei bereits rentabilisiert. Die Systemeinsätze betreffen Kreditanalyse, Risikomanagement und interne Kommunikation. In der Branche breitet sich eine Debatte über Governance, Compliance und menschliche Kontrolle aus. Viele Experten sehen darin zugleich Chancen und Risiken, je nachdem, wie stark KI in Geschäftsprozesse eingebunden wird.', img: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 17, cat: 'wirtschaft', badge: 'Top 7 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Konsumklima: GfK erwartet preissensibles Weihnachtsgeschäft', summary: 'Das Konsumklima bleibt abhängig von Preisniveau und Angebotsdynamik. Händler rechnen mit einer klaren Unterscheidung zwischen Preisbewussten und Premiumkunden.', fullText: 'Das Konsumklima bleibt abhängig von Preisniveau und Angebotsdynamik. Händler rechnen mit einer klaren Unterscheidung zwischen Preisbewussten und Premiumkunden. Die Marktbeobachter sehen nach den jüngsten Einkaufsmustern einen klaren Schwerpunkt auf gute Angebote, aber auch auf emotionale Produktwahl. Im Weihnachtsgeschäft könnte die Qualität der Kommunikation entscheiden. Branchenvertreter drängen auf ein ausgewogenes Konzept zwischen Preis und Markenpositionierung.', img: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 18, cat: 'wirtschaft', badge: 'Top 8 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Batterie-Garantierückstellungen belasten Autobauer-Quartalszahlen', summary: 'Vorsorgliche Rückstellungen für Garantieleistungen belasten die Bilanzen erheblich. Die Konsequenz: Die Automobilbranche operiert unter mehr Kostendruck.', fullText: 'Vorsorgliche Rückstellungen für Garantieleistungen belasten die Bilanzen erheblich. Die Konsequenz: Die Automobilbranche operiert unter mehr Kostendruck. Hersteller und Zulieferer sehen sich mit einem Mix aus Materialpreisen, laufenden Wartungsansprüchen und niedrigeren Margen konfrontiert. Gleichzeitig steigt der Druck auf die Produktqualität bei Batterie- und E-Mobilitätsbauteilen. Analysten sprechen davon, dass die Branche ihre Qualitätssicherung angesichts neuer Garantieanforderungen neu aufstellen muss.', img: 'https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 19, cat: 'wirtschaft', badge: 'Top 9 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Rohstoffmärkte: Gold behauptet Rekordniveau nahe 2.740 Dollar', summary: 'Sicherheitsbedenken und Zinsdiskussionen ziehen den Goldpreis erneut nach oben. Anleger sehen darin eine zusätzliche Reserve gegen Volatilität.', fullText: 'Sicherheitsbedenken und Zinsdiskussionen ziehen den Goldpreis erneut nach oben. Anleger sehen darin eine zusätzliche Reserve gegen Volatilität. Die Märkte beobachten zugleich die Politik der Zentralbanken, die auf Stabilität und Inflationskontrolle setzt. Gold bleibt damit eine zentrale Anlageklasse bei der Suche nach Sicherheit. Fachleute erwarten in den kommenden Wochen weitere volatile Bewegung, wenn die Notenbanken ihre Rhetorik ändern.', img: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 20, cat: 'wirtschaft', badge: 'Top 10 Wirtschaft', date: '30.10.2026', source: 'Tagesschau', title: 'Forschungsförderung: Mittelstand mahnt verbindliche Antragsfristen an', summary: 'BVMW und andere Verbände verlangen verbindliche Fristen für Förderanträge. Es geht um Planungssicherheit bei Innovation und Investitionsentscheidungen.', fullText: 'BVMW und andere Verbände verlangen verbindliche Fristen für Förderanträge. Es geht um Planungssicherheit bei Innovation und Investitionsentscheidungen. Die Mittelständler warnen davor, dass unklare Fristen Projekte verhinderten oder zu späteren Investitionen führten. Die Debatte ist dabei eng mit der Frage der staatlichen Innovationspolitik verwoben. Die Forderung gilt als Signal, dass die Wirtschaft die Förderinstrumente nicht nur aus Sicht des Haushalts, sondern auch aus Sicht der Umsetzung bewertet.', img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 21, cat: 'technik', badge: 'Top 1 Technik', date: '30.10.2026', source: 'BSI', title: 'BSI erneuert Dringlichkeitswarnung vor Angriffen auf Web-Frameworks', summary: 'Automatisierte Angriffe auf populäre Web-Frameworks haben weiter zugenommen. Das BSI fordert daher eine sofortige Sicherheitsüberprüfung betroffener Systeme.', fullText: 'Automatisierte Angriffe auf populäre Web-Frameworks haben weiter zugenommen. Das BSI fordert daher eine sofortige Sicherheitsüberprüfung betroffener Systeme. Verantwortliche Betreiber werden auf die Aktualisierung von Paketen und die Absicherung von APIs hingewiesen. Die Warnung richtet sich vor allem an Unternehmen, die ihre Dienste in der Cloud betreiben. Experten warnen vor einer breiten Aufrüstung von botnet-gestützten Angriffen im ganzen Internet.', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80', url: 'https://www.bsi.bund.de/' },
+      { id: 22, cat: 'technik', badge: 'Top 2 Technik', date: '30.10.2026', source: 'Tagesschau', title: 'Endlager Onkalo: Finnische Multibarrieren-Technologie setzt Maßstäbe', summary: 'Kupferkapseln und geologische Schutzschichten zeigen im finnischen Endlagerprojekt eine innovative Multibarrierenstrategie. Internationale Experten sehen darin eine Blaupause für future-proof Storage.', fullText: 'Kupferkapseln und geologische Schutzschichten zeigen im finnischen Endlagerprojekt eine innovative Multibarrierenstrategie. Internationale Experten sehen darin eine Blaupause für future-proof Storage. Das Projekt setzt auf eine Kombination aus geologischer Stabilität, Materialschutz und langzeitiger Überwachung. Die Idee ist, die Sicherheit und Lebensdauer des Lagers über Jahrtausende hinweg zu garantieren. Auch Deutschland verfolgt die Entwicklungen daher mit großem Interesse.', img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 23, cat: 'technik', badge: 'Top 3 Technik', date: '30.10.2026', source: 'Tagesschau', title: 'Cybersicherheit bei vernetzten Fahrzeugen: API-Schutz im Zentrum', summary: 'Studien zeigen, dass API-Sicherheitslücken im Zusammenhang mit vernetzten Autos zunehmend realistisch werden. Experten fordern härtere Prüf- und Compliance-Standards.', fullText: 'Studien zeigen, dass API-Sicherheitslücken im Zusammenhang mit vernetzten Autos zunehmend realistisch werden. Experten fordern härtere Prüf- und Compliance-Standards. Hersteller und Zulieferer arbeiten dabei an neuen Schutzschichten, die Übertragungswege sichern und Fehlfunktionen minimieren sollen. Die Debatte verschiebt sich damit zu Produkt- und Entwicklungsprozessen statt nur zur Endgeräte-Sicherheit. Sicherheitsexperten rechnen mit klaren regulatorischen Anforderungen in den kommenden Jahren.', img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 24, cat: 'technik', badge: 'Top 4 Technik', date: '30.10.2026', source: 'Tagesschau', title: 'Edge-KI revolutioniert visuelle Prozesskontrollen in der Fertigung', summary: 'NPU-basierte Intelligenz direkt an Maschinen sorgt für schnellere Fehlererkennung und weniger Ausfallzeiten. In der Fabriktechnik wird dadurch eine neue Effizienzstufe erreicht.', fullText: 'NPU-basierte Intelligenz direkt an Maschinen sorgt für schnellere Fehlererkennung und weniger Ausfallzeiten. In der Fabriktechnik wird dadurch eine neue Effizienzstufe erreicht. Die Verarbeitung auf der Edge-Seite reduziert Latenzzeiten und stellt die Daten im Betrieb sofort zur Verfügung. In der Praxis bedeutet das mehr Klarheit bei Qualitätskontrollen, weniger Materialverlust und bessere Systemstabilität. Diese Entwicklungen werden derzeit insbesondere in der Mittelstandsproduktion beobachtet.', img: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 25, cat: 'technik', badge: 'Top 5 Technik', date: '30.10.2026', source: 'Tagesschau', title: 'Prüfverbände warnen vor Firmware-Tuning bei E-Bikes und Scootern', summary: 'TÜV und Verbände kritisieren unzulässige Firmware-Anpassungen, die Sicherheitsmängel verschärfen können. Die Warnung betrifft vor allem private Modifikationen und Online-Tutorials.', fullText: 'TÜV und Verbände kritisieren unzulässige Firmware-Anpassungen, die Sicherheitsmängel verschärfen können. Die Warnung betrifft vor allem private Modifikationen und Online-Tutorials. Die Ursache liegt in der Vielzahl von DIY-Anpassungen, die über Open-Source-Tools mobilisiert werden. Die Resultate stellen nicht nur die Betriebssicherheit infrage, sondern auch die Gewährleistung. Damit steigt der Handlungsbedarf bei Hersteller- und Händlerkommunikation.', img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 26, cat: 'regional', badge: 'Top 1 Regional', date: '30.10.2026', source: 'Eichsfelder Tageblatt', title: 'Stabsübergabe im Stadthaus Duderstadt: Heutige Bürgerbegegnung', summary: 'Bürgerinnen und Bürger konnten sich im Duderstädter Stadthaus mit der neuen Amtsführung austauschen. Die Stadt betont die Kontinuität beim Übergang in die nächste Phase.', fullText: 'Bürgerinnen und Bürger konnten sich im Duderstädter Stadthaus mit der neuen Amtsführung austauschen. Die Stadt betont die Kontinuität beim Übergang in die nächste Phase. Die Veranstaltung stand im Zeichen von Zukunftsfragen rund um Infrastruktur, Kultur und Verwaltung. Die lokale Bevölkerung zeigte sich interessiert an den geplanten Maßnahmen. Die Übergabe ist zugleich ein Signal für die anstehende Stadtentwicklung in der Region.', img: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=80', url: 'https://www.eichsfelder-tageblatt.de/' },
+      { id: 27, cat: 'regional', badge: 'Top 2 Regional', date: '30.10.2026', source: 'Eichsfelder Tageblatt', title: 'Eingeschränkte Öffnungszeiten der Stadtverwaltung Duderstadt', summary: 'Wegen organisatorischer Maßnahmen bleiben Teile der Verwaltung am Freitag nur eingeschränkt geöffnet. Die Stadt empfiehlt eine vorherige Terminvereinbarung.', fullText: 'Wegen organisatorischer Maßnahmen bleiben Teile der Verwaltung am Freitag nur eingeschränkt geöffnet. Die Stadt empfiehlt eine vorherige Terminvereinbarung. Die Maßnahme betrifft insbesondere Bürgerangelegenheiten mit längeren Bearbeitungszeiten. Die Stadt bat darum, Anfragen im Vorfeld digital zu erledigen, um Wartezeiten zu vermeiden. Viele Anwohner reagieren verhalten optimistisch auf die Strukturierung der Dienstleistung.', img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80', url: 'https://www.eichsfelder-tageblatt.de/' },
+      { id: 28, cat: 'regional', badge: 'Top 3 Regional', date: '30.10.2026', source: 'Fachwerk5Eck', title: 'Fachwerk5Eck startet Vortragsreihe zur energetischen Sanierung', summary: 'Kostenlose Fachvorträge beleuchten die energetische Modernisierung historischer Gebäude im Eichsfeld. Die Reihe richtet sich an Eigentümer und Sanierungsinteressierte.', fullText: 'Kostenlose Fachvorträge beleuchten die energetische Modernisierung historischer Gebäude im Eichsfeld. Die Reihe richtet sich an Eigentümer und Sanierungsinteressierte. Die Veranstaltungen verbinden praktische Tipps mit Hinweise zur Förderpolitik und Bautechnik. Dabei rückt insbesondere die Balance zwischen Denkmalschutz und modernem Energiehaus in den Fokus. Die Initiative gilt als wichtiges regionales Angebot rund um nachhaltige Revitalisierung.', img: 'https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1200&q=80', url: 'https://www.fachwerk5eck.de/' },
+      { id: 29, cat: 'regional', badge: 'Top 4 Regional', date: '30.10.2026', source: 'NLStBV', title: 'Verkehrsfreigabe am Herkuleskreisel (L 523 bei Osterode) heute', summary: 'Deckenerneuerung und Verkehrsfunktionen wurden rechtzeitig abgeschlossen. Die Freigabe erfolgt zunächst für den normalen Straßenverkehr.', fullText: 'Deckenerneuerung und Verkehrsfunktionen wurden rechtzeitig abgeschlossen. Die Freigabe erfolgt zunächst für den normalen Straßenverkehr. Die regionale Baumaßnahme war vor allem mit dem Ziel verbunden, die Fahrbahn für den winterlichen Verkehr zu stabilisieren. Die zuständigen Behörden empfehlen weiterhin erhöhte Aufmerksamkeit im Bereich der Umleitungswege. Die Freigabe ist damit ein konkreter Beitrag zur Verkehrssicherheit in der Region.', img: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80', url: 'https://www.nlstbv.de/' },
+      { id: 30, cat: 'regional', badge: 'Top 5 Regional', date: '30.10.2026', source: 'Eichsfelder Tageblatt', title: 'Höhepunkt des herbstlichen Vogelzugs am Seeburger See', summary: 'Tausende Kraniche ziehen am Seeburger See vorbei und sorgen für eine spektakuläre Naturbeobachtung. Die Beobachtungsstunden ziehen Besucher aus der näheren Umgebung an.', fullText: 'Tausende Kraniche ziehen am Seeburger See vorbei und sorgen für eine spektakuläre Naturbeobachtung. Die Beobachtungsstunden ziehen Besucher aus der näheren Umgebung an. Die Veranstaltung fiel in die Zeit eines besonders ruhigen, klaren Herbstwetters. Naturfreunde und Familien nutzten die Gelegenheit, die Vogelzüge in der Region zu erleben. Die Initiative zeigt zugleich, wie wichtig nachhaltige Naturerlebnisse als Teil des regionalen Angebots sind.', img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80', url: 'https://www.eichsfelder-tageblatt.de/' }
     ];
 
     const EVENTS_DATABASE = [
-      { title: 'Halloween-Aktion in Mingerode', location: 'Lindenallee, Mingerode', time: 'Samstag, 31. Oktober • 17:00 – 20:00 Uhr', desc: 'Traditionelles Halloween-Event für Familien und Kinder mit Verkleidungsstationen.', badge: 'Mingerode', img: 'https://images.unsplash.com/photo-1509557965875-b88c97052f0e?auto=format&fit=crop&w=800&q=80', url: 'https://www.mingerode.de/events/' },
-      { title: 'Traditioneller Duderstädter Wochenmarkt', location: 'Marktstraße, Duderstadt', time: 'Samstag, 31. Oktober • 07:00 – 13:00 Uhr', desc: 'Frische regionale Erzeugnisse und Eichsfelder Spezialitäten vor historischer Kulisse.', badge: 'Duderstadt', img: 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=800&q=80', url: 'https://www.duderstadt.de' },
-      { title: 'Historischer Stadtrundgang durch Duderstadt', location: 'Historisches Rathaus, Marktstraße 66', time: 'Samstag, 31. Oktober • 11:00 Uhr', desc: 'Führung durch das spätmittelalterliche Stadtbild entlang des Fachwerks und Westerturms.', badge: 'Duderstadt', img: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80', url: 'https://www.duderstadt.de' },
-      { title: 'Reformationstag im Eichsfeld', location: 'St. Servatius Duderstadt & Region', time: 'Samstag, 31. Oktober', desc: 'Festgottesdienste und Kirchenmusik zum gesetzlichen Feiertag in Niedersachsen.', badge: 'Kultur & Kirche', img: 'https://images.unsplash.com/photo-1548625361-125025a57857?auto=format&fit=crop&w=800&q=80', url: 'https://www.duderstadt.de' },
-      { title: 'Herbst-Exkursion am Seeburger See', location: 'Natur-Erlebniszentrum Seeburg', time: 'Sonntag, 01. November • 10:00 Uhr', desc: 'Geführte Beobachtung des herbstlichen Vogelzugs entlang des Uferrundwegs.', badge: 'Seeburg', img: 'https://images.unsplash.com/photo-1557008075-7f2c5efa4cfd?auto=format&fit=crop&w=800&q=80', url: 'https://www.seeburger-see.de' },
-      { title: 'Kultur- & Theaterwochenende Göttingen', location: 'Deutsches Theater & Lokhalle Göttingen', time: 'Samstag & Sonntag • Abends', desc: 'Theater- und Konzertprogramm in der Universitätsstadt Göttingen.', badge: 'Göttingen', img: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80', url: 'https://www.goettingen-tourismus.de' }
+      { title: 'Halloween-Aktion in Mingerode', location: 'Lindenallee, Mingerode', time: 'Samstag, 31. Oktober • 17:00 – 20:00 Uhr', desc: 'Traditionelles Halloween-Event für Familien und Kinder mit Verkleidung, Deko und regionalen Angeboten.', badge: 'Familie', img: 'https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=1200&q=80', url: 'https://www.duderstadt.de/' },
+      { title: 'Traditioneller Duderstädter Wochenmarkt', location: 'Marktstraße, Duderstadt', time: 'Samstag, 31. Oktober • 07:00 – 13:00 Uhr', desc: 'Frische regionale Erzeugnisse und Eichsfelder Spezialitäten stehen hier im Mittelpunkt.', badge: 'Regional', img: 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80', url: 'https://www.duderstadt.de/' },
+      { title: 'Historischer Stadtrundgang durch Duderstadt', location: 'Historisches Rathaus, Marktstraße 66', time: 'Samstag, 31. Oktober • 11:00 Uhr', desc: 'Führung durch das spätmittelalterliche Stadtbild und die wichtigsten Bauwerke der Altstadt.', badge: 'Kultur', img: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1200&q=80', url: 'https://www.duderstadt.de/' },
+      { title: 'Reformationstag im Eichsfeld', location: 'St. Servatius Duderstadt & Region', time: 'Samstag, 31. Oktober', desc: 'Festgottesdienste und Kirchenmusik zum gesetzlichen Feiertag in Nieder- und Oberdeutschland.', badge: 'Religion', img: 'https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1200&q=80', url: 'https://www.duderstadt.de/' },
+      { title: 'Herbst-Exkursion am Seeburger See', location: 'Natur-Erlebniszentrum Seeburg', time: 'Sonntag, 01. November • 10:00 Uhr', desc: 'Geführte Beobachtung des herbstlichen Vogelzugs entlang der Uferwege und Seenlandschaft.', badge: 'Natur', img: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1200&q=80', url: 'https://www.seeburg.de/' },
+      { title: 'Kultur- & Theaterwochenende Göttingen', location: 'Deutsches Theater & Lokhalle Göttingen', time: 'Samstag & Sonntag • Abends', desc: 'Theater- und Konzertprogramm in der Universitätsstadt mit starkem Mehrwert für Kulturinteressierte.', badge: 'Kultur', img: 'https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=1200&q=80', url: 'https://www.goettingen.de/' }
     ];
 
     let currentFilter = 'all';
     let searchQuery = '';
+    let newsletter = JSON.parse(localStorage.getItem('goedecke_newsletter')) || null;
 
-    // Standard-Abonnenten
-    let subscribers = JSON.parse(localStorage.getItem('goedecke_subscribers')) || [
-      { id: 1, name: 'Niklas', phone: '+491701234567', active: true },
-      { id: 2, name: 'Luisa', phone: '+491712345678', active: true }
-    ];
+    function maskEmail(email) {
+      if (!email || !email.includes('@')) return '••••••';
+      const [localPart, domain] = email.split('@');
+      const visibleLocal = localPart.length <= 2 ? localPart.slice(0, 1) + '•' : localPart.slice(0, 2) + '••••';
+      return `${visibleLocal}@${domain}`;
+    }
 
     function renderNews() {
       const grid = document.getElementById('newsGrid');
@@ -272,13 +265,13 @@
       });
 
       if (filtered.length === 0) {
-        grid.innerHTML = `<div class="col-span-full py-16 text-center text-apple-subtle">Keine Artikel gefunden.</div>`;
+        grid.innerHTML = '<div class="col-span-full py-16 text-center text-apple-subtle">Keine Artikel gefunden.</div>';
         return;
       }
 
       filtered.forEach(item => {
         const card = document.createElement('article');
-        card.className = "bg-apple-card dark:bg-apple-darkCard apple-glass rounded-3xl border border-apple-borderLight dark:border-apple-borderDark overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 group cursor-pointer";
+        card.className = 'bg-apple-card dark:bg-apple-darkCard apple-glass rounded-3xl border border-apple-borderLight dark:border-apple-borderDark overflow-hidden flex flex-col justify-between hover:-translate-y-1 transition duration-200 cursor-pointer';
         card.onclick = () => openModal(item);
         card.innerHTML = `
           <div>
@@ -315,7 +308,7 @@
       grid.innerHTML = '';
       EVENTS_DATABASE.forEach(evt => {
         const card = document.createElement('article');
-        card.className = "bg-apple-card dark:bg-apple-darkCard apple-glass rounded-3xl border border-apple-borderLight dark:border-apple-borderDark overflow-hidden flex flex-col justify-between hover:shadow-lg transition";
+        card.className = 'bg-apple-card dark:bg-apple-darkCard apple-glass rounded-3xl border border-apple-borderLight dark:border-apple-borderDark overflow-hidden flex flex-col justify-between hover:-translate-y-1 transition duration-200';
         card.innerHTML = `
           <div>
             <div class="h-40 w-full overflow-hidden bg-black/10 relative">
@@ -343,106 +336,82 @@
       lucide.createIcons();
     }
 
-    // Verteilerliste rendern
-    function renderSubscribers() {
-      const list = document.getElementById('subscriberList');
-      const count = document.getElementById('subscriberCount');
-      list.innerHTML = '';
-      count.innerText = `${subscribers.length} Empfänger`;
+    function renderNewsletter() {
+      const status = document.getElementById('newsletterStatus');
+      const badge = document.getElementById('newsletterBadge');
+      const list = document.getElementById('newsletterList');
+      const unsubscribeBtn = document.getElementById('unsubscribeBtn');
 
-      if (subscribers.length === 0) {
-        list.innerHTML = `<div class="p-4 text-center text-xs text-apple-subtle">Noch keine Empfänger eingetragen.</div>`;
+      if (!newsletter) {
+        status.textContent = 'Noch kein Newsletter-Abo aktiv. Melde dich an, um die wichtigsten Meldungen automatisch zu erhalten.';
+        badge.textContent = 'Inaktiv';
+        badge.className = 'text-[10px] font-semibold uppercase tracking-wide text-apple-subtle';
+        list.innerHTML = '';
+        unsubscribeBtn.classList.add('hidden');
         return;
       }
 
-      subscribers.forEach(sub => {
-        const item = document.createElement('div');
-        item.className = "flex items-center justify-between p-3 rounded-2xl bg-apple-bg dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark text-xs";
-        item.innerHTML = `
-          <div class="flex items-center space-x-3">
-            <div class="w-2 h-2 rounded-full ${sub.active ? 'bg-[#25D366]' : 'bg-apple-subtle'}"></div>
-            <div>
-              <span class="font-semibold text-[#1d1d1f] dark:text-white block">${sub.name}</span>
-              <span class="text-apple-subtle font-mono text-[10px]">${sub.phone}</span>
-            </div>
+      const label = {
+        daily: 'Täglicher Briefing',
+        important: 'Nur wichtige Meldungen',
+        events: 'Nur Events & Region'
+      }[newsletter.type] || 'Newsletter';
+
+      const maskedEmail = maskEmail(newsletter.email);
+
+      status.innerHTML = `
+        <div class="space-y-2">
+          <p class="font-semibold text-[#1d1d1f] dark:text-white">${newsletter.name || 'Abonnent'} ist aktiv.</p>
+          <p class="text-xs text-apple-subtle font-mono">E-Mail verborgen: ${maskedEmail}</p>
+          <p class="text-xs text-apple-blue">${label}</p>
+        </div>
+      `;
+      badge.textContent = 'Aktiv';
+      badge.className = 'text-[10px] font-semibold uppercase tracking-wide text-emerald-600 bg-emerald-100 dark:bg-emerald-500/15 dark:text-emerald-400 px-2 py-1 rounded-full';
+      list.innerHTML = `
+        <div class="flex items-center justify-between p-3 rounded-2xl bg-white dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark text-xs">
+          <div>
+            <div class="font-semibold text-[#1d1d1f] dark:text-white">${newsletter.name || 'Newsletter'}</div>
+            <div class="text-apple-subtle font-mono text-[10px]">E-Mail verborgen</div>
           </div>
-          <div class="flex items-center space-x-2">
-            <button onclick="toggleSubscriberActive(${sub.id})" class="px-2.5 py-1 rounded-full text-[10px] font-semibold border ${sub.active ? 'border-apple-borderLight dark:border-apple-borderDark text-apple-subtle hover:text-[#1d1d1f]' : 'bg-apple-blue text-white'} transition">
-              ${sub.active ? 'Pausieren' : 'Aktivieren'}
-            </button>
-            <button onclick="removeSubscriber(${sub.id})" class="p-1 rounded-full text-red-500 hover:bg-red-500/10 transition" title="Newsletter abbestellen">
-              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-            </button>
-          </div>
-        `;
-        list.appendChild(item);
-      });
-      lucide.createIcons();
-      localStorage.setItem('goedecke_subscribers', JSON.stringify(subscribers));
+          <div class="text-apple-blue font-semibold">${label}</div>
+        </div>
+      `;
+      unsubscribeBtn.classList.remove('hidden');
     }
 
-    function addSubscriberManual() {
-      const nameInput = document.getElementById('subName');
-      const phoneInput = document.getElementById('subPhone');
-      const name = nameInput.value.trim();
-      const phone = phoneInput.value.trim();
+    function subscribeNewsletter() {
+      const name = document.getElementById('newsletterName').value.trim();
+      const email = document.getElementById('newsletterEmail').value.trim();
+      const type = document.getElementById('newsletterType').value;
 
-      if (!name || !phone) {
-        alert('Bitte Name und Mobilnummer eingeben.');
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert('Bitte gib eine gültige E-Mail-Adresse ein.');
         return;
       }
 
-      subscribers.push({
+      newsletter = {
         id: Date.now(),
-        name: name,
-        phone: phone,
-        active: true
-      });
+        name: name || 'Neues Abo',
+        email,
+        type,
+        createdAt: new Date().toISOString()
+      };
 
-      nameInput.value = '';
-      phoneInput.value = '';
-      renderSubscribers();
+      localStorage.setItem('goedecke_newsletter', JSON.stringify(newsletter));
+      renderNewsletter();
+      document.getElementById('newsletterEmail').value = '';
+      document.getElementById('newsletterName').value = '';
+      alert('Newsletter erfolgreich angemeldet. Die E-Mail bleibt in der Oberfläche verborgen.');
     }
 
-    // Zugriff auf Smartphone-Adressbuch (Web Contacts API)
-    async function importContactFromDevice() {
-      if ('contacts' in navigator && 'ContactsManager' in window) {
-        try {
-          const props = ['name', 'tel'];
-          const opts = { multiple: false };
-          const contacts = await navigator.contacts.select(props, opts);
-          if (contacts.length && contacts[0].tel && contacts[0].tel.length) {
-            const name = contacts[0].name ? contacts[0].name[0] : 'Neuer Kontakt';
-            const phone = contacts[0].tel[0];
-            subscribers.push({ id: Date.now(), name: name, phone: phone, active: true });
-            renderSubscribers();
-          }
-        } catch (ex) {
-          alert('Kontakt-Auswahl wurde abgebrochen oder ist nicht erlaubt.');
-        }
-      } else {
-        alert('Dein Browser unterstützt den direkten Adressbuch-Zugriff leider nicht. Bitte trage den Kontakt manuell in das Formular ein.');
+    function unsubscribeNewsletter() {
+      if (!newsletter) return;
+      if (confirm('Möchtest du dein Newsletter-Abo wirklich kündigen?')) {
+        localStorage.removeItem('goedecke_newsletter');
+        newsletter = null;
+        renderNewsletter();
       }
-    }
-
-    function toggleSubscriberActive(id) {
-      subscribers = subscribers.map(s => s.id === id ? { ...s, active: !s.active } : s);
-      renderSubscribers();
-    }
-
-    function removeSubscriber(id) {
-      if (confirm('Diesen Kontakt wirklich aus dem täglichen WhatsApp-Newsletter austragen?')) {
-        subscribers = subscribers.filter(s => s.id !== id);
-        renderSubscribers();
-      }
-    }
-
-    function saveDeliveryTime(time) {
-      localStorage.setItem('goedecke_delivery_time', time);
-    }
-
-    function scrollToNewsletter() {
-      document.getElementById('newsletterSection').scrollIntoView({ behavior: 'smooth' });
     }
 
     function filterCategory(cat) {
@@ -514,7 +483,7 @@
         lucide.createIcons();
         return;
       }
-      const textToRead = "Tägliche Zusammenfassung des heutigen Tages für Familie Gödecke. Top-Meldungen: Zugunglück bei Toledo, Kabinett verabschiedet Gebäudetyp E, ifo-Geschäftsklima steigt, BSI warnt vor Web-Exploits, und Stabsübergabe im Stadthaus Duderstadt von Thorsten Feike zu Gerald Werner.";
+      const textToRead = 'Tägliche Zusammenfassung des heutigen Tages für Familie Gödecke. Top-Meldungen: Zugunglück bei Toledo, Kabinett verabschiedet Gebäudetyp E, ifo-Geschäftsklima steigt, BSI warnt vor Web-Framework-Angriffen.';
       const utterance = new SpeechSynthesisUtterance(textToRead);
       utterance.lang = 'de-DE';
       utterance.onend = () => {
@@ -528,12 +497,9 @@
       lucide.createIcons();
     }
 
-    // Formatierter WhatsApp-Versand mit der vorgeschriebenen Einleitung
     function shareViaWhatsApp() {
       const currentUrl = window.location.href.includes('http') ? window.location.href : 'https://salkin180.github.io/agent-nachrichten-goedecke/';
-      
-      const message = 
-`tägliche Zusammenfassung des heutigen Tages
+      const message = `tägliche Zusammenfassung des heutigen Tages
 
 Guten Morgen! Hier ist dein interaktives Nachrichten-Briefing für Freitag, 30. Oktober 2026:
 
@@ -566,16 +532,14 @@ ${currentUrl}`;
       window.open(whatsappUrl, '_blank');
     }
 
+    function scrollToNewsletter() {
+      document.getElementById('newsletterSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       renderNews();
       renderEvents();
-      renderSubscribers();
-      
-      const savedTime = localStorage.getItem('goedecke_delivery_time');
-      if (savedTime) {
-        document.getElementById('deliveryTime').value = savedTime;
-      }
-      
+      renderNewsletter();
       lucide.createIcons();
     });
   </script>
