@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="de" class="apple-theme scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Agent Nachrichten der Familie Gödecke – 30. Oktober 2026</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+            mono: ['"SF Mono"', 'ui-monospace', 'Menlo', 'monospace']
+          },
+          colors: {
+            apple: {
+              blue: '#0071e3',
+              blueHover: '#0077ed',
+              darkBg: '#000000',
+              darkSurface: '#161617',
+              darkCard: '#1c1c1e',
+              darkBorder: 'rgba(255, 255, 255, 0.12)',
+              lightBg: '#f5f5f7',
+              lightSurface: '#ffffff',
+              lightCard: '#ffffff',
+              lightBorder: 'rgba(0, 0, 0, 0.08)',
+              grayText: '#86868b',
+              grayDarkText: '#a1a1a6'
+            }
+          },
+          boxShadow: {
+            'apple-card': '0 4px 24px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.02)',
+            'apple-card-hover': '0 24px 48px -4px rgba(0, 0, 0, 0.14), 0 8px 16px -2px rgba(0, 0, 0, 0.06)',
+            'apple-dark-hover': '0 24px 48px -4px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.16)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      letter-spacing: -0.015em;
+    }
+
+    .apple-glass {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+    }
+    .dark .apple-glass {
+      background: rgba(22, 22, 23, 0.78);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(140, 140, 145, 0.35); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(140, 140, 145, 0.6); }
+
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .img-zoom {
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .group:hover .img-zoom {
+      transform: scale(1.04);
+    }
+  </style>
+</head>
+<body class="bg-[#f5f5f7] dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] min-h-screen transition-colors duration-300 flex flex-col pb-32">
+
+  <!-- TOP APPLE FROSTED GLASS BAR -->
+  <header class="sticky top-0 z-50 apple-glass border-b border-black/5 dark:border-white/10 transition-colors duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      
+      <!-- Brand & Date Badge -->
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-2xl bg-gradient-to-tr from-[#0071e3] to-[#42a5f5] flex items-center justify-center text-white shadow-sm">
+          <i data-lucide="newspaper" class="w-4 h-4"></i>
+        </div>
+        <div>
+          <span class="text-[10px] font-bold tracking-wider uppercase text-apple-blue block leading-none">Agent</span>
+          <span class="text-sm sm:text-base font-semibold tracking-tight">Nachrichten Familie Gödecke</span>
+        </div>
+      </div>
+
+      <!-- Action Cluster -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        
+        <!-- Web Speech API Audio -->
+        <button id="ttsHeaderBtn" onclick="toggleSpeech()" class="h-8 px-3 rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 text-xs font-medium flex items-center gap-1.5 transition active:scale-95">
+          <i data-lucide="volume-2" class="w-3.5 h-3.5 text-apple-blue" id="ttsHeaderIcon"></i>
+          <span id="ttsHeaderText" class="hidden sm:inline">Vorlesen</span>
+        </button>
+
+        <!-- Copy Teaser Text -->
+        <button onclick="copyTeaserText()" title="Kurzfassung kopieren" class="h-8 px-3 rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 text-xs font-medium flex items-center gap-1.5 transition active:scale-95">
+          <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+          <span class="hidden md:inline">Kopieren</span>
+        </button>
+
+        <!-- WhatsApp Button -->
+        <button onclick="shareWhatsApp()" class="h-8 px-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-semibold flex items-center gap-1.5 shadow-sm transition active:scale-95">
+          <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+          <span>WhatsApp</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button onclick="toggleTheme()" id="themeToggleBtn" aria-label="Design wechseln" class="w-8 h-8 rounded-full bg-black/5 dark:bg-white/10 flex items-center justify-center text-[#1d1d1f] dark:text-[#f5f5f7] hover:bg-black/10 dark:hover:bg-white/15 transition active:scale-95">
+          <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
+          <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- EDITORIAL HERO HEADER -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-6 sm:pt-14 sm:pb-8 w-full">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-black/5 dark:border-white/10">
+      
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-apple-blue/10 text-apple-blue text-xs font-semibold tracking-wide mb-3">
+          <span class="w-2 h-2 rounded-full bg-apple-blue animate-pulse"></span>
+          <span>Freitag, 30. Oktober 2026 &bull; Ausgabe 08:00 Uhr</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#1d1d1f] dark:text-white leading-[1.08]">
+          Guten Morgen, Familie Gödecke.
+        </h1>
+        <p class="mt-3 text-base sm:text-lg text-apple-grayText dark:text-apple-grayDarkText max-w-2xl font-normal leading-relaxed">
+          Euer kuratiertes Tagesmagazin mit hochauflösenden Bildberichten aus Politik, Wirtschaft, Technik sowie dem Eichsfeld (Duderstadt, Mingerode & Göttingen) – inklusive Wochenend-Guide.
+        </p>
+      </div>
+
+      <!-- Live Location & Weather Widget -->
+      <div class="flex items-center gap-3 bg-white/80 dark:bg-apple-darkSurface/90 border border-black/5 dark:border-white/10 p-3 px-4 rounded-3xl shadow-sm text-xs self-start lg:self-auto">
+        <div class="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center">
+          <i data-lucide="cloud-sun" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <div class="font-bold text-[#1d1d1f] dark:text-white flex items-center gap-1.5">
+            <span>Duderstadt / Eichsfeld</span>
+            <span class="text-apple-blue font-semibold">11°C</span>
+          </div>
+          <span class="text-[11px] text-apple-grayText">Herbstlich heiter &bull; 30 Meldungen</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SEARCH & APPLE SEGMENTED CATEGORY PILLS -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 py-4 w-full sticky top-14 z-40 bg-[#f5f5f7]/90 dark:bg-black/90 backdrop-blur-md transition-all">
+    <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
+      
+      <!-- Filter Controls -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 scrollbar-none" id="filterPillsContainer">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Cupertino Live Search Input -->
+      <div class="relative w-full lg:w-72 flex-shrink-0">
+        <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-apple-grayText"></i>
+        <input 
+          type="text" 
+          id="searchField" 
+          oninput="handleSearch(this.value)"
+          placeholder="Suchen (z. B. Feike, Spanien, KI)..." 
+          class="w-full bg-white dark:bg-apple-darkSurface border border-black/10 dark:border-white/10 rounded-full pl-9 pr-8 py-1.5 text-xs sm:text-sm text-[#1d1d1f] dark:text-white placeholder-apple-grayText focus:outline-none focus:ring-2 focus:ring-apple-blue/40 transition shadow-sm"
+        >
+        <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-apple-grayText hover:text-black dark:hover:text-white">
+          <i data-lucide="x-circle" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MAIN ARTICLE MAGAZINE GRID WITH EDITORIAL IMAGES -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full">
+    
+    <!-- Results Counter Subtitle -->
+    <div class="flex items-center justify-between text-xs text-apple-grayText dark:text-apple-grayDarkText mb-5 px-1 font-medium">
+      <span id="resultsCounter">30 Meldungen geladen</span>
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>Redaktionell geprüft &bull; Tagesschau / Eichsfelder Tageblatt</span>
+      </span>
+    </div>
+
+    <!-- The Image News Grid -->
+    <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Injected via JavaScript -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptySearchState" class="hidden text-center py-20 px-4 bg-white/50 dark:bg-apple-darkSurface/50 rounded-3xl border border-black/5 dark:border-white/10 my-6">
+      <div class="w-12 h-12 rounded-full bg-apple-blue/10 text-apple-blue flex items-center justify-center mx-auto mb-3">
+        <i data-lucide="search-x" class="w-6 h-6"></i>
+      </div>
+      <h3 class="text-base font-semibold text-[#1d1d1f] dark:text-white">Keine passenden Artikel gefunden</h3>
+      <p class="text-xs text-apple-grayText dark:text-apple-grayDarkText mt-1 max-w-sm mx-auto">Überprüfe die Schreibweise oder wähle einen anderen Kategorie-Reiter.</p>
+      <button onclick="resetAllFilters()" class="mt-4 px-4 py-1.5 rounded-full bg-apple-blue text-white text-xs font-medium hover:bg-apple-blueHover transition">Alle Filter zurücksetzen</button>
+    </div>
+
+    <!-- WEEKEND EVENTS SECTION -->
+    <section class="mt-16 pt-10 border-t border-black/5 dark:border-white/10" id="eventsSection">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
+        <div>
+          <div class="inline-flex items-center gap-1 text-[11px] font-semibold text-apple-blue tracking-wide uppercase mb-1">
+            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+            <span>Freizeit, Kultur & Heimat</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-[#1d1d1f] dark:text-white">
+            Wochenend-Events: Duderstadt, Mingerode & Region
+          </h2>
+          <p class="text-xs sm:text-sm text-apple-grayText dark:text-apple-grayDarkText mt-0.5">
+            Anstehende Termine für Samstag, 31. Oktober & Sonntag, 1. November 2026
+          </p>
+        </div>
+        <span class="text-xs font-mono text-apple-grayText bg-white dark:bg-apple-darkSurface px-3 py-1 rounded-full border border-black/5 dark:border-white/10 self-start sm:self-auto">
+          Eichsfeld &bull; Göttingen
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="eventsGrid">
+        <!-- Events Injected by JS -->
+      </div>
+    </section>
+
+    <!-- AUTOMATION INFO CARD (Cupertino Style) -->
+    <div class="mt-14 p-6 sm:p-8 rounded-3xl bg-white dark:bg-apple-darkSurface border border-black/5 dark:border-white/10 shadow-apple-card flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-white flex-shrink-0 shadow-md">
+          <i data-lucide="bell-ring" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h3 class="text-base sm:text-lg font-semibold text-[#1d1d1f] dark:text-white">
+            Tägliche automatische Bereitstellung um 08:00 Uhr
+          </h3>
+          <p class="text-xs sm:text-sm text-apple-grayText dark:text-apple-grayDarkText mt-1 leading-relaxed">
+            Dieser Agent bündelt jeden Morgen die Top-Themen mit passenden Pressebildern und sendet den Vorbericht auf Abruf per WhatsApp an die Familie.
+          </p>
+        </div>
+      </div>
+      <button onclick="shareWhatsApp()" class="w-full md:w-auto px-5 py-3 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-medium text-xs sm:text-sm flex items-center justify-center gap-2 transition active:scale-95 shadow-sm flex-shrink-0">
+        <i data-lucide="share-2" class="w-4 h-4"></i>
+        <span>Briefing per WhatsApp teilen</span>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- DETAIL MODAL FOR DEEP READING -->
+  <div id="detailModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-white dark:bg-apple-darkSurface border border-black/10 dark:border-white/15 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] flex flex-col animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Close Button -->
+      <button onclick="closeModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-black/5 dark:bg-white/10 flex items-center justify-center text-apple-grayText hover:text-black dark:hover:text-white transition z-10">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <!-- Modal Content Body -->
+      <div id="modalContent" class="overflow-y-auto pr-1">
+        <!-- Injected via JS -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FLOATING BOTTOM ACTION BAR -->
+  <aside aria-label="Schnellaktionen" class="fixed bottom-5 inset-x-0 z-40 pointer-events-none flex justify-center px-4">
+    <div class="pointer-events-auto apple-glass border border-black/10 dark:border-white/15 rounded-full px-4 py-2.5 shadow-2xl flex items-center gap-3">
+      
+      <!-- Play Full Audio -->
+      <button onclick="toggleSpeech()" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-apple-blue hover:bg-apple-blueHover text-white text-xs font-medium transition active:scale-95">
+        <i data-lucide="play" class="w-3.5 h-3.5" id="floatingPlayIcon"></i>
+        <span id="floatingPlayText">Audio anhören</span>
+      </button>
+
+      <div class="h-4 w-px bg-black/10 dark:bg-white/10"></div>
+
+      <!-- Copy Briefing Text -->
+      <button onclick="copyTeaserText()" title="Text kopieren" class="text-xs text-[#1d1d1f] dark:text-[#f5f5f7] hover:text-apple-blue transition flex items-center gap-1.5 px-2 py-1">
+        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+        <span class="hidden sm:inline">Kopieren</span>
+      </button>
+
+      <!-- WhatsApp Button Floating -->
+      <button onclick="shareWhatsApp()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-semibold shadow-sm transition active:scale-95">
+        <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+        <span>WhatsApp</span>
+      </button>
+
+    </div>
+  </aside>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="appleToast" class="fixed top-20 right-6 z-50 apple-glass border border-black/10 dark:border-white/15 text-[#1d1d1f] dark:text-white px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2.5 transform translate-y-[-20px] opacity-0 pointer-events-none transition-all duration-300">
+    <div class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center">
+      <i data-lucide="check" class="w-3 h-3"></i>
+    </div>
+    <span class="text-xs font-medium" id="toastMessage">Erfolgreich kopiert</span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="mt-20 border-t border-black/5 dark:border-white/10 py-10 bg-white/40 dark:bg-black/40 text-center text-xs text-apple-grayText dark:text-apple-grayDarkText">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-2 h-2 rounded-full bg-apple-blue"></div>
+        <span class="font-medium text-[#1d1d1f] dark:text-white">Agent Nachrichten der Familie Gödecke</span>
+      </div>
+      <p>Quellen: Tagesschau (ARD), Eichsfelder Tageblatt, BSI, Stadt Duderstadt</p>
+      <span>Erstellt für Duderstadt, Mingerode & Göttingen &bull; 2026</span>
+    </div>
+  </footer>
+
+  <!-- DATA & APPLICATION ENGINE -->
+  <script>
+    // -----------------------------------------------------------------
+    // 1. DATA REPOSITORY: 30 Real Articles with Editorial Images & Sources
+    // -----------------------------------------------------------------
+    const ALL_NEWS = [
+      // === A) TOP 10 POLITIK (Tagesschau, 29./30. Okt. 2026) ===
+      {
+        id: 'pol-1',
+        category: 'politik',
+        badge: 'Politik #1',
+        title: 'Spanisches Zugunglück bei Toledo: Blackbox-Analyse und Weichenfehler im Fokus',
+        source: 'Tagesschau (Ausland)',
+        date: '30.10.2026',
+        image: 'https://images.unsplash.com/photo-1515165562839-978bbcf18277?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Nach der verheerenden Kollision zweier Hochgeschwindigkeitszüge mit mindestens 64 Todesopfern schließt die Unfallkommission die Analyse der Zugsicherung ab. Ein manueller Freigabebefehl nach Stellwerksausfall gilt als Ursache.',
+        content: `Nach der schweren Kollision zweier Hochgeschwindigkeitszüge bei Toledo mit mindestens 64 Todesopfern hat die spanische Eisenbahn-Unfalluntersuchungsstelle (CIAF) ihren ersten umfassenden Zwischenbericht vorgelegt.
+
+Im Fokus der Ermittlungen steht die Rekonstruktion der Funksprüche und Stellwerksdaten. Nach einem technischen Teilausfall der Streckenüberwachung standen beide Züge zunächst still; im Anschluss wurde dem nachfolgenden Zug durch das Leitstellenpersonal fälschlicherweise manuell freie Fahrt signalisiert. Verkehrsminister Óscar Puente ordnete eine lückenlose juristische Überprüfung an. Die Sanierungs- und Reparaturarbeiten am Gleiskörper der Schnellfahrstrecke Madrid–Sevilla dauern bis Anfang nächster Woche an.`,
+        url: 'https://www.tagesschau.de/ausland',
+        readingTime: '3 Min.'
+      },
+      {
+        id: 'pol-2',
+        category: 'politik',
+        badge: 'Politik #2',
+        title: 'Bundeskabinett beschließt „Gebäudetyp E“ zur Senkung der Baukosten',
+        source: 'Tagesschau (Inland)',
+        date: '30.10.2026',
+        image: 'https://images.unsplash.com/photo-1541888946425-d0fbb186c5f7?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Die Bundesregierung bringt das Gesetz für einfacheres Bauen auf den Weg. Architekten und Bauherren dürfen künftig rechtssicher auf teure Komfortstandards verzichten, um Baukosten um 10 bis 15 Prozent zu senken.',
+        content: `Das Bundeskabinett hat den Gesetzentwurf zur zivilrechtlichen Erleichterung des Bauens („Gebäudetyp E“) offiziell verabschiedet. Bauherren und Architekten erhalten die Rechtssicherheit, im gegenseitigen Einvernehmen auf kostenintensive Komfortstandards und rein empfehlende DIN-Vorgaben zu verzichten.
+
+Fundamentale Sicherheitsstandards wie Statik und Brandschutz bleiben unangetastet. Spitzenverbände der Immobilienbranche begrüßten den Vorstoß als überfälligen Befreiungsschlag gegen die Wohnungsbaukrise und drängen die Bundesländer auf eine unverzügliche Harmonisierung ihrer Landesbauordnungen.`,
+        url: 'https://www.tagesschau.de/inland/innenpolitik',
+        readingTime: '3 Min.'
+      },
+      {
+        id: 'pol-3',
+        category: 'politik',
+        badge: 'Politik #3',
+        title: 'Haushaltsberatungen 2027: Schlussphase vor Bereinigungssitzung & Schuldenbremse',
+        source: 'Tagesschau (Inland)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Trotz moderater Mehreinnahmen in der Steuerschätzung verhandelt der Haushaltsausschuss des Bundestages über strukturelle Einsparungen; die Schuldenbremse bleibt Richtschnur.',
+        content: `Im Haushaltsausschuss des Bundestages gehen die Beratungen über den Bundesetat 2027 in die Schlussrunde. Trotz leicht positiver Steuerschätzungsergebnisse pochen die Haushaltspolitiker der Koalition auf die strikte Einhaltung der Schuldenbremse.
+
+Kürzungsbedarf zeichnet sich vor allem bei noch nicht gebundenen Förderprogrammen im Verkehrs- und Bauministerium sowie bei globalen Minderausgaben in den einzelnen Ressorts ab. Die Bereinigungssitzung Mitte November soll das finale Zahlenwerk festzurren.`,
+        url: 'https://www.tagesschau.de/inland/innenpolitik',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'pol-4',
+        category: 'politik',
+        badge: 'Politik #4',
+        title: 'Kanzlerreise Ostasien: Friedrich Merz besiegelt Halbleiter- & Batterieallianzen in Seoul',
+        source: 'Tagesschau (Ausland)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80',
+        summary: 'In Südkorea und Japan vereinbarte die Bundesregierung vertiefte Partnerschaften bei Halbleiter-Lieferketten, KI-Forschung und ein Frühwarnsystem für maritime Engpässe.',
+        content: `Bundeskanzler Friedrich Merz hat seine Delegationsreise nach Ostasien mit Regierungsgesprächen in Südkorea abgeschlossen. Schwerpunkte der Verhandlungen in Tokio und Seoul waren verbindliche Lieferkettenabkommen bei Next-Gen-Halbleitern und seltenen Erden.
+
+Zudem verständigten sich beide Seiten auf ein bilaterales Frühwarnsystem, um geopolitische Blockaden in den asiatisch-europäischen Seewegen frühzeitig zu identifizieren und Ausweichrouten zu koordinieren.`,
+        url: 'https://www.tagesschau.de/ausland',
+        readingTime: '3 Min.'
+      },
+      {
+        id: 'pol-5',
+        category: 'politik',
+        badge: 'Politik #5',
+        title: 'Wahlen in Israel: Knesseth stark zersplittert, schwierige Mehrheitsfindung',
+        source: 'Tagesschau (Ausland)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Das amtliche Endergebnis in Israel bestätigt ein stark fragmentiertes Parlament ohne klare Mehrheit für eines der Hauptlager, was langwierige Koalitionssondierungen nach sich zieht.',
+        content: `Nach Auszählung aller Wahlbezirke steht fest, dass die Bildung einer stabilen Regierungskoalition in Israel äußerst komplex wird. Weder das bisherige Regierungslager noch die Opposition verfügen über eine eigene parlamentarische Mehrheit der 120 Sitze in der Knesset.
+
+In den kommenden Tagen beginnen die offiziellen Konsultationen bei Staatspräsident Herzog. Beobachter erwarten zähe Verhandlungen, bei denen kleine Regional- und Spartenparteien eine entscheidende Rolle einnehmen werden.`,
+        url: 'https://www.tagesschau.de/ausland',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'pol-6',
+        category: 'politik',
+        badge: 'Politik #6',
+        title: 'Parteispendenaffäre Niedersachsen: Landtag diskutiert strengere Transparenzgesetze',
+        source: 'Tagesschau / NDR',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Der Rechtsausschuss in Hannover diskutiert Konsequenzen aus Ermittlungen zu parteinahen Trägervereinen und fordert digitale Transparenzregister.',
+        content: `Im Landtag in Hannover berät der Rechtsausschuss über fraktionsübergreifende Initiativen zur Verschärfung des Landesparteiengesetzes.
+
+Auslöser sind staatsanwaltschaftliche Ermittlungen gegen führende Landespolitiker bezüglich der Verbuchung parteinaher Spenden. Die Parlamentarier fordern verbindliche Transparenzregister und erweiterte Prüfungsrechte des Landesrechnungshofs bei Vorfeldorganisationen.`,
+        url: 'https://www.ndr.de/nachrichten/niedersachsen/index.html',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'pol-7',
+        category: 'politik',
+        badge: 'Politik #7',
+        title: 'Marineeinsatz Persischer Golf: Zivile Schifffahrtskorridore in der Straße von Hormus stabilisiert',
+        source: 'Tagesschau (Ausland)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Die internationale Marinemission meldet stabile Passagen in der Straße von Hormus durch Fregattenbegleitung und lückenlose Drohnenüberwachung.',
+        content: `Das Flottenkommando der internationalen Einsatzgruppe im Persischen Golf meldet eine Beruhigung der Sicherheitslage auf den Hauptschifffahrtsrouten. Durch den Einsatz bordgestützter Seeaufklärungsdrohnen und koordinierte Fregatten-Konvois konnten wiederholte Annäherungsversuche unmarkierter Schnellboote an Tankschiffe abgewendet werden. Die Frachtraten und Versicherungskosten im Golfbereich zeigten sich daraufhin stabilisiert.`,
+        url: 'https://www.tagesschau.de/ausland',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'pol-8',
+        category: 'politik',
+        badge: 'Politik #8',
+        title: 'Ukraine-Winterhilfe: Europäische Großtransformatoren erreichen Fernwärmenetze',
+        source: 'Tagesschau (Ausland)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Ein Großkonvoi mit Schutzschaltanlagen und Transformatoren erreicht die Ukraine zur Absicherung städtischer Fernwärmenetze vor Frostbeginn.',
+        content: `Die Europäische Kommission hat die Ankunft eines umfangreichen Energie-Hilfspakets in der Ukraine bestätigt. Die gelieferten Hochspannungstransformatoren und Schutzschaltanlagen werden in beschädigte Umspannwerke im Großraum Kiew integriert, um die Fernwärmeversorgung städtischer Ballungsräume vor dem Einsetzen strenger Winterfröste abzusichern.`,
+        url: 'https://www.tagesschau.de/ausland',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'pol-9',
+        category: 'politik',
+        badge: 'Politik #9',
+        title: 'Innenministerkonferenz: Länder fordern Verlängerung stationärer Binnengrenzkontrollen',
+        source: 'Tagesschau (Inland)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Vor der IMK verlangen mehrere Bundesländer die Fortführung stationärer Grenzkontrollen an deutschen Binnengrenzen bis mindestens Mitte 2027.',
+        content: `Mehrere Bundesländer bereiten einen gemeinsamen Antrag für die anstehende Innenministerkonferenz vor. Ziel ist die formale Verlängerung der temporären stationären Kontrollen an deutschen Landgrenzen über das Jahresende 2026 hinaus. Die Innenressorts begründen den Schritt mit nachweisbaren Erfolgen bei der Bekämpfung grenzüberschreitender Schleusernetzwerke.`,
+        url: 'https://www.tagesschau.de/inland/innenpolitik',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'pol-10',
+        category: 'politik',
+        badge: 'Politik #10',
+        title: 'EU-Verkehrsrechte: Technische Roadmap für automatisierte Entschädigungsportale bis 2027',
+        source: 'Tagesschau (Verbraucher)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Die Eisenbahnagentur ERA legt Schnittstellenvorgaben fest, um Fahrgastrechte bei Verspätungen und Ausfällen ohne manuelle Anträge digital zu regeln.',
+        content: `Die Europäische Eisenbahnagentur (ERA) hat technische Spezifikationen für eine automatisierte Entschädigungsschnittstelle veröffentlicht. Verkehrsunternehmen müssen ihre digitalen Buchungssysteme so ertüchtigen, dass bei Verspätungen ab Erreichen der gesetzlichen Schwellenwerte die Erstattung automatisch auf das hinterlegte Zahlungsmittel des Fahrgasts erfolgt.`,
+        url: 'https://www.tagesschau.de/wirtschaft/verbraucher',
+        readingTime: '2 Min.'
+      },
+
+      // === B) TOP 10 WIRTSCHAFT (Tagesschau / ARD, 29./30. Okt. 2026) ===
+      {
+        id: 'wirt-1',
+        category: 'wirtschaft',
+        badge: 'Wirtschaft #1',
+        title: 'ifo-Geschäftsklima steigt zum 6. Mal in Folge: Industrie schöpft Zuversicht',
+        source: 'Tagesschau (Konjunktur)',
+        date: '30.10.2026',
+        image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Der führende deutsche Frühindikator signalisiert anhaltende Erholung; insbesondere die Exporterwartungen im industriellen Maschinenbau hellen sich auf.',
+        content: `Das Münchner ifo-Institut verzeichnet für den Monat Oktober den sechsten Anstieg seines Geschäftsklimaindex in Folge. Besonders im Maschinenbau, in der Elektrotechnik und der Chemieindustrie stabilisieren sich die Auftragseingänge aus dem asiatischen und nordamerikanischen Raum. Gedämpft bleiben hingegen die Stimmungswerte im Wohnungsbau und im stationären Textileinzelhandel.`,
+        url: 'https://www.tagesschau.de/wirtschaft/konjunktur',
+        readingTime: '3 Min.'
+      },
+      {
+        id: 'wirt-2',
+        category: 'wirtschaft',
+        badge: 'Wirtschaft #2',
+        title: 'Industrie & Länder drängen auf spürbare Senkung der Stromsteuer für Mittelstand',
+        source: 'Tagesschau (Wirtschaft)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Länder-Wirtschaftsminister und Industrieverbände verlangen eine Entlastung für den Mittelstand und das Handwerk, um Produktionsverlagerungen abzuwenden.',
+        content: `Der Bundesverband der Deutschen Industrie (BDI) und Wirtschaftsminister mehrerer Flächenländer drängen auf eine Ausweitung der Stromsteuerentlastungen. Bisherige Regelungen erfassen primär Großkonzerne; gefordert wird nun die dauerhafte Absenkung der Stromsteuer auf das EU-Mindestmaß von 0,05 Cent pro Kilowattstunde auch für den breiten Mittelstand und das Handwerk.`,
+        url: 'https://www.tagesschau.de/wirtschaft',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'wirt-3',
+        category: 'wirtschaft',
+        badge: 'Wirtschaft #3',
+        title: 'Nahverkehrsfinanzierung: Verkehrsminister warnen vor Taktausdünnungen ohne Bundesmittel',
+        source: 'Tagesschau (Wirtschaft)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1494515843206-f3117d3f51b7?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Ohne Erhöhung der Regionalisierungsmittel durch den Bund drohen im Schienenpersonennahverkehr drastische Leistungskürzungen auf Nebenstrecken.',
+        content: `Der Verband Deutscher Verkehrsunternehmen (VDV) und die Verkehrsministerkonferenz warnen vor drastischen Angebotskürzungen ab dem Fahrplanjahr 2027. Bedingt durch Tarifabschlüsse, gestiegene Energiepreise und Flotteninvestitionen fehle den Aufgabenträgern ein Milliardenbetrag. Ohne Nachbesserungen des Bundes drohe die Streichung von Taktverbindungen im ländlichen Raum.`,
+        url: 'https://www.tagesschau.de/wirtschaft',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'wirt-4',
+        category: 'wirtschaft',
+        badge: 'Wirtschaft #4',
+        title: 'Automobilzulieferer: Strukturwandel und Werksschließungen bei Verbrennerkomponenten',
+        source: 'Tagesschau (Unternehmen)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Der Transformationsdruck zwingt Zulieferer zu Restrukturierungen. Standorte für Verbrennungsmotoren werden konsolidiert, während Allianzen für E-Antriebsmodule wachsen.',
+        content: `Europäische Automobilzulieferer beschleunigen die Transformation ihrer Produktionsstätten. Während Kapazitäten für klassische Verbrennungsmotoren über Vorruhestandsmodelle sozialverträglich zurückgefahren werden, gründen mittelständische Komponentenbauer Entwicklungsallianzen für Hochvoltmodule und Siliziumkarbid-Halbleiter.`,
+        url: 'https://www.tagesschau.de/wirtschaft/unternehmen',
+        readingTime: '3 Min.'
+      },
+      {
+        id: 'wirt-5',
+        category: 'wirtschaft',
+        badge: 'Wirtschaft #5',
+        title: 'Postgebührenregulierung 2027: Bundesnetzagentur legt Obergrenzen für Briefporto fest',
+        source: 'Tagesschau (Verbraucher)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Rückläufige Briefmengen um mehr als 6 Prozent treiben die Stückkosten im Zustellnetz; die Regulierungsbehörde legt den Preiserhöhungsrahmen fest.',
+        content: `Die Bundesnetzagentur hat mitgeteilt, dass die Entscheidung über den künftigen Spielraum für Brief- und Paketporti zum Jahreswechsel wie geplant abgeschlossen wird. Der kontinuierliche Rückgang klassischer Briefsendungen um jährlich rund 6 Prozent bei gleichzeitig gestiegenen Personalkosten im Filial- und Zustellnetz erfordert laut Post eine Anpassung der Portostufen.`,
+        url: 'https://www.tagesschau.de/wirtschaft/verbraucher',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'wirt-6',
+        category: 'wirtschaft',
+        badge: 'Wirtschaft #6',
+        title: 'Bankensektor: Produktivitätssprünge durch KI-Prüftools im Risikomanagement',
+        source: 'Tagesschau (Unternehmen)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Europäische Banken verzeichnen messbare Effizienzsteigerungen durch den Einsatz interner KI-Modelle in der Betrugserkennung und Compliance.',
+        content: `Deutsche und europäische Kreditinstitute vermelden messbare Effizienzsteigerungen durch den Einsatz spezialisierter interner Sprach- und Analysemodelle. Insbesondere bei der automatisierten Prüfung standardisierter Kreditakten, bei Geldwäsche-Prüfungen (AML) und der Erstellung aufsichtsrechtlicher Reports konnten die Bearbeitungszeiten um bis zu 30 Prozent verkürzt werden.`,
+        url: 'https://www.tagesschau.de/wirtschaft/unternehmen',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'wirt-7',
+        category: 'wirtschaft',
+        badge: 'Wirtschaft #7',
+        title: 'Konsumklima: GfK prognostiziert preisbewusstes, rabattorientiertes Jahresendgeschäft',
+        source: 'Tagesschau (Verbraucher)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Verbraucher planen ihre Ausgabenbudgets für das Jahresendgeschäft strikt vor; Händler stellen sich auf intensiven Rabattwettbewerb ein.',
+        content: `Aus den aktuellen GfK-Konsumdaten geht hervor, dass die Kauflaune stabil bleibt, die Privathaushalte ihre Budgets für das anstehende Weihnachtsgeschäft jedoch sehr gezielt auf Sonderangebote und Rabattaktionen ausrichten. Insbesondere bei Unterhaltungselektronik und Konsumgütern erwarten Marktforscher frühe Rabattschlachten im Handel.`,
+        url: 'https://www.tagesschau.de/wirtschaft/verbraucher',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'wirt-8',
+        category: 'wirtschaft',
+        badge: 'Wirtschaft #8',
+        title: 'Autobranche: Batterierückstellungen und Software-Updates dämpfen Quartalsmargen',
+        source: 'Tagesschau (Unternehmen)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Aufwendungen für Softwareanpassungen und Modulprüfungen an Traktionsbatterien drücken die aktuellen Quartalsergebnisse europäischer Hersteller.',
+        content: `Die Quartalsabschlüsse europäischer Automobilhersteller zeigen Belastungen im Elektrofahrzeug-Segment. Außerordentliche Rückstellungen für Software-Updates und vorsorgliche Serviceprüfungen an Hochvoltbatteriezellen dämpfen die operativen Margen im Automobilbereich spürbar.`,
+        url: 'https://www.tagesschau.de/wirtschaft/unternehmen',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'wirt-9',
+        category: 'wirtschaft',
+        badge: 'Wirtschaft #9',
+        title: 'Rohstoffmärkte: Gold behauptet Allzeithoch bei 2.740 USD, Rohöl konsolidiert um 75 USD',
+        source: 'Tagesschau (Börse)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Geopolitische Unsicherheiten stützen den Goldpreis auf Rekordniveau; die Rohölnotierungen verharren vor Förderquotengesprächen seitwärts.',
+        content: `An den internationalen Rohstoffmärkten verharrt die Feinunze Gold nahe ihres historischen Allzeithochs bei 2.740 US-Dollar. Die Notierungen für Nordsee-Rohöl (Brent) pendeln im Vorfeld des anstehenden OPEC+-Ministertreffens stabil um die Marke von 75 US-Dollar je Barrel.`,
+        url: 'https://www.tagesschau.de/wirtschaft/boerse',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'wirt-10',
+        category: 'wirtschaft',
+        badge: 'Wirtschaft #10',
+        title: 'Mittelstand fordert Entbürokratisierung bei der steuerlichen Forschungszulage',
+        source: 'Tagesschau (Wirtschaft)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Wirtschaftsverbände mahnen bei der Bundesregierung eine vereinfachte Pauschalierung der FuE-Förderung ohne langwierige externe Begutachtungsverfahren an.',
+        content: `Der Bundesverband mittelständische Wirtschaft fordert von den Finanzbehörden eine unbürokratische Pauschalierung der steuerlichen Forschungszulage. Langwierige Antrags- und Begutachtungsverfahren hemmten gerade innovative KMU daran, Technologieprojekte zeitnah im Inland umzusetzen.`,
+        url: 'https://www.tagesschau.de/wirtschaft',
+        readingTime: '2 Min.'
+      },
+
+      // === C) TOP 5 TECHNIK (Tagesschau Wissen/BSI, 29./30. Okt. 2026) ===
+      {
+        id: 'tech-1',
+        category: 'technik',
+        badge: 'Technik #1',
+        title: 'BSI warnt vor automatisierten Angriffen auf serverseitige Web-Frameworks (PHP/Node)',
+        source: 'BSI / Tagesschau Digital',
+        date: '30.10.2026',
+        image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Das BSI warnt vor automatisierten Exploits gegen serverseitige Skripte und rät Administratoren zu sofortigen Updates und Web Application Firewalls (WAF).',
+        content: `Das Bundesamt für Sicherheit in der Informationstechnik (BSI) hat seine Warnmeldung bezüglich kritischer Schwachstellen in weit verbreiteten Webanwendungs-Frameworks (u. a. serverseitige PHP-Bibliotheken) bekräftigt.
+
+Automatisierte Botnetze scannen das Internet gezielt nach ungepatchten Servern ab. IT-Verantwortlichen wird dringend geraten, Sicherheitsaktualisierungen unverzüglich einzuspielen und Web Application Firewalls (WAF) mit aktuellen Regelsätzen scharfzuschalten.`,
+        url: 'https://www.bsi.bund.de',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'tech-2',
+        category: 'technik',
+        badge: 'Technik #2',
+        title: 'Tiefenlager Onkalo in Finnland: Internationale Begutachtung der Atommüll-Kapselung',
+        source: 'Tagesschau (Wissen)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Nach Erteilung der weltweiten ersten Betriebsgenehmigung für hochradioaktive Stoffe wird das finnische Mehrfach-Barrierensystem zum globalen Referenzmodell.',
+        content: `Nach der erteilten Betriebsgenehmigung für das weltweit erste geologische Tiefenlager für abgebrannte Kernbrennstoffe in Onkalo (Finnland) werten internationale Atomenergie-Experten die Kapselungstechnologie und das Bentonit-Puffersystem aus. Das Projekt gilt nun offiziell als technischer Maßstab für künftige Entsorgungsvorhaben weltweit.`,
+        url: 'https://www.tagesschau.de/wissen',
+        readingTime: '3 Min.'
+      },
+      {
+        id: 'tech-3',
+        category: 'technik',
+        badge: 'Technik #3',
+        title: 'Vernetzte Autos: Sicherheitsstudie deckt Schwachstellen in Telematik-Cloud-APIs auf',
+        source: 'Tagesschau (Digital)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
+        summary: 'IT-Sicherheitsforscher belegen: Einfallstore bei modernen Fahrzeugen entstehen fast ausschließlich über Smartphone-Apps und Backend-Schnittstellen.',
+        content: `Eine aktuelle Untersuchung europäischer Cybersicherheitsforscher zeigt, dass potenzielle Angriffsvektoren moderner vernetzter Fahrzeuge nahezu ausschließlich in unzureichend gehärteten Smartphone-Apps und Cloud-APIs liegen. Während der interne Fahrzeugbus durch robuste Gateway-Architekturen geschützt ist, mangelt es bei Drittanbieter-Schnittstellen häufig an mehrstufiger Authentifizierung.`,
+        url: 'https://www.tagesschau.de/wissen/digitales',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'tech-4',
+        category: 'technik',
+        badge: 'Technik #4',
+        title: 'Edge-KI für Industrieautomation: Lokale NPU-Rechner ohne Cloud-Abhängigkeit',
+        source: 'Tagesschau (Digital)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Neue Industrie-Controller führen optische Fehleranalysen und vorausschauende Wartung lokal an Fräs- und Spritzgussmaschinen aus.',
+        content: `Führende deutsche Automatisierungshersteller bringen eine neue Generation NPU-gestützter Edge-Steuerungen auf den Markt. Diese Einheiten ermöglichen hochauflösende optische Fehlererkennung und Vibrationsanalysen in Echtzeit direkt am Werkstück – völlig unabhängig von einer Internet- oder Cloud-Verbindung.`,
+        url: 'https://www.tagesschau.de/wissen/digitales',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'tech-5',
+        category: 'technik',
+        badge: 'Technik #5',
+        title: 'Prüfverbände warnen vor illegalem Firmware-Tuning bei E-Bikes und Pedelecs',
+        source: 'Tagesschau (Verbraucher)',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Illegale Chiptuning-Software überlastet Fahrradbremsen und führt zum sofortigen Erlöschen von Betriebserlaubnis und Versicherungsschutz.',
+        content: `Prüforganisationen wie TÜV und Dekra schlagen Alarm wegen frei verkäuflicher Tuning-Software für Pedelecs und E-Scooter. Durch das Aufheben der 25-km/h-Grenze werden mechanische Bremsanlagen und Rahmen überlastet. Zudem erlischt bei polizeilichen Kontrollen sofort die Betriebserlaubnis, was erhebliche versicherungs- und strafrechtliche Konsequenzen hat.`,
+        url: 'https://www.tagesschau.de/wirtschaft/verbraucher',
+        readingTime: '2 Min.'
+      },
+
+      // === D) TOP 5 REGIONAL DUDERSTADT & REGION (Eichsfelder Tageblatt, 29./30. Okt. 2026) ===
+      {
+        id: 'reg-1',
+        category: 'regional',
+        badge: 'Duderstadt #1',
+        title: 'Stabsübergabe im Stadthaus Duderstadt: Heutige Verabschiedung von Thorsten Feike',
+        source: 'Eichsfelder Tageblatt / GT',
+        date: '30.10.2026',
+        image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Nach siebenjähriger Amtszeit verabschiedet sich Bürgermeister Feike heute von 10:30 bis 13:00 Uhr von den Bürgern. Der neu gewählte Bürgermeister Gerald Werner übernimmt am Montag.',
+        content: `Nach siebenjähriger Amtszeit verabschiedet sich Duderstadts Bürgermeister Thorsten Feike am heutigen Freitag, 30. Oktober 2026, von den Bürgerinnen und Bürgern im Stadthaus an der Worbiser Straße. Die offizielle Bürgerbegegnung findet von 10:30 bis 13:00 Uhr statt.
+
+Der im September neu gewählte Bürgermeister Gerald Werner übernimmt die Amtsgeschäfte offiziell am kommenden Montag, den 2. November.`,
+        url: 'https://www.goettinger-tageblatt.de/themen/duderstadt/',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'reg-2',
+        category: 'regional',
+        badge: 'Duderstadt #2',
+        title: 'Eingeschränkte Erreichbarkeit der Stadtverwaltung Duderstadt wegen Amtsübergabe',
+        source: 'Stadt Duderstadt',
+        date: '30.10.2026',
+        image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Bedingt durch die administrative Übergabe im Stadthaus bleibt der Bürgerservice heute Vormittag sowie am Montagmorgen nur eingeschränkt erreichbar.',
+        content: `Aufgrund der internen Stabsübergabe und organisatorischer Systemanpassungen im Stadthaus an der Worbiser Straße ist der Publikumsverkehr am heutigen Freitagvormittag (30.10.) sowie am Montagmorgen (02.11.) organisatorisch eingeschränkt. Bürger werden gebeten, dringende Anliegen vorab telefonisch abzustimmen.`,
+        url: 'https://www.duderstadt.de',
+        readingTime: '1 Min.'
+      },
+      {
+        id: 'reg-3',
+        category: 'regional',
+        badge: 'Duderstadt #3',
+        title: 'Fachwerk5Eck-Initiative startet Experten-Vortragsreihe zur Altbausanierung',
+        source: 'Fachwerk5Eck / ET',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Der interkommunale Verbund (Duderstadt, Hann. Münden, Northeim, Einbeck, Osterode) bietet ab dem 9. November Praxistipps für Wärmedämmung und Heizungstausch.',
+        content: `Der interkommunale Städteverbund Fachwerk5Eck (Duderstadt, Hann. Münden, Northeim, Einbeck, Osterode) hat eine neue Vortragsreihe angekündigt. Ab dem 9. November erhalten Hauseigentümer und Handwerker kostenlose Fachinformationen zu energetischer Sanierung, Wärmedämmung im denkmalgeschützten Fachwerk und aktuellen Fördermöglichkeiten.`,
+        url: 'https://www.fachwerk5eck.de',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'reg-4',
+        category: 'regional',
+        badge: 'Duderstadt #4',
+        title: 'Verkehrsfreigabe am Herkuleskreisel (L 523 bei Osterode) zum Wochenende',
+        source: 'Niedersächsische Landesstraßenbaubehörde',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Die Deckenerneuerung am verkehrswichtigen Knotenpunkt im Harzvorland ist abgeschlossen; Umleitungen werden zum Wochenende aufgehoben.',
+        content: `Die Niedersächsische Landesbehörde für Straßenbau und Verkehr hat die Sanierung der Fahrbahndecke am Herkuleskreisel (L 523 bei Osterode) planmäßig fertiggestellt. Die großräumigen Umleitungsstrecken im Harzvorland werden pünktlich zum Wochenende vollständig aufgehoben, was Pendler zwischen Eichsfeld und Harz spürbar entlastet.`,
+        url: 'https://www.strassenbau.niedersachsen.de',
+        readingTime: '2 Min.'
+      },
+      {
+        id: 'reg-5',
+        category: 'regional',
+        badge: 'Duderstadt #5',
+        title: 'Tausende Kraniche am Seeburger See: Naturschützer mahnen zu Schutzregeln',
+        source: 'Natur-Erlebniszentrum Seeburg',
+        date: '29.10.2026',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+        summary: 'Tausende Zugvögel rasten am „Auge des Eichsfelds“. Die Naturschutzverwaltung appelliert an Spaziergänger zur Einhaltung von Wegegebot und Anleinpflicht.',
+        content: `Am Seeburger See rasten derzeit tausende Kraniche und nordische Wasservögel auf ihrem Zug gen Süden. Das Natur-Erlebniszentrum Seeburg weist eindringlich auf die Einhaltung der Wegegebote und den strikten Leinenzwang für Hunde hin, um die Vögel während ihrer Ruhephase im Schilfgürtel nicht aufzuschrecken.`,
+        url: 'https://www.seeburger-see.de',
+        readingTime: '2 Min.'
+      }
+    ];
+
+    // === E) WOCHENEND-EVENTS (31. Okt. – 1. Nov. 2026) ===
+    const WEEKEND_EVENTS = [
+      {
+        location: 'Mingerode',
+        title: 'Große Halloween-Aktion an der Lindenallee',
+        time: 'Samstag, 31. Oktober, 17:00 – 20:00 Uhr',
+        venue: 'Lindenallee, 37115 Mingerode',
+        image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=1200&q=80',
+        description: 'Örtliche Halloween-Veranstaltung der Dorfgemeinschaft für Kinder, Jugendliche und Familien mit Verkleidung und herbstlichen Leckereien. (Hinweis: Die Theatergruppe spielt vom 6.–8. Nov. im DGH; MCV Karnevalsstart am 14.11.)',
+        tag: 'Familie & Brauchtum'
+      },
+      {
+        location: 'Duderstadt',
+        title: 'Traditioneller Duderstädter Wochenmarkt',
+        time: 'Samstag, 31. Oktober, 07:00 – 13:00 Uhr',
+        venue: 'Marktstraße (Fußgängerzone), Duderstadt',
+        image: 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80',
+        description: 'Frische landwirtschaftliche Erzeugnisse, Eichsfelder Wurstspezialitäten, Backwaren und Blumen lokaler Selbsterzeuger.',
+        tag: 'Markt & Genuss'
+      },
+      {
+        location: 'Duderstadt',
+        title: 'Historischer Stadtrundgang ab Rathaus',
+        time: 'Samstag, 31. Oktober, 11:00 Uhr',
+        venue: 'Treffpunkt: Historisches Rathaus Duderstadt',
+        image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80',
+        description: 'Gästeführung durch das spätmittelalterliche Stadtbild, entlang des über 600 Fachwerkhäuser zählenden Ensembles und der Stadtmauer.',
+        tag: 'Historie & Führung'
+      },
+      {
+        location: 'Duderstadt / Eichsfeld',
+        title: 'Reformationstag – Festgottesdienste & Musik',
+        time: 'Samstag, 31. Oktober (Feiertag)',
+        venue: 'St.-Servatius-Kirche Duderstadt',
+        image: 'https://images.unsplash.com/photo-1548625361-195fe6127608?auto=format&fit=crop&w=1200&q=80',
+        description: 'Festliche Reformationsandachten und kirchenmusikalische Gestaltung zum gesetzlichen Feiertag in Niedersachsen.',
+        tag: 'Feiertag'
+      },
+      {
+        location: 'Seeburg',
+        title: 'Geführte Herbst-Exkursion zur Vogelbeobachtung',
+        time: 'Sonntag, 1. November, 10:00 Uhr',
+        venue: 'Natur-Erlebniszentrum Seeburg (Graf-Isang-Allee)',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+        description: 'Fachkundig begleitete Naturbeobachtung der rastenden Kraniche und Gänse am Uferrundweg mit Spektiven.',
+        tag: 'Natur & Exkursion'
+      },
+      {
+        location: 'Göttingen',
+        title: 'Kulturherbst im Deutschen Theater Göttingen',
+        time: 'Samstag, 31.10. & Sonntag, 01.11., ab 19:30 Uhr',
+        venue: 'Deutsches Theater Göttingen & Altes Rathaus',
+        image: 'https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?auto=format&fit=crop&w=1200&q=80',
+        description: 'Herbstliche Schauspielproduktionen im DT sowie historische Themenführungen durch die Universitätsstadt.',
+        tag: 'Kultur & Bühne'
+      }
+    ];
+
+    const CATEGORIES = [
+      { id: 'all', label: 'Alle Themen', count: ALL_NEWS.length },
+      { id: 'politik', label: 'Top 10 Politik', count: 10 },
+      { id: 'wirtschaft', label: 'Top 10 Wirtschaft', count: 10 },
+      { id: 'technik', label: 'Top 5 Technik', count: 5 },
+      { id: 'regional', label: 'Top 5 Duderstadt', count: 5 },
+      { id: 'events', label: 'Events', count: WEEKEND_EVENTS.length }
+    ];
+
+    let currentCategory = 'all';
+    let searchQuery = '';
+
+    // -----------------------------------------------------------------
+    // 2. RENDER PIPELINE
+    // -----------------------------------------------------------------
+    function renderFilterPills() {
+      const container = document.getElementById('filterPillsContainer');
+      container.innerHTML = CATEGORIES.map(cat => {
+        const isActive = cat.id === currentCategory;
+        return `
+          <button 
+            onclick="setCategory('${cat.id}')"
+            class="px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 active:scale-95 flex items-center gap-1.5 ${
+              isActive 
+                ? 'bg-[#1d1d1f] dark:bg-white text-white dark:text-black shadow-sm font-semibold' 
+                : 'bg-white dark:bg-apple-darkSurface text-apple-grayText dark:text-apple-grayDarkText hover:text-black dark:hover:text-white border border-black/5 dark:border-white/10'
+            }"
+          >
+            <span>${cat.label}</span>
+            <span class="text-[10px] opacity-70 px-1.5 py-0.2 rounded-full ${isActive ? 'bg-white/20 dark:bg-black/20' : 'bg-black/5 dark:bg-white/10'}">${cat.count}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderArticles() {
+      const grid = document.getElementById('articlesGrid');
+      const emptyState = document.getElementById('emptySearchState');
+      const counter = document.getElementById('resultsCounter');
+
+      let filtered = ALL_NEWS.filter(item => {
+        const matchesCategory = (currentCategory === 'all' || item.category === currentCategory);
+        const q = searchQuery.toLowerCase().trim();
+        const matchesQuery = !q || 
+          item.title.toLowerCase().includes(q) || 
+          item.summary.toLowerCase().includes(q) || 
+          item.content.toLowerCase().includes(q) ||
+          item.source.toLowerCase().includes(q);
+        return matchesCategory && matchesQuery;
+      });
+
+      if (currentCategory === 'events') {
+        document.getElementById('eventsSection').scrollIntoView({ behavior: 'smooth' });
+        counter.textContent = `${WEEKEND_EVENTS.length} Wochenend-Events angezeigt`;
+        grid.innerHTML = '';
+        return;
+      }
+
+      counter.textContent = `${filtered.length} von ${ALL_NEWS.length} Beiträgen`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <article class="group bg-white dark:bg-apple-darkSurface rounded-3xl overflow-hidden border border-black/5 dark:border-white/10 shadow-apple-card hover:shadow-apple-card-hover dark:hover:shadow-apple-dark-hover transition-all duration-300 flex flex-col justify-between">
+          
+          <!-- Editorial Hero Image -->
+          <div class="relative w-full h-48 overflow-hidden bg-black/5 dark:bg-white/5">
+            <img 
+              src="${item.image}" 
+              alt="${item.title}" 
+              loading="lazy"
+              class="w-full h-full object-cover img-zoom"
+              onerror="this.onerror=null; this.src='https://placehold.co/800x450/1c1c1e/ffffff?text=Nachrichtenbild';"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40"></div>
+            
+            <!-- Category Badge Floating over Image -->
+            <div class="absolute top-3 left-3">
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-tight backdrop-blur-md ${getBadgeClass(item.category)}">
+                ${item.badge}
+              </span>
+            </div>
+
+            <!-- Reading Time -->
+            <div class="absolute bottom-2.5 right-3 text-[11px] font-medium text-white/90 drop-shadow-sm flex items-center gap-1">
+              <i data-lucide="clock" class="w-3 h-3"></i>
+              <span>${item.readingTime}</span>
+            </div>
+          </div>
+
+          <!-- Content Body -->
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-[11px] text-apple-grayText dark:text-apple-grayDarkText mb-2 font-medium">
+                <span>${item.source}</span>
+                <span>${item.date}</span>
+              </div>
+
+              <h3 class="text-base font-bold text-[#1d1d1f] dark:text-white group-hover:text-apple-blue transition-colors leading-snug tracking-tight mb-2">
+                ${item.title}
+              </h3>
+
+              <p class="text-xs text-apple-grayText dark:text-apple-grayDarkText leading-relaxed line-clamp-3 mb-4">
+                ${item.summary}
+              </p>
+            </div>
+
+            <!-- Card Bottom Bar -->
+            <div class="pt-3 border-t border-black/5 dark:border-white/10 flex items-center justify-between text-xs mt-2">
+              <button onclick="openModal('${item.id}')" class="font-semibold text-apple-blue hover:text-apple-blueHover flex items-center gap-1 transition">
+                <span>Ausführlich lesen</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+
+              <a href="${item.url}" target="_blank" rel="noopener noreferrer" title="Originalquelle öffnen" class="text-apple-grayText hover:text-black dark:hover:text-white transition p-1">
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    function renderEvents() {
+      const container = document.getElementById('eventsGrid');
+      container.innerHTML = WEEKEND_EVENTS.map(ev => `
+        <div class="bg-white dark:bg-apple-darkSurface rounded-3xl overflow-hidden border border-black/5 dark:border-white/10 shadow-apple-card hover:shadow-apple-card-hover transition-all duration-300 flex flex-col justify-between group">
+          
+          <div class="relative w-full h-44 overflow-hidden bg-black/5 dark:bg-white/5">
+            <img 
+              src="${ev.image}" 
+              alt="${ev.title}" 
+              loading="lazy"
+              class="w-full h-full object-cover img-zoom"
+              onerror="this.onerror=null; this.src='https://placehold.co/800x450/1c1c1e/ffffff?text=Event+Eichsfeld';"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+            
+            <div class="absolute top-3 left-3">
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-amber-500/90 text-white backdrop-blur-md">
+                ${ev.location}
+              </span>
+            </div>
+
+            <div class="absolute bottom-2.5 left-3 text-[11px] font-semibold text-white/90 drop-shadow-sm">
+              ${ev.tag}
+            </div>
+          </div>
+
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <h4 class="text-base font-bold text-[#1d1d1f] dark:text-white tracking-tight mb-1 group-hover:text-apple-blue transition-colors">
+                ${ev.title}
+              </h4>
+              <div class="flex items-center gap-1.5 text-xs text-apple-blue font-semibold mb-2.5">
+                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                <span>${ev.time}</span>
+              </div>
+              <p class="text-xs text-apple-grayText dark:text-apple-grayDarkText leading-relaxed">
+                ${ev.description}
+              </p>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-black/5 dark:border-white/10 text-[11px] text-apple-grayText flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-apple-grayText"></i>
+              <span class="truncate">${ev.venue}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function getBadgeClass(cat) {
+      switch(cat) {
+        case 'politik': return 'bg-sky-500/90 text-white shadow-sm';
+        case 'wirtschaft': return 'bg-emerald-500/90 text-white shadow-sm';
+        case 'technik': return 'bg-purple-500/90 text-white shadow-sm';
+        case 'regional': return 'bg-amber-500/90 text-white shadow-sm';
+        default: return 'bg-black/80 text-white shadow-sm';
+      }
+    }
+
+    // -----------------------------------------------------------------
+    // 3. FILTER & SEARCH HANDLERS
+    // -----------------------------------------------------------------
+    function setCategory(catId) {
+      currentCategory = catId;
+      renderFilterPills();
+      renderArticles();
+    }
+
+    function handleSearch(val) {
+      searchQuery = val;
+      const clearBtn = document.getElementById('clearSearchBtn');
+      if (val.trim().length > 0) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+      renderArticles();
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('searchField');
+      input.value = '';
+      searchQuery = '';
+      document.getElementById('clearSearchBtn').classList.add('hidden');
+      renderArticles();
+    }
+
+    function resetAllFilters() {
+      currentCategory = 'all';
+      clearSearch();
+      renderFilterPills();
+      renderArticles();
+    }
+
+    // -----------------------------------------------------------------
+    // 4. DETAIL MODAL (IOS SHEET LOOK)
+    // -----------------------------------------------------------------
+    function openModal(articleId) {
+      const item = ALL_NEWS.find(a => a.id === articleId);
+      if (!item) return;
+
+      const modal = document.getElementById('detailModal');
+      const content = document.getElementById('modalContent');
+
+      content.innerHTML = `
+        <div class="relative w-full h-56 rounded-2xl overflow-hidden mb-4 bg-black/10">
+          <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          <div class="absolute bottom-3 left-3">
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold text-white bg-black/60 backdrop-blur-md">
+              ${item.badge} &bull; ${item.date}
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-[#1d1d1f] dark:text-white leading-tight">
+            ${item.title}
+          </h2>
+          <div class="text-xs text-apple-grayText mt-1.5 flex items-center gap-2">
+            <span>Quelle: <strong>${item.source}</strong></span>
+            <span>&bull;</span>
+            <span>Lesezeit: ${item.readingTime}</span>
+          </div>
+        </div>
+
+        <div class="text-xs sm:text-sm text-[#1d1d1f]/90 dark:text-white/90 leading-relaxed space-y-3 whitespace-pre-line py-2 border-y border-black/5 dark:border-white/10 my-4">
+          ${item.content}
+        </div>
+
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-5 py-2.5 rounded-full bg-apple-blue hover:bg-apple-blueHover text-white text-xs font-semibold flex items-center justify-center gap-2 transition">
+            <span>Originalquelle aufrufen</span>
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          </a>
+          <button onclick="closeModal()" class="w-full sm:w-auto px-5 py-2.5 rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 text-xs font-medium text-apple-grayText dark:text-white transition">
+            Schließen
+          </button>
+        </div>
+      `;
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      lucide.createIcons();
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('detailModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    document.getElementById('detailModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // -----------------------------------------------------------------
+    // 5. TEXT-TO-SPEECH (SPEECH SYNTHESIS)
+    // -----------------------------------------------------------------
+    let isSpeaking = false;
+    let synth = window.speechSynthesis;
+    let currentUtterance = null;
+
+    function toggleSpeech() {
+      if (!('speechSynthesis' in window)) {
+        showToast('Sprachausgabe wird vom Browser nicht unterstützt');
+        return;
+      }
+
+      if (isSpeaking) {
+        synth.cancel();
+        isSpeaking = false;
+        updateTtsUI(false);
+        showToast('Vorlesen gestoppt');
+      } else {
+        const intro = "Guten Morgen. Hier ist das Briefing der Familie Gödecke für Freitag, den 30. Oktober 2026. ";
+        const topNews = ALL_NEWS.slice(0, 6).map((n, i) => `Meldung ${i+1}: ${n.title}. ${n.summary}`).join('. ');
+        const eventText = "Anstehende Wochenend-Events: In Mingerode findet am Samstag ab 17 Uhr die Halloween-Aktion an der Lindenallee statt. In Duderstadt ist ab 7 Uhr Wochenmarkt und um 11 Uhr historischer Stadtrundgang ab Rathaus.";
+        const fullSpokenText = intro + topNews + '. ' + eventText;
+
+        currentUtterance = new SpeechSynthesisUtterance(fullSpokenText);
+        currentUtterance.lang = 'de-DE';
+        currentUtterance.rate = 1.0;
+
+        const voices = synth.getVoices();
+        const germanVoice = voices.find(v => v.lang.startsWith('de') && (v.name.includes('Siri') || v.name.includes('Anna') || v.name.includes('Google') || v.name.includes('Markus')));
+        if (germanVoice) currentUtterance.voice = germanVoice;
+
+        currentUtterance.onend = () => {
+          isSpeaking = false;
+          updateTtsUI(false);
+        };
+        currentUtterance.onerror = () => {
+          isSpeaking = false;
+          updateTtsUI(false);
+        };
+
+        synth.speak(currentUtterance);
+        isSpeaking = true;
+        updateTtsUI(true);
+        showToast('Audio-Briefing gestartet');
+      }
+    }
+
+    function updateTtsUI(speaking) {
+      const headerText = document.getElementById('ttsHeaderText');
+      const headerIcon = document.getElementById('ttsHeaderIcon');
+      const floatText = document.getElementById('floatingPlayText');
+      const floatIcon = document.getElementById('floatingPlayIcon');
+
+      if (speaking) {
+        headerText.textContent = 'Stoppen';
+        headerIcon.setAttribute('data-lucide', 'square');
+        floatText.textContent = 'Anhalten';
+        floatIcon.setAttribute('data-lucide', 'square');
+      } else {
+        headerText.textContent = 'Vorlesen';
+        headerIcon.setAttribute('data-lucide', 'volume-2');
+        floatText.textContent = 'Audio anhören';
+        floatIcon.setAttribute('data-lucide', 'play');
+      }
+      lucide.createIcons();
+    }
+
+    // -----------------------------------------------------------------
+    // 6. WHATSAPP & CLIPBOARD SHARING
+    // -----------------------------------------------------------------
+    const PAGE_SHARE_URL = window.location.href;
+
+    function shareWhatsApp() {
+      const text = `Tägliche Zusammenfassung des heutigen Tages - Hier ist das Briefing der Familie Gödecke für Freitag, 30. Oktober 2026: ${PAGE_SHARE_URL}`;
+      const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+      window.open(waUrl, '_blank');
+    }
+
+    function copyTeaserText() {
+      const teaser = `*Tägliche Zusammenfassung des heutigen Tages (30.10.2026)*\n` +
+        `• 🚄 Politik: Spanisches Zugunglück untersucht, Gebäudetyp E beschlossen, Merz beendet Asienreise\n` +
+        `• 📈 Wirtschaft: ifo-Geschäftsklima klettert erneut, Stromsteuer-Entlastung gefordert, Briefporto 2027\n` +
+        `• 💻 Technik: BSI-Warnung vor Framework-Lücken, Onkalo-Endlager, Connected Car APIs\n` +
+        `• 🏛️ Duderstadt: Verabschiedung Thorsten Feike heute 10:30-13 Uhr, Freigabe Herkuleskreisel, Kraniche am Seeburger See\n` +
+        `• 🎃 Events: Halloween Mingerode (Sa 17h Lindenallee), Wochenmarkt Duderstadt (Sa 7-13h), Stadtrundgang (Sa 11h)\n\n` +
+        `Hier das vollständige Magazin lesen: ${PAGE_SHARE_URL}`;
+
+      const dummy = document.createElement("textarea");
+      document.body.appendChild(dummy);
+      dummy.value = teaser;
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+
+      showToast('WhatsApp-Zusammenfassung kopiert!');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('appleToast');
+      document.getElementById('toastMessage').textContent = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 2500);
+    }
+
+    // -----------------------------------------------------------------
+    // 7. THEME TOGGLING (DARK / LIGHT)
+    // -----------------------------------------------------------------
+    function toggleTheme() {
+      const html = document.documentElement;
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      lucide.createIcons();
+    }
+
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    // -----------------------------------------------------------------
+    // 8. BOOTSTRAP
+    // -----------------------------------------------------------------
+    window.addEventListener('DOMContentLoaded', () => {
+      renderFilterPills();
+      renderArticles();
+      renderEvents();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
