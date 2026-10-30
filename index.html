@@ -67,9 +67,6 @@
           <span class="hidden md:inline">Per WhatsApp teilen</span>
         </button>
 
-        <button onclick="scrollToNewsletter()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white transition" title="Newsletter">
-          <i data-lucide="bell" class="w-5 h-5"></i>
-        </button>
         <button id="ttsBtn" onclick="toggleSpeech()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white transition" title="Vorlesen">
           <i data-lucide="volume-2" id="ttsIcon" class="w-5 h-5"></i>
         </button>
@@ -128,55 +125,6 @@
         </div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="eventsGrid"></div>
-    </section>
-
-    <section id="newsletterSection" class="mt-20 p-8 rounded-3xl bg-white dark:bg-[#1c1c1e] apple-glass border border-apple-borderLight dark:border-apple-borderDark shadow-xl space-y-8">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-apple-borderLight dark:border-apple-borderDark">
-        <div>
-          <div class="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-apple-blue mb-1">
-            <i data-lucide="mail" class="w-4 h-4"></i>
-            <span>Newsletter</span>
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-[#1d1d1f] dark:text-white">Tägliches Briefing abonnieren</h2>
-          <p class="text-sm text-apple-subtle mt-1">Mit persönlicher Auswahl der Themen, sauberem Versand und einfacher Abmeldung.</p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="space-y-4">
-          <div>
-            <label class="text-xs font-semibold text-apple-subtle block mb-1">Name</label>
-            <input type="text" id="newsletterName" placeholder="z. B. Luisa" class="w-full text-sm bg-apple-bg dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark px-3.5 py-2.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-apple-blue/20 text-[#1d1d1f] dark:text-white placeholder:text-apple-subtle">
-          </div>
-          <div>
-            <label class="text-xs font-semibold text-apple-subtle block mb-1">E-Mail</label>
-            <input type="email" id="newsletterEmail" placeholder="deine@email.de" class="w-full text-sm bg-apple-bg dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark px-3.5 py-2.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-apple-blue/20 text-[#1d1d1f] dark:text-white placeholder:text-apple-subtle">
-          </div>
-          <div>
-            <label class="text-xs font-semibold text-apple-subtle block mb-1">Interesse</label>
-            <select id="newsletterType" class="w-full text-sm bg-apple-bg dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark px-3.5 py-2.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-apple-blue/20 text-[#1d1d1f] dark:text-white">
-              <option value="daily">Täglicher Briefing</option>
-              <option value="important">Nur wichtige Meldungen</option>
-              <option value="events">Nur Events & Region</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-xs font-semibold text-apple-subtle block mb-1">Versandzeit</label>
-            <input type="time" id="newsletterSendTime" value="07:00" class="w-full text-sm bg-apple-bg dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark px-3.5 py-2.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-apple-blue/20 text-[#1d1d1f] dark:text-white">
-          </div>
-          <button onclick="subscribeNewsletter()" class="w-full py-3 rounded-2xl bg-apple-blue text-white text-sm font-semibold hover:bg-apple-blueHover transition shadow-sm">Jetzt anmelden</button>
-        </div>
-
-        <div class="space-y-4 rounded-3xl border border-apple-borderLight dark:border-apple-borderDark bg-apple-bg dark:bg-black/20 p-5">
-          <div class="flex items-center justify-between gap-3">
-            <h3 class="text-base font-bold tracking-tight">Dein Abo</h3>
-            <span id="newsletterBadge" class="text-[10px] font-semibold uppercase tracking-wide text-apple-subtle">Inaktiv</span>
-          </div>
-          <div id="newsletterStatus" class="text-sm text-apple-subtle leading-relaxed">Noch kein Newsletter-Abo aktiv. Melde dich an, um die wichtigsten Meldungen automatisch zu erhalten.</div>
-          <div id="newsletterList" class="space-y-2"></div>
-          <button id="unsubscribeBtn" onclick="unsubscribeNewsletter()" class="hidden w-full py-2.5 rounded-2xl border border-red-200 bg-red-50 text-red-600 text-xs font-semibold hover:bg-red-100 transition">Abo kündigen</button>
-        </div>
-      </div>
     </section>
   </main>
 
@@ -252,7 +200,6 @@
 
     let currentFilter = 'all';
     let searchQuery = '';
-    let newsletter = JSON.parse(localStorage.getItem('goedecke_newsletter')) || null;
 
     function formatDayDate(date = new Date()) {
       return new Intl.DateTimeFormat('de-DE', {
@@ -337,13 +284,6 @@
       eventRange.textContent = `Termine vom ${formatter.format(saturday)} bis ${formatter.format(sunday)}`;
     }
 
-    function maskEmail(email) {
-      if (!email || !email.includes('@')) return '••••••';
-      const [localPart, domain] = email.split('@');
-      const visibleLocal = localPart.length <= 2 ? localPart.slice(0, 1) + '•' : localPart.slice(0, 2) + '••••';
-      return `${visibleLocal}@${domain}`;
-    }
-
     function renderNews() {
       const grid = document.getElementById('newsGrid');
       grid.innerHTML = '';
@@ -423,96 +363,6 @@
         grid.appendChild(card);
       });
       lucide.createIcons();
-    }
-
-    function renderNewsletter() {
-      const status = document.getElementById('newsletterStatus');
-      const badge = document.getElementById('newsletterBadge');
-      const list = document.getElementById('newsletterList');
-      const unsubscribeBtn = document.getElementById('unsubscribeBtn');
-      const sendTimeInput = document.getElementById('newsletterSendTime');
-
-      if (newsletter && sendTimeInput) {
-        sendTimeInput.value = newsletter.sendTime || '07:00';
-      }
-
-      if (!newsletter) {
-        status.textContent = 'Noch kein Newsletter-Abo aktiv. Melde dich an, um die wichtigsten Meldungen automatisch zu erhalten.';
-        badge.textContent = 'Inaktiv';
-        badge.className = 'text-[10px] font-semibold uppercase tracking-wide text-apple-subtle';
-        list.innerHTML = '';
-        unsubscribeBtn.classList.add('hidden');
-        return;
-      }
-
-      const label = {
-        daily: 'Täglicher Briefing',
-        important: 'Nur wichtige Meldungen',
-        events: 'Nur Events & Region'
-      }[newsletter.type] || 'Newsletter';
-
-      const maskedEmail = maskEmail(newsletter.email);
-      const sendTime = newsletter.sendTime || '07:00';
-
-      status.innerHTML = `
-        <div class="space-y-2">
-          <p class="font-semibold text-[#1d1d1f] dark:text-white">${newsletter.name || 'Abonnent'} ist aktiv.</p>
-          <p class="text-xs text-apple-subtle font-mono">E-Mail verborgen: ${maskedEmail}</p>
-          <p class="text-xs text-apple-blue">${label}</p>
-          <p class="text-xs text-apple-subtle">Versandzeit: ${sendTime} Uhr</p>
-        </div>
-      `;
-      badge.textContent = 'Aktiv';
-      badge.className = 'text-[10px] font-semibold uppercase tracking-wide text-emerald-600 bg-emerald-100 dark:bg-emerald-500/15 dark:text-emerald-400 px-2 py-1 rounded-full';
-      list.innerHTML = `
-        <div class="flex items-center justify-between p-3 rounded-2xl bg-white dark:bg-black/30 border border-apple-borderLight dark:border-apple-borderDark text-xs gap-2">
-          <div>
-            <div class="font-semibold text-[#1d1d1f] dark:text-white">${newsletter.name || 'Newsletter'}</div>
-            <div class="text-apple-subtle font-mono text-[10px]">E-Mail verborgen</div>
-          </div>
-          <div class="text-right">
-            <div class="text-apple-blue font-semibold">${label}</div>
-            <div class="text-apple-subtle text-[10px]">${sendTime} Uhr</div>
-          </div>
-        </div>
-      `;
-      unsubscribeBtn.classList.remove('hidden');
-    }
-
-    function subscribeNewsletter() {
-      const name = document.getElementById('newsletterName').value.trim();
-      const email = document.getElementById('newsletterEmail').value.trim();
-      const type = document.getElementById('newsletterType').value;
-      const sendTime = document.getElementById('newsletterSendTime').value || '07:00';
-
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        alert('Bitte gib eine gültige E-Mail-Adresse ein.');
-        return;
-      }
-
-      newsletter = {
-        id: Date.now(),
-        name: name || 'Neues Abo',
-        email,
-        type,
-        sendTime,
-        createdAt: new Date().toISOString()
-      };
-
-      localStorage.setItem('goedecke_newsletter', JSON.stringify(newsletter));
-      renderNewsletter();
-      document.getElementById('newsletterEmail').value = '';
-      document.getElementById('newsletterName').value = '';
-      alert('Newsletter erfolgreich angemeldet. Die Versandzeit wurde gespeichert.');
-    }
-
-    function unsubscribeNewsletter() {
-      if (!newsletter) return;
-      if (confirm('Möchtest du dein Newsletter-Abo wirklich kündigen?')) {
-        localStorage.removeItem('goedecke_newsletter');
-        newsletter = null;
-        renderNewsletter();
-      }
     }
 
     function filterCategory(cat) {
@@ -601,7 +451,7 @@
     function shareViaWhatsApp() {
       const currentUrl = window.location.href.includes('http') ? window.location.href : 'https://salkin180.github.io/agent-nachrichten-goedecke/';
       const now = new Date();
-      const currentLabel = formatDateTime(now).replace(' • ', ' • ');
+      const currentLabel = formatDateTime(now);
       const message = `tägliche Zusammenfassung des heutigen Tages
 
 Guten Morgen! Hier ist dein interaktives Nachrichten-Briefing für ${currentLabel}:
@@ -637,16 +487,11 @@ ${currentUrl}`;
       window.open(whatsappUrl, '_blank');
     }
 
-    function scrollToNewsletter() {
-      document.getElementById('newsletterSection').scrollIntoView({ behavior: 'smooth' });
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
       updateCurrentDateUI();
       updateEventRangeText();
       renderNews();
       renderEvents();
-      renderNewsletter();
       loadWeather();
       lucide.createIcons();
     });
