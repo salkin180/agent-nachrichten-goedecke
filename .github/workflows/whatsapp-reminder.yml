@@ -1,0 +1,21 @@
+name: Tägliche WhatsApp-Zusammenfassung
+
+on:
+  schedule:
+    # 07:00 UTC entspricht 08:00 Uhr deutscher Winterzeit (MEZ)
+    - cron: '0 7 * * *'
+  workflow_dispatch: # Ermöglicht den manuellen Test-Button unter "Actions"
+
+jobs:
+  send-whatsapp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: WhatsApp Nachricht senden
+        run: |
+          PHONE="491701234567"      # Deine Handynummer (mit 49, ohne führende Null und ohne +)
+          APIKEY="DEIN_API_KEY"      # Dein CallMeBot-API-Key
+          URL="https://salkin180.github.io/agent-nachrichten-goedecke/"
+          
+          TEXT="tägliche Zusammenfassung des heutigen Tages%0A%0AGuten Morgen! Dein interaktives Briefing steht bereit:%0A${URL}"
+          
+          curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${TEXT}&apikey=${APIKEY}"
