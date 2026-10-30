@@ -127,7 +127,7 @@
   </section>
 
   <main class="max-w-6xl mx-auto px-4 sm:px-6 mt-6">
-    <div id="newsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <div id="newsGrid" class="space-y-8"></div>
 
     <section id="eventsSection" class="mt-16 space-y-6">
       <div class="flex items-center space-x-3 pb-3 border-b border-apple-borderLight dark:border-apple-borderDark">
@@ -177,6 +177,13 @@
       year: 'numeric'
     }).format(new Date());
 
+    const CATEGORY_META = {
+      politik: { label: 'Politik', tone: 'bg-blue-500/10 text-blue-700 dark:text-blue-300' },
+      wirtschaft: { label: 'Wirtschaft', tone: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' },
+      technik: { label: 'Technik', tone: 'bg-violet-500/10 text-violet-700 dark:text-violet-300' },
+      regional: { label: 'Regional', tone: 'bg-amber-500/10 text-amber-700 dark:text-amber-300' }
+    };
+
     const NEWS_DATABASE = [
       { id: 1, cat: 'politik', badge: 'Top 1 Politik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Spanisches Zugunglück bei Toledo: Ermittler sichern Zugsicherung und Funkdaten', summary: 'Nach dem Zugunglück in Spanien stehen die Auswertung der Zugsicherung und Funkdaten im Fokus. Die Untersuchung soll Aufklärung über die Ursache bringen und die Sicherheitslage auf den Schienen in Europa beurteilen.', fullText: 'Die Ermittler in Spanien konzentrieren sich auf die ausgelösten Signal- und Funkdaten sowie die Sicherungssysteme des betroffenen Zuges. Eine erste Einschätzung deutet auf ein komplexes Zusammenspiel technischer und organisatorischer Faktoren hin. Die zuständigen Behörden prüfen zugleich, ob die eingeleiteten Schutzmaßnahmen den aktuellen Sicherheitsstandards entsprechen. Bereits jetzt ist klar: Die Untersuchung beeinflusst nicht nur die nationale Sicherheitsdebatte, sondern auch die europäische Diskussion zu modernisierter Zugtechnik und Betriebsabläufen.', img: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
       { id: 2, cat: 'politik', badge: 'Top 2 Politik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Kabinett bringt „Gebäudetyp E“ auf den Weg: Günstigeres Bauen', summary: 'Die Bundesregierung will mit dem neuen Gebäudetyp E den Wohnungsbau in Deutschland vereinfachen und die Kosten für moderne Eigenheime senken. Das Vorhaben zielt auf standardisierte, kostengünstigere Konstruktionen mit einem klaren ökologischen Rahmen ab.', fullText: 'Das Kabinett hat den Entwurf für den sogenannten Gebäudetyp E freigegeben und damit einen wichtigen Hebel für das langfristige Baumanagement geschaffen. Ziel ist, die Planungs- und Bauzeit zu verkürzen und dadurch niedrigere Kosten für Haushalte und Investoren zu erzielen. Gleichzeitig sollen Bauvorschriften im Bereich Energieeffizienz und Nachhaltigkeit einheitlicher werden. Kritiker warnen jedoch vor Qualitätsverlusten und unverhältnismäßigen Standardisierungen in der Praxis.', img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
@@ -191,13 +198,13 @@
       { id: 11, cat: 'wirtschaft', badge: 'Top 1 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'ifo-Geschäftsklima steigt den sechsten Monat in Folge', summary: 'Das Wirtschaftsbarometer steigt erneut, was auf bessere Erwartungen in Industrie und Dienstleistung hindeutet. Die Unternehmen gehen nach Einschätzung der ifo-Institute von einer stärkeren Dynamik aus.', fullText: 'Das ifo-Geschäftsklima hat überraschend zugelegt und damit den sechsten Monat in Folge positive Stimmen aus Branchen erhalten. Die Ursachen liegen unter anderem in den verbesserten Auftragslagen und der insgesamt positiven Einschätzung seitens der Führungskräfte. Für die Konjunktur bedeutet das ein wichtiges Signal: Die Unternehmen rechnen im kommenden Quartal mit einer etwas robusteren Lage als noch vor wenigen Monaten.', img: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
       { id: 12, cat: 'wirtschaft', badge: 'Top 2 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Industrie fordert Senkung der Stromsteuer für alle Betriebe', summary: 'Verbände wollen die Besteuerung von Strom für Unternehmen deutlich reduzieren, um Energiepreise und Standortvorteile zu verbessern. Die Initiative kommt vor dem Hintergrund von Investitionsentscheidungen und Wettbewerbsfähigkeit.', fullText: 'Die deutsche Industrie fordert eine deutliche Senkung der Stromsteuer für alle Betriebe. Dabei betonen die Verbände, dass hohe Energiekosten unmittelbar die Wettbewerbsfähigkeit der Produktion beeinflussen. Die Politik steht vor der Entscheidung, ob sie die Energiepreise zugleich als Standortfaktor und Klimaschutzmaßnahme interpretieren will. Die Debatte zeichnet sich als eine der zentralen wirtschaftspolitischen Herausforderungen des Jahres ab.', img: 'https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
       { id: 13, cat: 'wirtschaft', badge: 'Top 3 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Regionalisierungsmittel: Länder warnen vor ÖPNV-Kürzungen', summary: 'Verkehrsminister befürchten bei einer Reduzierung der Mittel massive Belastungen für den ÖPNV. Die Diskussion wirft Fragen zu Finanzierung und regionale Verteilung auf.', fullText: 'Die Länder warnen vor einer strukturellen Schwächung des ÖPNV, sollte die Finanzierung der Regionalisierungsmittel gekürzt werden. Gerade ländliche Räume würden davon stark betroffen sein. Diese Debatte spiegelt zugleich die Herausforderungen der Verkehrspolitik wider: Anbieter brauchen Investitionen, während zugleich Preis- und Stabilitätsentscheidungen politische Priorität haben.', img: 'https://images.unsplash.com/photo-1528747045269-390fe33c19f2?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 14, cat: 'wirtschaft', badge: 'Top 4 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Automobilzulieferer beschleunigen Standortkonsolidierung', summary: 'Höhere Energiepreise und schwache Nachfrage führen dazu, dass Zulieferer ihre Standorte stärker bündeln. Die Folgen treffen sowohl Beschäftigung als auch regionale Wirtschaftsräume.', fullText: 'Die Automobilzulieferer reagieren auf zunehmende Wettbewerbsdruck mit einer Konsolidierung ihrer Produktionsstandorte. Die Überlegungen basieren auf einem Gemisch aus Energiepreisen, weltlicher Nachfrage und Produktverschiebungen. Unternehmen und Verbände erwarten, dass die Konsolidierung in den kommenden Quartalen weiter an Dynamik gewinnt.', img: 'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 14, cat: 'wirtschaft', badge: 'Top 4 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Automobilzulieferer beschleunigen Standortkonsolidierung', summary: 'Höhere Energiepreise und schwache Nachfrage führen dazu, dass Zulieferer ihre Standorte stärker bündeln. Die Folgen treffen sowohl Beschäftigung als auch regionale Wirtschaftsräume.', fullText: 'Die Automobilzulieferer reagieren auf zunehmende Wettbewerbsdruck mit einer Konsolidierung ihrer Produktionsstandorte. Die Überlegungen basieren auf einem Gemisch aus Energiepreisen, weltweiter Nachfrage und Produktverschiebungen. Unternehmen und Verbände erwarten, dass die Konsolidierung in den kommenden Quartalen weiter an Dynamik gewinnt.', img: 'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
       { id: 15, cat: 'wirtschaft', badge: 'Top 5 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Entscheidung über Briefporto ab 2027 vor dem Abschluss', summary: 'Bundesnetzagentur und Ministerium arbeiten an einem neuen Angebot zur Regulierung des Briefportos. Die Entscheidung für 2027 könnte wichtige Rahmenbedingungen für die Post- und Logistikbranche schaffen.', fullText: 'Die Regulierung des Briefportos für ab 2027 wird derzeit vertieft diskutiert. Die Entscheidung wird erhebliche Auswirkungen auf die Postbranche, die Logistik und das Verhalten der Verbraucher haben. Eine spürbare Senkung oder Stabilisierung wäre deshalb nicht nur wirtschaftspolitisch, sondern auch gesellschaftlich relevant. Die Gespräche laufen in einem spannungsreichen Umfeld zwischen Kosteneffizienz und Versorgungsauftrag.', img: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
       { id: 16, cat: 'wirtschaft', badge: 'Top 6 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Bankensektor: Produktivitätsgewinne durch interne KI-Systeme', summary: 'Mehrere Banken setzen vermehrt interne KI-Systeme ein, um Prozesse zu automatisieren und Fehler zu verringern. Die digitale Transformation zeigt erste Effekte auf Produktivität und Servicequalität.', fullText: 'Die Entlastung der internen Prozesse durch künstliche Intelligenz gewinnt zunehmend an Bedeutung. Banken nutzen KI nicht nur für riskobasierte Entscheidungen, sondern auch für die Optimierung interner Abläufe und Kundensupport. Die langfristige Wirkung könnte im Bereich der Effizienz und der Produktivität besonders deutlich werden. Kritiker warnen jedoch vor einer Überforderung der Governance und vor unvollständigen Regelwerken.', img: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
       { id: 17, cat: 'wirtschaft', badge: 'Top 7 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Konsumklima: GfK erwartet preissensibles Weihnachtsgeschäft', summary: 'Die Verbraucher erwarten ein anspruchsvolles Weihnachtsgeschäft mit Fokus auf Preis und Qualität. Die Branche rechnet mit Umsätzen, die stärker von Kaufentscheidungen und Rabattaktionen abhängen.', fullText: 'Das GfK-Konsumklima zeigt, dass Verbraucher im Herbst auf Preis-Leistungs-Verhältnis achten. Werbeaktionen und besondere Angebote werden mit höherer Wahrscheinlichkeit die Kaufentscheidungen im Weihnachtsgeschäft beeinflussen. Versicherungen und Händler reagieren mit flexibleren Produktportfolios und stärkerem Promotionsmanagement. Diese Entwicklung ist für Hersteller und Einzelhändler von hoher strategischer Bedeutung.', img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
       { id: 18, cat: 'wirtschaft', badge: 'Top 8 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Batterie-Garantierückstellungen belasten Autobauer-Quartalszahlen', summary: 'Vorsorgliche Rückstellungen für Batteriesysteme setzen viele Autobauer unter Druck. Die Strategie steht im Spannungsfeld zwischen Elektromobilität und wirtschaftlicher Stabilität.', fullText: 'Autobauer müssen die Garantierückstellungen für Batteriesysteme in ihren Quartalszahlen deutlich berücksichtigen. Diese Rückstellungen sind eine Folge aus der höheren technischen Komplexität und aus langfristigen Gewährleistungsansprüchen. Die Kennzahlen zeigen, dass die Transformation der Autoindustrie nicht nur mit Investitionen, sondern auch mit erheblichen Risikostufen verbunden ist. Die Diskussion dreht sich um die richtige Balance zwischen Zukunftsstrategien und Kurzfriststabilität.', img: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
       { id: 19, cat: 'wirtschaft', badge: 'Top 9 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Rohstoffmärkte: Gold behauptet Rekordniveau nahe 2.740 Dollar', summary: 'Sicherheitsbedürfnisse, Wechselkursbewegungen und geopolitische Unruhe halten Gold nach wie vor auf hohem Niveau. Der Markt zeigt weiterhin eine starke Nachfrage nach sicheren Anlagen.', fullText: 'Gold behält in den Rohstoffmärkten ein Rekordniveau und verzeichnet starke Nachfrage aus globalen Sicherheitsanliegen. Bereinigt um kurzfristige Volatilität steht das Edelmetall für die Sorge um langfristige finanzielle Stabilität. Anleger und Analysten beobachten die kurzfristigen Hebelwirkungen auf Währungen und Finanzmärkte mit besonderem Interesse.', img: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 20, cat: 'wirtschaft', badge: 'Top 10 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Forschungsförderung: Mittelstand mahnt verbindliche Antragsfristen an', summary: 'Der Mittelstand fordert klare Regeln und verbindliche Antragsfristen für Fördermittel. Die Initiative zielt auf reduzirte Verwaltungsarbeit und bessere Investitionssicherheit.', fullText: 'Mittelständische Unternehmen kritisieren den verwaltungsintensiven Förderprozess und fordern verbindliche Fristen, damit Planungen nicht an bürokratischen Hürden scheitern. Die Debatte kommt zur rechten Zeit, da viele Unternehmen in Forschung, Digitalisierung und nachhaltige Produktion investieren wollen. Die Definition klarer Richtlinien scheint für die Innovationskraft Deutschlands besonders wichtig zu sein.', img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
+      { id: 20, cat: 'wirtschaft', badge: 'Top 10 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Forschungsförderung: Mittelstand mahnt verbindliche Antragsfristen an', summary: 'Der Mittelstand fordert klare Regeln und verbindliche Antragsfristen für Fördermittel. Die Initiative zielt auf reduzierten Verwaltungsaufwand und bessere Investitionssicherheit.', fullText: 'Mittelständische Unternehmen kritisieren den verwaltungsintensiven Förderprozess und fordern verbindliche Fristen, damit Planungen nicht an bürokratischen Hürden scheitern. Die Debatte kommt zur rechten Zeit, da viele Unternehmen in Forschung, Digitalisierung und nachhaltige Produktion investieren wollen. Die Definition klarer Richtlinien scheint für die Innovationskraft Deutschlands besonders wichtig zu sein.', img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
       { id: 21, cat: 'technik', badge: 'Top 1 Technik', date: TODAY_SHORT, source: 'BSI', title: 'BSI erneuert Dringlichkeitswarnung vor Angriffen auf Web-Frameworks', summary: 'Das BSI warnt erneut vor massenhaft beobachteten Angriffen auf gängige Web-Frameworks. Die Sicherheitsexperten empfehlen Sofortmaßnahmen bei Webservern und Anwendungen.', fullText: 'Das Bundesamt für Sicherheit in der Informationstechnik hat eine erneute Warnung vor allgemein bekannten Sicherheitslücken in verbreiteten Web-Frameworks veröffentlicht. Die Angriffe betreffen vor allem unzureichend aktualisierte Installationen mit veralteter Konfiguration. Die unmittelbare Handlungsnotwendigkeit ist hoch, da sich automatisierte Angriffe schnell verbreiten. Bei Unternehmen ist ein gezieltes Patch- und Sicherheitsmanagement daher dringend erforderlich.', img: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=80', url: 'https://www.bsi.bund.de/' },
       { id: 22, cat: 'technik', badge: 'Top 2 Technik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Endlager Onkalo: Finnische Multibarrieren-Technologie setzt Maßstäbe', summary: 'Die finnische Endlagerstrategie mit Multibarriere-Konzept setzt neue Maßstäbe für die sichere langfristige Lagerung radioaktiver Materialien in Europa und darüber hinaus.', fullText: 'Die finnische Endlagerlösung Onkalo zeigt, wie Multibarrieren- und Schichtenkonzepte langfristige Sicherheit für radioaktive Abfälle gewährleisten können. Die Technologie wird in Europa als Vorbild für wesentliche Sicherheitsentscheidungen diskutiert. Entscheidend ist dabei nicht nur das technische Design, sondern auch die gesellschaftliche Akzeptanz und die klare governance-Struktur über Jahrzehnte hinweg.', img: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
       { id: 23, cat: 'technik', badge: 'Top 3 Technik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Cybersicherheit bei vernetzten Fahrzeugen: API-Schutz im Zentrum', summary: 'Studien zeigen, dass Sicherheitslücken in Fahrzeug-APIs ein zentrales Risiko für vernetzte Autos darstellen. Die Branchentechnologie fordert einen stärkeren Fokus auf Absicherung und Monitoring.', fullText: 'Bei modernen Fahrzeugen stehen die Schnittstellen zu Cloud-Diensten, Mobilfunk und Fahrzeugfunktionen im Zentrum der Sicherheitsdebatte. Die Risiken entstehen durch unzureichend geschützte APIs und mangelnde Überwachung. Hersteller reagieren mit neuen Sicherheitsarchitekturen, strengeren Testprozessen und Szenarien, die den Zugriff auf Fahrdaten und Steuerungen minimieren sollen.', img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
@@ -211,12 +218,12 @@
     ];
 
     const EVENTS_DATABASE = [
-      { title: 'Halloween-Aktion in Mingerode', location: 'Lindenallee, Mingerode', time: 'Samstag, 31. Oktober • 17:00 – 20:00 Uhr', desc: 'Traditionelles Halloween-Event für Familien und Kinder mit Kostümwettbewerb, Musik und einheimischen Angeboten.', badge: 'Familie', img: 'https://images.unsplash.com/photo-1503756234508-e32369269deb?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Halloween+Mingerode' },
-      { title: 'Traditioneller Duderstädter Wochenmarkt', location: 'Marktstraße, Duderstadt', time: 'Samstag, 31. Oktober • 07:00 – 13:00 Uhr', desc: 'Frische regionale Erzeugnisse, Handwerk und saisonale Spezialitäten rund um den Markt in der historischen Innenstadt.', badge: 'Regional', img: 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Wochenmarkt+Duderstadt' },
-      { title: 'Historischer Stadtrundgang durch Duderstadt', location: 'Historisches Rathaus, Marktstraße 66', time: 'Samstag, 31. Oktober • 11:00 Uhr', desc: 'Führung durch die mittelalterliche Altstadt mit Erzählungen zu Geschichte, Architektur und lokalen Besonderheiten.', badge: 'Kultur', img: 'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Stadtrundgang+Duderstadt' },
-      { title: 'Reformationstag im Eichsfeld', location: 'St. Servatius Duderstadt & Region', time: 'Samstag, 31. Oktober', desc: 'Festgottesdienste und Kirchenmusik zum gesetzlichen Feiertag in Niedersachsen mit regionaler Ausrichtung.', badge: 'Religion', img: 'https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Reformationstag+Eichsfeld' },
-      { title: 'Herbst-Exkursion am Seeburger See', location: 'Natur-Erlebniszentrum Seeburg', time: 'Sonntag, 01. November • 10:00 Uhr', desc: 'Geführte Beobachtung des herbstlichen Vogelzugs, Wanderung und Ruhe im Naturraum der Region.', badge: 'Natur', img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Seeburger+See+Exkursion' },
-      { title: 'Kultur- & Theaterwochenende Göttingen', location: 'Deutsches Theater & Lokhalle Göttingen', time: 'Samstag & Sonntag • Abends', desc: 'Theater- und Konzertprogramm in der Universitätsstadt mit regionalem Fokus und zeitgemäßer Vielfalt.', badge: 'Kultur', img: 'https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Theater+G%C3%B6ttingen' }
+      { title: 'Halloween-Aktion in Mingerode', location: 'Lindenallee, Mingerode', dayOffset: 0, startHour: 17, endHour: 20, desc: 'Traditionelles Halloween-Event für Familien und Kinder mit Kostümwettbewerb, Musik und einheimischen Angeboten.', badge: 'Familie', img: 'https://images.unsplash.com/photo-1503756234508-e32369269deb?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Halloween+Mingerode' },
+      { title: 'Traditioneller Duderstädter Wochenmarkt', location: 'Marktstraße, Duderstadt', dayOffset: 0, startHour: 7, endHour: 13, desc: 'Frische regionale Erzeugnisse, Handwerk und saisonale Spezialitäten rund um den Markt in der historischen Innenstadt.', badge: 'Regional', img: 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Wochenmarkt+Duderstadt' },
+      { title: 'Historischer Stadtrundgang durch Duderstadt', location: 'Historisches Rathaus, Marktstraße 66', dayOffset: 0, startHour: 11, endHour: 12, desc: 'Führung durch die mittelalterliche Altstadt mit Erzählungen zu Geschichte, Architektur und lokalen Besonderheiten.', badge: 'Kultur', img: 'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Stadtrundgang+Duderstadt' },
+      { title: 'Reformationstag im Eichsfeld', location: 'St. Servatius Duderstadt & Region', dayOffset: 0, startHour: 9, endHour: 18, desc: 'Festgottesdienste und Kirchenmusik zum gesetzlichen Feiertag in Niedersachsen mit regionaler Ausrichtung.', badge: 'Religion', img: 'https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Reformationstag+Eichsfeld' },
+      { title: 'Herbst-Exkursion am Seeburger See', location: 'Natur-Erlebniszentrum Seeburg', dayOffset: 1, startHour: 10, endHour: 13, desc: 'Geführte Beobachtung des herbstlichen Vogelzugs, Wanderung und Ruhe im Naturraum der Region.', badge: 'Natur', img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Seeburger+See+Exkursion' },
+      { title: 'Kultur- & Theaterwochenende Göttingen', location: 'Deutsches Theater & Lokhalle Göttingen', dayOffset: 0, startHour: 18, endHour: 23, desc: 'Theater- und Konzertprogramm in der Universitätsstadt mit regionalem Fokus und zeitgemäßer Vielfalt.', badge: 'Kultur', img: 'https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Theater+G%C3%B6ttingen' }
     ];
 
     let currentFilter = 'all';
@@ -243,6 +250,36 @@
         minute: '2-digit',
         hour12: false
       }).format(date)} Uhr`;
+    }
+
+    function getCurrentWeekendDates() {
+      const today = new Date();
+      const currentDay = today.getDay();
+      const saturday = new Date(today);
+      const daysUntilSaturday = currentDay === 6 ? 0 : (6 - currentDay + 7) % 7;
+      saturday.setDate(today.getDate() + daysUntilSaturday);
+      const sunday = new Date(saturday);
+      sunday.setDate(saturday.getDate() + 1);
+      return { saturday, sunday };
+    }
+
+    function formatEventDay(date) {
+      return new Intl.DateTimeFormat('de-DE', {
+        weekday: 'long',
+        day: '2-digit',
+        month: '2-digit'
+      }).format(date);
+    }
+
+    function formatEventTime(evt) {
+      const { saturday } = getCurrentWeekendDates();
+      const eventDate = new Date(saturday);
+      eventDate.setDate(saturday.getDate() + (evt.dayOffset ?? 0));
+      const weekdayName = new Intl.DateTimeFormat('de-DE', { weekday: 'long' }).format(eventDate);
+      const datePart = new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit' }).format(eventDate);
+      const start = String(evt.startHour).padStart(2, '0') + ':00';
+      const end = String(evt.endHour).padStart(2, '0') + ':00';
+      return `${weekdayName.charAt(0).toUpperCase() + weekdayName.slice(1)}, ${datePart} • ${start} – ${end} Uhr`;
     }
 
     function updateCurrentDateUI() {
@@ -374,7 +411,7 @@
 
         tempEl.textContent = `${temp}°C`;
         iconEl.textContent = getWeatherIcon(code);
-        conditionEl.textContent = `${condition}`;
+        conditionEl.textContent = condition;
         metaEl.textContent = `Gefühlt ${feelsLike}°C • Wind ${wind} km/h • ${new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit' }).format(new Date())}`;
         rainBadge.textContent = rainText;
         rainBadge.className = `inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${rainText === 'Es regnet' ? 'bg-amber-500/10 text-amber-700 dark:text-amber-300' : rainText === 'Vorsicht Regen' ? 'bg-yellow-500/10 text-yellow-700 dark:text-yellow-300' : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'}`;
@@ -395,36 +432,14 @@
     function updateEventRangeText() {
       const eventRange = document.getElementById('eventRange');
       if (!eventRange) return;
-      const today = new Date();
-      const weekday = today.getDay();
-      const daysUntilSaturday = (6 - weekday + 7) % 7 || 7;
-      const saturday = new Date(today);
-      saturday.setDate(today.getDate() + daysUntilSaturday);
-      const sunday = new Date(saturday);
-      sunday.setDate(saturday.getDate() + 1);
+      const { saturday, sunday } = getCurrentWeekendDates();
       const formatter = new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit' });
       eventRange.textContent = `Termine vom ${formatter.format(saturday)} bis ${formatter.format(sunday)}`;
     }
 
-    function renderNews() {
-      const grid = document.getElementById('newsGrid');
-      grid.innerHTML = '';
-      const filtered = NEWS_DATABASE.filter(item => {
-        const matchesCategory = (currentFilter === 'all' || item.cat === currentFilter);
-        const matchesSearch = item.title.toLowerCase().includes(searchQuery) || item.summary.toLowerCase().includes(searchQuery);
-        return matchesCategory && matchesSearch;
-      });
-
-      if (filtered.length === 0) {
-        grid.innerHTML = '<div class="col-span-full py-16 text-center text-apple-subtle">Keine Artikel gefunden.</div>';
-        return;
-      }
-
-      filtered.forEach(item => {
-        const card = document.createElement('article');
-        card.className = 'group bg-apple-card dark:bg-apple-darkCard apple-glass rounded-3xl border border-apple-borderLight dark:border-apple-borderDark overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-md transition';
-        card.onclick = () => openModal(item);
-        card.innerHTML = `
+    function getNewsCardMarkup(item) {
+      return `
+        <article class="group bg-apple-card dark:bg-apple-darkCard apple-glass rounded-3xl border border-apple-borderLight dark:border-apple-borderDark overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-md transition" onclick="openModal(${JSON.stringify(item)})" style="cursor:pointer;">
           <div>
             <div class="h-48 w-full overflow-hidden bg-black/10 relative">
               <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
@@ -448,16 +463,55 @@
               <i data-lucide="external-link" class="w-4 h-4"></i>
             </a>
           </div>
+        </article>
+      `;
+    }
+
+    function renderNews() {
+      const grid = document.getElementById('newsGrid');
+      grid.innerHTML = '';
+
+      const categories = currentFilter === 'all' ? Object.keys(CATEGORY_META) : [currentFilter];
+
+      let anyVisible = false;
+
+      categories.forEach((cat) => {
+        const items = NEWS_DATABASE.filter((item) => {
+          const matchesCategory = item.cat === cat;
+          const matchesSearch = item.title.toLowerCase().includes(searchQuery) || item.summary.toLowerCase().includes(searchQuery);
+          return matchesCategory && matchesSearch;
+        });
+
+        if (!items.length) return;
+        anyVisible = true;
+
+        const section = document.createElement('section');
+        section.className = 'space-y-4';
+        section.innerHTML = `
+          <div class="flex items-center justify-between gap-3 pb-2 border-b border-apple-borderLight dark:border-apple-borderDark">
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${CATEGORY_META[cat].tone}">${CATEGORY_META[cat].label}</span>
+            </div>
+            <span class="text-xs text-apple-subtle font-medium">${items.length} Beiträge</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            ${items.map(getNewsCardMarkup).join('')}
+          </div>
         `;
-        grid.appendChild(card);
+        grid.appendChild(section);
       });
+
+      if (!anyVisible) {
+        grid.innerHTML = '<div class="py-16 text-center text-apple-subtle">Keine Artikel gefunden.</div>';
+      }
+
       lucide.createIcons();
     }
 
     function renderEvents() {
       const grid = document.getElementById('eventsGrid');
       grid.innerHTML = '';
-      EVENTS_DATABASE.forEach(evt => {
+      EVENTS_DATABASE.forEach((evt) => {
         const card = document.createElement('article');
         card.className = 'group bg-apple-card dark:bg-apple-darkCard apple-glass rounded-3xl border border-apple-borderLight dark:border-apple-borderDark overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-md transition';
         card.innerHTML = `
@@ -470,7 +524,7 @@
               <h3 class="text-base font-bold tracking-tight text-[#1d1d1f] dark:text-white mb-2 leading-snug">${evt.title}</h3>
               <div class="space-y-1 mb-3 text-xs text-apple-subtle">
                 <div class="flex items-center space-x-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-apple-blue"></i><span>${evt.location}</span></div>
-                <div class="flex items-center space-x-2"><i data-lucide="clock" class="w-3.5 h-3.5 text-apple-blue"></i><span>${evt.time}</span></div>
+                <div class="flex items-center space-x-2"><i data-lucide="clock" class="w-3.5 h-3.5 text-apple-blue"></i><span>${formatEventTime(evt)}</span></div>
               </div>
               <p class="text-xs text-apple-subtle leading-relaxed">${evt.desc}</p>
             </div>
@@ -489,21 +543,26 @@
 
     function filterCategory(cat) {
       currentFilter = cat;
-      document.querySelectorAll('.cat-pill').forEach(btn => {
+      document.querySelectorAll('.cat-pill').forEach((btn) => {
         if (btn.dataset.cat === cat) {
           btn.className = 'cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-apple-blue text-white shadow-sm';
         } else {
           btn.className = 'cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark';
         }
       });
+
       const eventsSec = document.getElementById('eventsSection');
       if (cat === 'events') {
         document.getElementById('newsGrid').classList.add('hidden');
         eventsSec.scrollIntoView({ behavior: 'smooth' });
       } else {
         document.getElementById('newsGrid').classList.remove('hidden');
+        renderNews();
       }
-      renderNews();
+
+      if (cat !== 'events') {
+        renderNews();
+      }
     }
 
     function handleSearch(q) {
@@ -554,14 +613,14 @@
         'Microsoft Stefan'
       ];
 
-      const matching = voices.filter(voice => {
+      const matching = voices.filter((voice) => {
         const v = voice.name.toLowerCase();
         const lang = voice.lang.toLowerCase();
-        return /de|deutsch|german/.test(lang) || preferredNames.some(name => v.includes(name.toLowerCase()));
+        return /de|deutsch|german/.test(lang) || preferredNames.some((name) => v.includes(name.toLowerCase()));
       });
 
       const direct = preferredNames
-        .map(name => matching.find(voice => voice.name.toLowerCase().includes(name.toLowerCase())))
+        .map((name) => matching.find((voice) => voice.name.toLowerCase().includes(name.toLowerCase())))
         .find(Boolean);
 
       return direct || matching[0] || voices[0] || null;
