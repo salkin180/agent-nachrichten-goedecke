@@ -9,27 +9,32 @@ on:
 jobs:
   send-whatsapp:
     runs-on: ubuntu-latest
+
     steps:
       - name: WhatsApp Nachricht senden
+        env:
+          PHONE: ${{ secrets.WHATSAPP_PHONE }}
+          APIKEY: ${{ secrets.CALLMEBOT_APIKEY }}
+          URL: "https://salkin180.github.io/agent-nachrichten-goedecke/"
         run: |
-          PHONE="491701234567"      # Deine Handynummer (mit 49, ohne + und ohne 0)
-          APIKEY="DEIN_API_KEY"      # Dein CallMeBot API-Key
-          URL="https://salkin180.github.io/agent-nachrichten-goedecke/"
-          
-          MESSAGE="tägliche Zusammenfassung des heutigen Tages
+          TODAY=$(date '+%A, %d. %B %Y')
 
-Guten Morgen! Hier ist dein interaktives Nachrichten-Briefing für Freitag, 30. Oktober 2026:
+          MESSAGE=$(cat <<EOF
+          tägliche Zusammenfassung des heutigen Tages
 
-🏛️ Politik: Zugunglück bei Toledo | Gebäudetyp E beschlossen | Kanzlerreise Asien
-📈 Wirtschaft: ifo-Geschäftsklima klettert | Stromsteuerdebatte | Nahverkehrsfinanzierung
-💻 Technik: BSI-Warnung vor Web-Exploits | Endlager Onkalo | Connected-Car-APIs
-📍 Region: Amtswechsel im Stadthaus Duderstadt | Sanierungsreihe Fachwerk5Eck | Halloween Mingerode
+          Guten Morgen! Hier ist dein interaktives Nachrichten-Briefing für ${TODAY}:
 
-Vollständiges Magazin mit allen Details & Events:
-${URL}"
+          🏛️ Politik: Zugunglück bei Toledo | Gebäudetyp E beschlossen | Kanzlerreise Asien
+          📈 Wirtschaft: ifo-Geschäftsklima klettert | Stromsteuerdebatte | Nahverkehrsfinanzierung
+          💻 Technik: BSI-Warnung vor Web-Exploits | Endlager Onkalo | Connected-Car-APIs
+          📍 Region: Amtswechsel im Stadthaus Duderstadt | Sanierungsreihe Fachwerk5Eck | Halloween Mingerode
 
-          # Sauberes Senden ohne URL-Syntaxfehler
-          curl -s -G "https://api.callmebot.com/whatsapp.php" \
+          Vollständiges Magazin mit allen Details & Events:
+          ${URL}
+          EOF
+          )
+
+          curl -sS -G "https://api.callmebot.com/whatsapp.php" \
             --data-urlencode "phone=${PHONE}" \
             --data-urlencode "text=${MESSAGE}" \
             --data-urlencode "apikey=${APIKEY}" \
