@@ -168,9 +168,18 @@
     .tagesschau-video iframe {
       display: block;
       width: 100%;
-      height: clamp(320px, 42vw, 560px);
+      height: clamp(480px, 64vh, 820px);
+      min-height: 480px;
       border: 0;
-      background: #0f172a;
+      background: #000;
+      border-radius: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .tagesschau-video iframe {
+        height: clamp(520px, 76vh, 760px);
+        min-height: 520px;
+      }
     }
   </style>
 </head>
@@ -189,18 +198,18 @@
         </div>
 
         <div class="hidden items-center gap-2 md:flex">
-          <button type="button" data-nav="politik" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">Politik</button>
-          <button type="button" data-nav="wirtschaft" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">Wirtschaft</button>
-          <button type="button" data-nav="technik" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">Technik</button>
-          <button type="button" data-nav="regional" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">Regional</button>
-          <button type="button" data-nav="events" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">Events</button>
+          <button type="button" data-nav="politik" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">Politik</button>
+          <button type="button" data-nav="wirtschaft" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">Wirtschaft</button>
+          <button type="button" data-nav="technik" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">Technik</button>
+          <button type="button" data-nav="regional" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">Regional</button>
+          <button type="button" data-nav="events" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">Events</button>
         </div>
 
         <div class="flex items-center gap-2 sm:gap-3">
-          <button id="themeToggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">
+          <button id="themeToggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">
             <i data-lucide="moon" class="h-4 w-4" id="themeIcon"></i>
           </button>
-          <button id="ttsBtn" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">
+          <button id="ttsBtn" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">
             <i data-lucide="volume-2" class="h-4 w-4" id="ttsIcon"></i>
           </button>
           <button type="button" onclick="shareViaWhatsApp()" class="flex items-center gap-2 rounded-full bg-[#25D366] px-3 py-2 text-xs font-semibold text-white shadow-sm transition hover:-translate-y-0.5">
@@ -235,7 +244,7 @@
               <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
               Live Sync
             </div>
-            <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-slate-600 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300">
+            <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-slate-600 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-300">
               <i data-lucide="refresh-cw" class="h-3.5 w-3.5"></i>
               <span id="syncStatus">Stündlicher Auto-Sync</span>
             </div>
@@ -276,14 +285,13 @@
           <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-300"><i data-lucide="play-circle" class="h-4 w-4"></i></span>
           <h2 class="text-lg font-semibold tracking-tight text-slate-900 dark:text-white">Tagesschau in 100 Sekunden</h2>
         </div>
-        <a href="https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1675222.html" target="_blank" rel="noopener noreferrer" class="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Open</a>
+        <a href="https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1675222.html" target="_blank" rel="noopener noreferrer" class="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Mehr</a>
       </div>
       <iframe
         src="https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1675222~player.html"
         title="Tagesschau in 100 Sekunden"
         loading="lazy"
         width="100%"
-        height="420"
         allowfullscreen
         frameBorder="0"
         scrolling="no"
@@ -307,17 +315,17 @@
       <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div class="flex flex-wrap items-center gap-2" id="categoryFilters">
           <button type="button" class="cat-pill rounded-full bg-slate-900 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-sm transition hover:-translate-y-0.5" data-cat="all">Alle</button>
-          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5" data-cat="politik">Politik</button>
-          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5" data-cat="wirtschaft">Wirtschaft</button>
-          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5" data-cat="technik">Technik</button>
-          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5" data-cat="regional">Regional</button>
-          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5" data-cat="events">Events</button>
+          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-300" data-cat="politik">Politik</button>
+          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-300" data-cat="wirtschaft">Wirtschaft</button>
+          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-300" data-cat="technik">Technik</button>
+          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-300" data-cat="regional">Regional</button>
+          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-300" data-cat="events">Events</button>
         </div>
 
         <label class="relative block w-full max-w-sm">
           <span class="sr-only">Suche</span>
           <i data-lucide="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"></i>
-          <input id="searchInput" type="search" placeholder="Artikel filtern…" class="w-full rounded-full border border-slate-200 bg-white/80 py-2.5 pl-9 pr-3 text-sm text-slate-700 outline-none ring-0 placeholder:text-slate-400 transition focus:border-blue-400 focus:bg-white dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200 dark:placeholder:text-slate-400" />
+          <input id="searchInput" type="search" placeholder="Artikel filtern…" class="w-full rounded-full border border-slate-200 bg-white/80 py-2.5 pl-9 pr-3 text-sm text-slate-700 outline-none ring-0 placeholder:text-slate-400 transition focus:border-blue-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200 dark:placeholder:text-slate-500" />
         </label>
       </div>
     </section>
@@ -370,7 +378,7 @@
             <span>Originalquelle im Web öffnen</span>
             <i data-lucide="external-link" class="h-4 w-4"></i>
           </a>
-          <button type="button" onclick="closeModal()" class="rounded-full border border-slate-200 bg-slate-100 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700 transition hover:bg-slate-200 dark:border-white/10 dark:bg-slate-800 dark:text-slate-200">Schließen</button>
+          <button type="button" onclick="closeModal()" class="rounded-full border border-slate-200 bg-slate-100 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700 transition hover:bg-slate-200 dark:border-white/10 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700">Schließen</button>
         </div>
       </div>
     </div>
@@ -740,7 +748,7 @@ Schema für jedes Objekt:
         <button
           type="button"
           data-url="${encodeURIComponent(item.url)}"
-          class="flex cursor-pointer items-center gap-3 rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-[11px] font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-200"
+          class="flex cursor-pointer items-center gap-3 rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-[11px] font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200"
         >
           <span class="inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
           <span class="uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 font-semibold">${item.source}</span>
@@ -775,7 +783,7 @@ Schema für jedes Objekt:
                 <span>Vollständig lesen</span>
                 <i data-lucide="chevron-right" class="h-4 w-4"></i>
               </button>
-              <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-slate-100 text-slate-600 transition hover:bg-slate-200 dark:border-white/10 dark:bg-slate-800 dark:text-slate-300">
+              <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-slate-100 text-slate-600 transition hover:bg-slate-200 dark:border-white/10 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700">
                 <i data-lucide="external-link" class="h-4 w-4"></i>
               </a>
             </div>
@@ -848,7 +856,7 @@ Schema für jedes Objekt:
         const selected = btn.dataset.cat === cat;
         btn.className = selected
           ? 'cat-pill rounded-full bg-slate-900 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-sm transition hover:-translate-y-0.5'
-          : 'cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200';
+          : 'cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-300';
       });
 
       if (cat === 'events') {
@@ -912,7 +920,7 @@ Schema für jedes Objekt:
       if (!tempEl) return;
 
       try {
-        const url = 'https://api.open-meteo.com/v1/forecast?latitude=51.5124&longitude=10.2604&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,precipitation&hourly=temperature_2m,precipitation_probability,weather_code,time';
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=51.5124&longitude=10.2604&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,precipitation&hourly=temperature_2m,weather_code,precipitation_probability';
         const res = await fetch(url);
         if (!res.ok) throw new Error();
         const data = await res.json();
@@ -998,40 +1006,42 @@ Schema für jedes Objekt:
 
       document.querySelectorAll('[data-nav]').forEach((btn) => {
         btn.addEventListener('click', () => {
-          const category = btn.dataset.nav;
-          if (category) filterCategory(category);
+          const cat = btn.dataset.nav;
+          filterCategory(cat);
         });
       });
 
       document.querySelectorAll('.cat-pill').forEach((btn) => {
         btn.addEventListener('click', () => {
-          filterCategory(btn.dataset.cat);
+          const cat = btn.dataset.cat;
+          if (cat === 'events') {
+            filterCategory('events');
+            return;
+          }
+          filterCategory(cat);
         });
       });
 
-      document.getElementById('searchInput').addEventListener('input', (e) => {
-        searchQuery = e.target.value.trim();
-        renderNews();
-      });
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          searchQuery = e.target.value.trim();
+          renderNews();
+        });
+      }
 
       const themeToggle = document.getElementById('themeToggle');
-      themeToggle?.addEventListener('click', () => {
-        const isDark = document.documentElement.classList.toggle('dark');
-        applyTheme(isDark);
-      });
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          document.documentElement.classList.toggle('dark');
+          applyTheme(document.documentElement.classList.contains('dark'));
+        });
+      }
 
       const ttsBtn = document.getElementById('ttsBtn');
-      ttsBtn?.addEventListener('click', () => {
-        toggleSpeech();
-      });
-
-      const savedTheme = localStorage.getItem('themePreference');
-      if (savedTheme === 'dark') {
-        applyTheme(true);
-      } else {
-        applyTheme(false);
+      if (ttsBtn) {
+        ttsBtn.addEventListener('click', toggleSpeech);
       }
-      localStorage.setItem('themePreference', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
     });
   </script>
 </body>
