@@ -198,7 +198,7 @@
         <div>
           <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-blue-700 dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-300">
             <span class="pulse-dot h-2 w-2 rounded-full bg-blue-600"></span>
-            <span id="liveDateLabel">Lädt...</span>
+            <span id="liveDateLabel">Initialisiere...</span>
           </div>
 
           <h1 class="max-w-xl text-4xl font-semibold tracking-[-0.06em] text-slate-900 dark:text-white sm:text-5xl">
@@ -207,17 +207,17 @@
           </h1>
 
           <p class="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-            Live-Nachrichten und aktuelle Wochenend-Events für Mingerode, Duderstadt, Göttingen und das Umland – stündlich synchronisiert.
+            Live-Nachrichten und aktuelle Wochenend-Events für Mingerode, Duderstadt, Göttingen und das Eichsfeld.
           </p>
 
           <div class="mt-5 flex flex-wrap items-center gap-3">
             <div class="inline-flex items-center gap-2 rounded-full bg-slate-900 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-white dark:bg-white dark:text-slate-900">
               <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
-              Live Sync Aktiv
+              Live Sync
             </div>
             <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-slate-600 dark:border-white/10 dark:bg-slate-800/80 dark:text-slate-300">
               <i data-lucide="refresh-cw" class="h-3.5 w-3.5"></i>
-              <span id="syncStatus">Stündlicher Live-Abgleich</span>
+              <span id="syncStatus">Stündlicher Auto-Sync</span>
             </div>
           </div>
         </div>
@@ -234,11 +234,11 @@
             </div>
 
             <div class="mt-4 flex items-center justify-between gap-4">
-              <div id="weatherCondition" class="text-sm font-medium text-slate-800 dark:text-slate-100">Wetterlage wird geladen…</div>
+              <div id="weatherCondition" class="text-sm font-medium text-slate-800 dark:text-slate-100">Wetterlage wird aktualisiert…</div>
               <div id="rainBadge" class="rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-300">Kein Regen</div>
             </div>
 
-            <div id="weatherMeta" class="mt-2 text-xs text-slate-500 dark:text-slate-400">Lädt...</div>
+            <div id="weatherMeta" class="mt-2 text-xs text-slate-500 dark:text-slate-400">Verbinde...</div>
             <div id="weatherTimeline" class="mt-4 grid grid-cols-4 gap-2"></div>
 
             <div class="mt-4 flex items-center justify-end gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-300">
@@ -263,7 +263,6 @@
       </div>
     </section>
 
-    <!-- Filter & Suche -->
     <section class="mb-8 rounded-[1.5rem] border border-slate-200/70 bg-white/60 p-4 shadow-soft dark:border-white/10 dark:bg-slate-900/60">
       <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div class="flex flex-wrap items-center gap-2" id="categoryFilters">
@@ -283,10 +282,8 @@
       </div>
     </section>
 
-    <!-- News Raster (Keine doppelten Highlights) -->
     <div id="newsGrid" class="space-y-8"></div>
 
-    <!-- Wochenende Events Sektion -->
     <section id="eventsSection" class="mt-16">
       <div class="mb-6 flex items-center justify-between border-b border-slate-200 pb-4 dark:border-white/10">
         <div class="flex items-center gap-3">
@@ -295,7 +292,7 @@
           </div>
           <div>
             <h2 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Events am kommenden Wochenende</h2>
-            <p id="eventRange" class="text-xs uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Mingerode, Duderstadt, Göttingen & Umgebung</p>
+            <p id="eventRange" class="text-xs uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Mingerode, Duderstadt, Göttingen & Region</p>
           </div>
         </div>
         <div id="eventsSyncBadge" class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest hidden sm:flex items-center gap-1.5">
@@ -303,13 +300,10 @@
           Live Sync
         </div>
       </div>
-      <div id="eventsGrid" class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        <div class="col-span-full py-12 text-center text-slate-500 dark:text-slate-400">Suche Live-Events für das nächste Wochenende…</div>
-      </div>
+      <div id="eventsGrid" class="grid gap-5 md:grid-cols-2 xl:grid-cols-3"></div>
     </section>
   </main>
 
-  <!-- Modal -->
   <div id="articleModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/70 p-4 backdrop-blur-sm">
     <div class="relative max-h-[90vh] w-full max-w-3xl overflow-hidden rounded-[2rem] border border-white/10 bg-white shadow-2xl dark:bg-slate-900">
       <button type="button" onclick="closeModal()" class="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-slate-950/60 text-white transition hover:bg-slate-950">
@@ -362,8 +356,8 @@
     let isSpeaking = false;
 
     function makeCoverArt(title, source, colorA, colorB) {
-      const safeTitle = (title || 'Event').slice(0, 48).replace(/&/g, '&amp;');
-      const safeSource = (source || 'Termin').slice(0, 20).replace(/&/g, '&amp;');
+      const safeTitle = (title || 'Bericht').slice(0, 48).replace(/&/g, '&amp;');
+      const safeSource = (source || 'Nachrichten').slice(0, 20).replace(/&/g, '&amp;');
       const svg = `
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
           <defs>
@@ -373,76 +367,218 @@
             </linearGradient>
             <radialGradient id="glow" cx="75%" cy="25%" r="65%">
               <stop offset="0%" stop-color="rgba(255,255,255,0.75)"/>
-              <stop offset="100%" stop-color="rgba(255,255,255,0.8)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
             </radialGradient>
           </defs>
           <rect width="1200" height="800" fill="url(#g)"/>
           <rect width="1200" height="800" fill="url(#glow)"/>
           <circle cx="200" cy="180" r="140" fill="rgba(255,255,255,0.12)"/>
           <circle cx="940" cy="640" r="170" fill="rgba(255,255,255,0.08)"/>
-          <path d="M0 610 C 180 560, 260 680, 420 620 S 760 500, 1200 620 L1200 800 L0 800 Z" fill="rgba(15,23,42,0.10)"/>
           <rect x="70" y="60" width="170" height="28" rx="14" fill="rgba(255,255,255,0.18)"/>
           <text x="70" y="118" fill="rgba(255,255,255,0.85)" font-size="24" font-family="Arial, sans-serif" letter-spacing="6">${safeSource.toUpperCase()}</text>
           <text x="70" y="410" fill="rgba(255,255,255,0.92)" font-size="60" font-weight="700" font-family="Arial, sans-serif">${safeTitle}</text>
         </svg>
       `;
-      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`; }  function cleanHtmlText(raw) { if (!raw) return ''; const doc = new DOMParser().parseFromString(raw, 'text/html'); return doc.body.textContent.replace(/\s+/g, ' ').trim(); }  // Ermittelt exakt das nächste Wochenende (Samstag und Sonntag) function getNextWeekendRange() { const now = new Date(); const currentDay = now.getDay(); // 0 = So, 1 = Mo, ..., 6 = Sa  let daysUntilSaturday; if (currentDay === 6) { daysUntilSaturday = 0; // Heute ist Samstag } else if (currentDay === 0) { daysUntilSaturday = -1; // Heute ist Sonntag (Wochenende läuft noch) } else { daysUntilSaturday = 6 - currentDay; // Tage bis zum nächsten Samstag }  const saturday = new Date(now); saturday.setDate(now.getDate() + daysUntilSaturday); saturday.setHours(0, 0, 0, 0);  const sunday = new Date(saturday); sunday.setDate(saturday.getDate() + 1); sunday.setHours(23, 59, 59, 999);  return { saturday, sunday }; }  // Live-Abruf für Events am nächsten Wochenende async function fetchLiveEvents() { const { saturday, sunday } = getNextWeekendRange(); const satTime = saturday.getTime(); const sunTime = sunday.getTime(); const foundEvents = [];  // 1. Göttingen Events (RSS) try { const goeUrl = 'https://www.goettingen.de/rss/veranstaltungen.xml'; const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(goeUrl)}`, { cache: 'no-store' });
-        if (res.ok) {
-          const data = await res.json();
-          if (data.status === 'ok' && Array.isArray(data.items)) {
-            data.items.forEach((item) => {
-              const pubDate = item.pubDate ? new Date(item.pubDate) : null;
-              // Prüfe ob der Termin im Wochenendfenster liegt oder aktuell gelistet ist
-              const isWeekend = pubDate ? (pubDate.getTime() >= satTime && pubDate.getTime() <= sunTime) : false;
+      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+    }
 
-              if (isWeekend || foundEvents.length < 2) {
-                const dateLabel = pubDate 
-                  ? new Intl.DateTimeFormat('de-DE', { weekday: 'long', day: '2-digit', month: '2-digit' }).format(pubDate)
-                  : `${new Intl.DateTimeFormat('de-DE', { weekday: 'long', day: '2-digit', month: '2-digit' }).format(saturday)}`;  foundEvents.push({ title: cleanHtmlText(item.title), location: 'Göttingen & Region', dateFormatted: `${dateLabel} • Wochenende`,
-                  desc: cleanHtmlText(item.description).slice(0, 160) + '…',
-                  badge: 'Göttingen',
-                  img: item.thumbnail || makeCoverArt(item.title, 'Göttingen', '#1e3a8a', '#3b82f6'),
-                  url: item.link || 'https://www.goettingen.de/'
-                });
-              }
+    function cleanHtmlText(raw) {
+      if (!raw) return '';
+      const doc = new DOMParser().parseFromString(raw, 'text/html');
+      return doc.body.textContent.replace(/\s+/g, ' ').trim();
+    }
+
+    function getNextWeekendRange() {
+      const now = new Date();
+      const currentDay = now.getDay();
+      let daysUntilSaturday = currentDay === 6 ? 0 : currentDay === 0 ? -1 : 6 - currentDay;
+
+      const saturday = new Date(now);
+      saturday.setDate(now.getDate() + daysUntilSaturday);
+      saturday.setHours(0, 0, 0, 0);
+
+      const sunday = new Date(saturday);
+      sunday.setDate(saturday.getDate() + 1);
+      sunday.setHours(23, 59, 59, 999);
+
+      return { saturday, sunday };
+    }
+
+    // Robuster Proxy-Fetch mit Timeout und Fallback-Handling
+    async function safeFetchJson(url) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+      try {
+        const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`, { 
+          signal: controller.signal 
+        });
+        clearTimeout(timeout);
+        if (!res.ok) return null;
+        return await res.json();
+      } catch (e) {
+        clearTimeout(timeout);
+        return null;
+      }
+    }
+
+    async function safeFetchHtml(url) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+      try {
+        const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, { 
+          signal: controller.signal 
+        });
+        clearTimeout(timeout);
+        if (!res.ok) return null;
+        const json = await res.json();
+        return json.contents;
+      } catch (e) {
+        clearTimeout(timeout);
+        return null;
+      }
+    }
+
+    async function fetchLiveNews() {
+      const syncStatus = document.getElementById('syncStatus');
+      if (syncStatus) syncStatus.textContent = 'Synchronisiere Feeds…';
+
+      const results = [];
+      const headlines = [];
+
+      for (const [cat, feedUrl] of Object.entries(RSS_FEEDS)) {
+        try {
+          const data = await safeFetchJson(feedUrl);
+          if (data && data.status === 'ok' && Array.isArray(data.items)) {
+            const sourceName = data.feed?.title?.split(' ')[0] || cat.toUpperCase();
+
+            data.items.slice(0, 4).forEach((item, idx) => {
+              const cleanedDesc = cleanHtmlText(item.description);
+              const dateObj = item.pubDate ? new Date(item.pubDate) : new Date();
+              const dateStr = new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(dateObj);
+
+              const article = {
+                id: `${cat}-${idx}-${Date.now()}`,
+                cat: cat,
+                badge: `Top ${idx + 1} ${CATEGORY_META[cat].label}`,
+                source: sourceName,
+                date: dateStr,
+                title: cleanHtmlText(item.title),
+                summary: cleanedDesc.slice(0, 180) + (cleanedDesc.length > 180 ? '…' : ''),
+                fullText: cleanedDesc || 'Den vollständigen Artikel finden Sie über den Quellen-Link.',
+                url: item.link || 'https://www.tagesschau.de',
+                img: item.enclosure?.link || item.thumbnail || makeCoverArt(item.title, sourceName, CATEGORY_META[cat].colorA, CATEGORY_META[cat].colorB)
+              };
+
+              results.push(article);
+              headlines.push({ source: sourceName, title: article.title, url: article.url });
             });
           }
+        } catch (e) {
+          console.warn(`Feed-Fehler ${cat}:`, e);
         }
-      } catch (err) {
-        console.warn('Göttingen Event Fetch fehlgeschlagen:', err);
       }
 
-      // 2. Duderstadt Tourismus Kalender
+      if (results.length > 0) {
+        NEWS_DATABASE = results;
+        HEADLINE_FEED = headlines;
+      }
+
+      if (syncStatus) {
+        const timeNow = new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit' }).format(new Date());
+        syncStatus.textContent = `Stand: ${timeNow} Uhr`;
+      }
+
+      renderTopHeadlines();
+      renderNews();
+    }
+
+    async function fetchLiveEvents() {
+      const { saturday, sunday } = getNextWeekendRange();
+      const satTime = saturday.getTime();
+      const sunTime = sunday.getTime();
+      const foundEvents = [];
+
+      // Göttingen
       try {
-        const duderstadtTarget = 'https://tourismus.duderstadt.de/veranstaltungen/';
-        const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(duderstadtTarget)}`, { cache: 'no-store' }); if (res.ok) { const json = await res.json(); const doc = new DOMParser().parseFromString(json.contents, 'text/html'); const eventNodes = doc.querySelectorAll('.event-item, .veranstaltung, .c-events__item, article.type-event, tr.event');  eventNodes.forEach((node) => { const titleEl = node.querySelector('h2, h3, h4, .title, a.event-title') \vert{}\vert{} node; const dateEl = node.querySelector('.date, .event-date, time, td:nth-child(1)'); const descEl = node.querySelector('.desc, .description, p, td:nth-child(3)'); const linkEl = node.querySelector('a[href]');  const title = titleEl ? cleanHtmlText(titleEl.textContent) : ''; if (title && title.length > 3) { foundEvents.push({ title: title, location: 'Duderstadt', dateFormatted: dateEl ? cleanHtmlText(dateEl.textContent) : `${new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit' }).format(saturday)} (Wochenende)`,
+        const data = await safeFetchJson('https://www.goettingen.de/rss/veranstaltungen.xml');
+        if (data && data.status === 'ok' && Array.isArray(data.items)) {
+          data.items.forEach((item) => {
+            const pubDate = item.pubDate ? new Date(item.pubDate) : null;
+            const isWeekend = pubDate ? (pubDate.getTime() >= satTime && pubDate.getTime() <= sunTime) : false;
+
+            if (isWeekend || foundEvents.length < 2) {
+              const dateLabel = pubDate 
+                ? new Intl.DateTimeFormat('de-DE', { weekday: 'long', day: '2-digit', month: '2-digit' }).format(pubDate)
+                : `Samstag, ${new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit' }).format(saturday)}`;
+
+              foundEvents.push({
+                title: cleanHtmlText(item.title),
+                location: 'Göttingen & Region',
+                dateFormatted: `${dateLabel} • Wochenende`,
+                desc: cleanHtmlText(item.description).slice(0, 160) + '…',
+                badge: 'Göttingen',
+                img: item.thumbnail || makeCoverArt(item.title, 'Göttingen', '#1e3a8a', '#3b82f6'),
+                url: item.link || 'https://www.goettingen.de/'
+              });
+            }
+          });
+        }
+      } catch (err) {}
+
+      // Duderstadt
+      try {
+        const html = await safeFetchHtml('https://tourismus.duderstadt.de/veranstaltungen/');
+        if (html) {
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+          const eventNodes = doc.querySelectorAll('.event-item, .veranstaltung, .c-events__item, article.type-event, tr.event');
+          eventNodes.forEach((node) => {
+            const titleEl = node.querySelector('h2, h3, h4, .title, a.event-title') || node;
+            const dateEl = node.querySelector('.date, .event-date, time, td:nth-child(1)');
+            const descEl = node.querySelector('.desc, .description, p, td:nth-child(3)');
+            const linkEl = node.querySelector('a[href]');
+            const title = titleEl ? cleanHtmlText(titleEl.textContent) : '';
+
+            if (title && title.length > 3) {
+              foundEvents.push({
+                title: title,
+                location: 'Duderstadt',
+                dateFormatted: dateEl ? cleanHtmlText(dateEl.textContent) : `${new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit' }).format(saturday)} (Wochenende)`,
                 desc: descEl ? cleanHtmlText(descEl.textContent).slice(0, 160) + '…' : 'Details direkt im Veranstaltungskalender Duderstadt.',
                 badge: 'Duderstadt',
                 img: makeCoverArt(title, 'Duderstadt', '#1e3a8a', '#0284c7'),
-                url: linkEl?.href ? linkEl.href : duderstadtTarget
+                url: linkEl?.href ? linkEl.href : 'https://tourismus.duderstadt.de/veranstaltungen/'
               });
             }
           });
         }
-      } catch (err) {
-        console.warn('Duderstadt Event Fetch fehlgeschlagen:', err);
-      }
+      } catch (err) {}
 
-      // 3. Mingerode Terminkalender
+      // Mingerode
       try {
-        const mingerodeTarget = 'https://www.mingerode.de/termine/';
-        const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(mingerodeTarget)}`, { cache: 'no-store' }); if (res.ok) { const json = await res.json(); const doc = new DOMParser().parseFromString(json.contents, 'text/html'); const entries = doc.querySelectorAll('table tr, .event, .termin-item, article, li.event');  entries.forEach((node) => { const dateEl = node.querySelector('td:nth-child(1), .date, time'); const titleEl = node.querySelector('td:nth-child(2), h2, h3, h4, .title, strong'); const linkEl = node.querySelector('a[href]');  const title = titleEl ? cleanHtmlText(titleEl.textContent) : ''; if (title && title.length > 3 && !title.toLowerCase().includes('datum') && !title.toLowerCase().includes('uhrzeit')) { foundEvents.push({ title: title, location: 'Mingerode', dateFormatted: dateEl ? cleanHtmlText(dateEl.textContent) : `${new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit' }).format(sunday)} (Wochenende)`,
+        const html = await safeFetchHtml('https://www.mingerode.de/termine/');
+        if (html) {
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+          const entries = doc.querySelectorAll('table tr, .event, .termin-item, article, li.event');
+          entries.forEach((node) => {
+            const dateEl = node.querySelector('td:nth-child(1), .date, time');
+            const titleEl = node.querySelector('td:nth-child(2), h2, h3, h4, .title, strong');
+            const linkEl = node.querySelector('a[href]');
+            const title = titleEl ? cleanHtmlText(titleEl.textContent) : '';
+
+            if (title && title.length > 3 && !title.toLowerCase().includes('datum') && !title.toLowerCase().includes('uhrzeit')) {
+              foundEvents.push({
+                title: title,
+                location: 'Mingerode',
+                dateFormatted: dateEl ? cleanHtmlText(dateEl.textContent) : `${new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit' }).format(sunday)} (Wochenende)`,
                 desc: 'Gemeinde-, Vereins- & Ortschaftstermin aus Mingerode.',
                 badge: 'Mingerode',
                 img: makeCoverArt(title, 'Mingerode', '#065f46', '#10b981'),
-                url: linkEl?.href ? linkEl.href : mingerodeTarget
+                url: linkEl?.href ? linkEl.href : 'https://www.mingerode.de/termine/'
               });
             }
           });
         }
-      } catch (err) {
-        console.warn('Mingerode Event Fetch fehlgeschlagen:', err);
-      }
+      } catch (err) {}
 
       DYNAMIC_EVENTS = foundEvents;
       updateEventRangeText();
@@ -455,8 +591,8 @@
 
       if (!DYNAMIC_EVENTS.length) {
         grid.innerHTML = `
-          <div class="col-span-full py-16 text-center text-slate-500 dark:text-slate-400">
-            Keine Live-Termine für das nächste Wochenende in Mingerode, Duderstadt oder Göttingen gemeldet.
+          <div class="col-span-full py-12 text-center text-slate-500 dark:text-slate-400">
+            Aktuell keine Live-Termine für das nächste Wochenende in Mingerode, Duderstadt oder Göttingen abrufbar.
           </div>
         `;
         return;
@@ -490,60 +626,7 @@
       if (!eventRange) return;
       const { saturday, sunday } = getNextWeekendRange();
       const formatter = new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit' });
-      eventRange.textContent = `Wochenende: Samstag, ${formatter.format(saturday)} – Sonntag,${formatter.format(sunday)}`;
-    }
-
-    async function fetchLiveNews() {
-      const syncStatus = document.getElementById('syncStatus');
-      if (syncStatus) syncStatus.textContent = 'Synchronisiere Feeds…';
-
-      const results = [];
-      const headlines = [];
-      const feedEntries = Object.entries(RSS_FEEDS);
-
-      for (const [cat, feedUrl] of feedEntries) {
-        try {
-          const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`, { cache: 'no-store' }); if (!res.ok) continue; const data = await res.json();  if (data.status === 'ok' && Array.isArray(data.items)) { const sourceName = data.feed?.title?.split(' ')[0] \vert{}\vert{} cat.toUpperCase();  data.items.slice(0, 4).forEach((item, idx) => { const cleanedDesc = cleanHtmlText(item.description); const dateObj = item.pubDate ? new Date(item.pubDate) : new Date(); const dateStr = new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(dateObj);  const article = { id: `${cat}-${idx}-${Date.now()}`,
-                cat: cat,
-                badge: `Top ${idx + 1}${CATEGORY_META[cat].label}`,
-                source: sourceName,
-                date: dateStr,
-                title: cleanHtmlText(item.title),
-                summary: cleanedDesc.slice(0, 180) + (cleanedDesc.length > 180 ? '…' : ''),
-                fullText: cleanedDesc || 'Detaillierter Bericht über die Originalquelle abrufbar.',
-                url: item.link,
-                img: item.enclosure?.link || item.thumbnail || makeCoverArt(item.title, sourceName, CATEGORY_META[cat].colorA, CATEGORY_META[cat].colorB)
-              };
-
-              results.push(article);
-              headlines.push({
-                source: sourceName,
-                title: article.title,
-                url: article.url
-              });
-            });
-          }
-        } catch (err) {
-          console.warn(`Fehler beim Laden von ${cat}:`, err); } }  if (results.length > 0) { NEWS_DATABASE = results; HEADLINE_FEED = headlines; }  if (syncStatus) { const timeNow = new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit' }).format(new Date()); syncStatus.textContent = `Stand: ${timeNow} Uhr`;
-      }
-
-      renderTopHeadlines();
-      renderNews();
-    }
-
-    function buildShareSummary() {
-      const topItems = (NEWS_DATABASE || []).slice(0, 3);
-      return topItems.map((item) => `${item.source}:${item.title}`).join(' • ');
-    }
-
-    function buildSpeechSummary() {
-      const topItems = (NEWS_DATABASE || []).slice(0, 4);
-      return `Tägliche Zusammenfassung. ${topItems.map((item) => `${item.title}`).join('. ')}.`; }  function formatDateTime(date = new Date()) { return `${new Intl.DateTimeFormat('de-DE', { weekday: 'long' }).format(date)}, ${new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(date)} •${new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit' }).format(date)}`;
-    }
-
-    function updateCurrentDateUI() {
-      const label = document.getElementById('liveDateLabel');
-      if (label) label.textContent = formatDateTime(new Date());
+      eventRange.textContent = `Wochenende: Samstag, ${formatter.format(saturday)} – Sonntag, ${formatter.format(sunday)}`;
     }
 
     function renderTopHeadlines() {
@@ -557,4 +640,315 @@
           data-url="${encodeURIComponent(item.url)}"
           class="flex cursor-pointer items-center gap-3 rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-[11px] font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700 dark:border-white/10 dark:bg-slate-800/80 dark:text-slate-200 dark:hover:border-blue-500/40 dark:hover:text-blue-300"
         >
-          <span class="inline-flex h
+          <span class="inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+          <span class="uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400 font-semibold">${item.source}</span>
+          <span class="truncate max-w-[36rem]">${item.title}</span>
+        </button>
+      `).join('');
+
+      container.querySelectorAll('[data-url]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          window.open(decodeURIComponent(btn.dataset.url), '_blank', 'noopener,noreferrer');
+        });
+      });
+    }
+
+    function getNewsCardMarkup(item) {
+      return `
+        <article class="article-card group overflow-hidden rounded-[1.6rem] border border-slate-200/80 bg-white/75 shadow-soft dark:border-white/10 dark:bg-slate-900/70">
+          <div class="relative h-44 overflow-hidden">
+            <img src="${item.img}" alt="${item.title}" class="h-full w-full object-cover" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/10 to-transparent"></div>
+            <div class="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-900">${item.badge}</div>
+          </div>
+          <div class="p-5">
+            <div class="mb-2 flex items-center justify-between gap-3 text-[10px] font-medium uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+              <span>${item.source}</span>
+              <span>${item.date}</span>
+            </div>
+            <h3 class="text-base font-semibold tracking-[-0.04em] text-slate-900 dark:text-white line-clamp-2">${item.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300 line-clamp-3">${item.summary}</p>
+            <div class="mt-4 flex items-center justify-between gap-4 border-t border-slate-200 pt-4 dark:border-white/10">
+              <button type="button" data-open="${item.id}" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 dark:text-blue-300">
+                <span>Vollständig lesen</span>
+                <i data-lucide="chevron-right" class="h-4 w-4"></i>
+              </button>
+              <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-slate-100 text-slate-600 transition hover:bg-slate-200 dark:border-white/10 dark:bg-slate-800 dark:text-slate-200">
+                <i data-lucide="external-link" class="h-4 w-4"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderNews() {
+      const grid = document.getElementById('newsGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const categories = currentFilter === 'all' ? Object.keys(CATEGORY_META).filter((cat) => cat !== 'events') : [currentFilter];
+      let anyVisible = false;
+
+      categories.forEach((cat) => {
+        const items = NEWS_DATABASE.filter((item) => {
+          const matchCategory = item.cat === cat;
+          const matchSearch = !searchQuery || `${item.title} ${item.summary}`.toLowerCase().includes(searchQuery.toLowerCase());
+          return matchCategory && matchSearch;
+        });
+
+        if (!items.length) return;
+        anyVisible = true;
+
+        const section = document.createElement('section');
+        section.className = 'content-fade w-full';
+        section.innerHTML = `
+          <div class="mb-4 flex items-center justify-between gap-3 border-b border-slate-200 pb-3 dark:border-white/10">
+            <div class="flex items-center gap-2">
+              <span class="inline-flex rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] ${CATEGORY_META[cat].tone}">${CATEGORY_META[cat].label}</span>
+            </div>
+            <span class="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">${items.length} Beiträge</span>
+          </div>
+          <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            ${items.map(getNewsCardMarkup).join('')}
+          </div>
+        `;
+
+        grid.appendChild(section);
+
+        section.querySelectorAll('[data-open]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const item = NEWS_DATABASE.find((e) => String(e.id) === btn.dataset.open);
+            if (item) openModal(item);
+          });
+        });
+      });
+
+      if (!anyVisible) {
+        grid.innerHTML = '<div class="py-16 text-center text-slate-500 dark:text-slate-400">Keine Artikel gefunden.</div>';
+      }
+
+      lucide.createIcons();
+    }
+
+    function formatDateTime(date = new Date()) {
+      return `${new Intl.DateTimeFormat('de-DE', { weekday: 'long' }).format(date)}, ${new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(date)} • ${new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit' }).format(date)}`;
+    }
+
+    function updateCurrentDateUI() {
+      const label = document.getElementById('liveDateLabel');
+      if (label) label.textContent = formatDateTime(new Date());
+    }
+
+    function filterCategory(cat) {
+      currentFilter = cat;
+      document.querySelectorAll('.cat-pill').forEach((btn) => {
+        const selected = btn.dataset.cat === cat;
+        btn.className = selected
+          ? 'cat-pill rounded-full bg-slate-900 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-sm transition hover:-translate-y-0.5'
+          : 'cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-800/80 dark:text-slate-200';
+      });
+
+      if (cat === 'events') {
+        document.getElementById('newsGrid').classList.add('hidden');
+        document.getElementById('eventsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        document.getElementById('newsGrid').classList.remove('hidden');
+        renderNews();
+      }
+    }
+
+    function openModal(item) {
+      document.getElementById('modalImg').src = item.img;
+      document.getElementById('modalBadge').textContent = item.badge;
+      document.getElementById('modalSource').textContent = item.source;
+      document.getElementById('modalDate').textContent = item.date;
+      document.getElementById('modalTitle').textContent = item.title;
+      document.getElementById('modalContent').innerHTML = `
+        <p class="text-base font-medium text-slate-900 dark:text-white">${item.summary}</p>
+        <p>${item.fullText}</p>
+      `;
+      document.getElementById('modalLink').href = item.url;
+      document.getElementById('articleModal').classList.remove('hidden');
+      document.getElementById('articleModal').classList.add('flex');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('articleModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function getWeatherIcon(code) {
+      const map = { 0: '☀️', 1: '⛅', 2: '⛅', 3: '☁️', 45: '🌫️', 48: '🌫️', 51: '🌦️', 53: '🌦️', 61: '🌧️', 63: '🌧️', 65: '🌧️', 71: '🌨️', 95: '⛈️' };
+      return map[code] || '☀️';
+    }
+
+    function getWeatherCondition(code) {
+      const map = { 0: 'Klar', 1: 'Leicht bewölkt', 2: 'Bewölkt', 3: 'Bedeckt', 45: 'Nebel', 51: 'Leichter Regen', 61: 'Regen', 65: 'Starker Regen', 71: 'Schnee', 95: 'Gewitter' };
+      return map[code] || 'Wechselhaft';
+    }
+
+    function renderWeatherTimeline(hourlyData) {
+      const timeline = document.getElementById('weatherTimeline');
+      if (!timeline || !hourlyData || !hourlyData.time) return;
+
+      const now = new Date();
+      const times = hourlyData.time || [];
+      const startIndex = Math.max(0, times.findIndex((t) => new Date(t).getHours() === now.getHours()));
+
+      const slots = Array.from({ length: 4 }, (_, i) => {
+        const index = Math.min(startIndex + i * 2, times.length - 1);
+        const temp = hourlyData.temperature_2m?.[index];
+        const rain = hourlyData.precipitation_probability?.[index] ?? 0;
+        const code = hourlyData.weather_code?.[index];
+        const time = new Date(times[index]);
+        return {
+          temp: Number.isFinite(temp) ? Math.round(temp) : '--',
+          rain,
+          code,
+          label: time.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', hour12: false })
+        };
+      });
+
+      timeline.innerHTML = slots.map((slot) => `
+        <div class="weather-tile rounded-2xl p-2 text-center">
+          <div class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">${slot.label}</div>
+          <div class="mt-2 text-xl">${getWeatherIcon(slot.code)}</div>
+          <div class="mt-2 text-sm font-semibold text-slate-900 dark:text-white">${slot.temp}°</div>
+          <div class="mt-1 text-[10px] font-medium ${slot.rain >= 50 ? 'text-amber-600 dark:text-amber-300' : 'text-emerald-600 dark:text-emerald-300'}">${slot.rain}%</div>
+        </div>
+      `).join('');
+    }
+
+    async function loadWeather() {
+      const tempEl = document.getElementById('weatherTemp');
+      const metaEl = document.getElementById('weatherMeta');
+      const iconEl = document.getElementById('weatherIcon');
+      const conditionEl = document.getElementById('weatherCondition');
+      const rainBadge = document.getElementById('rainBadge');
+
+      if (!tempEl) return;
+
+      try {
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=51.5124&longitude=10.2604&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,precipitation&hourly=temperature_2m,precipitation_probability,weather_code&timezone=Europe%2FBerlin&forecast_days=2';
+        const res = await fetch(url);
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+
+        const current = data.current;
+        const temp = Math.round(current.temperature_2m);
+        const feels = Math.round(current.apparent_temperature);
+        const wind = Math.round(current.wind_speed_10m);
+        const code = current.weather_code;
+
+        tempEl.textContent = `${temp}°C`;
+        iconEl.textContent = getWeatherIcon(code);
+        conditionEl.textContent = getWeatherCondition(code);
+        metaEl.textContent = `Gefühlt ${feels}°C • Wind ${wind} km/h`;
+
+        const hasRain = current.precipitation > 0.1;
+        rainBadge.textContent = hasRain ? 'Regen' : 'Kein Regen';
+        rainBadge.className = `rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${hasRain ? 'bg-amber-500/10 text-amber-700 dark:text-amber-300' : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'}`;
+
+        renderWeatherTimeline(data.hourly);
+      } catch (err) {
+        tempEl.textContent = '--°C';
+      }
+    }
+
+    function toggleSpeech() {
+      const ttsIcon = document.getElementById('ttsIcon');
+      if (!('speechSynthesis' in window)) return;
+
+      if (isSpeaking) {
+        window.speechSynthesis.cancel();
+        isSpeaking = false;
+        ttsIcon.setAttribute('data-lucide', 'volume-2');
+        lucide.createIcons();
+        return;
+      }
+
+      const topItems = (NEWS_DATABASE || []).slice(0, 4);
+      const text = `Tagesbriefing. ${topItems.map((item) => `${item.title}`).join('. ')}.`;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'de-DE';
+      utterance.onend = () => {
+        isSpeaking = false;
+        ttsIcon.setAttribute('data-lucide', 'volume-2');
+        lucide.createIcons();
+      };
+
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+      isSpeaking = true;
+      ttsIcon.setAttribute('data-lucide', 'square');
+      lucide.createIcons();
+    }
+
+    function shareViaWhatsApp() {
+      const currentUrl = window.location.href.includes('http') ? window.location.href : 'https://salkin180.github.io/agent-nachrichten-goedecke/';
+      const topItems = (NEWS_DATABASE || []).slice(0, 3).map((item) => `${item.source}: ${item.title}`).join(' • ');
+      const message = `Tagesbriefing für ${formatDateTime()}\n\n${topItems}\n\nMehr: ${currentUrl}`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`, '_blank');
+    }
+
+    function applyTheme(isDark) {
+      const root = document.documentElement;
+      const icon = document.getElementById('themeIcon');
+      if (isDark) {
+        root.classList.add('dark');
+        icon.setAttribute('data-lucide', 'sun');
+      } else {
+        root.classList.remove('dark');
+        icon.setAttribute('data-lucide', 'moon');
+      }
+      lucide.createIcons();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Sofortige statische Initialisierung (Verhindert "Lädt..."-Hänger)
+      updateCurrentDateUI();
+      updateEventRangeText();
+      renderNews();
+      renderEvents();
+      lucide.createIcons();
+
+      // 2. Netzwerk-Aufrufe parallel und isoliert starten
+      loadWeather();
+      fetchLiveNews();
+      fetchLiveEvents();
+
+      // 3. Intervalle setzen
+      setInterval(updateCurrentDateUI, 60000);
+      setInterval(loadWeather, 60000 * 15);
+      setInterval(() => {
+        fetchLiveNews();
+        fetchLiveEvents();
+      }, 1000 * 60 * 60);
+
+      document.querySelectorAll('[data-nav]').forEach((btn) => {
+        btn.addEventListener('click', () => filterCategory(btn.dataset.nav));
+      });
+
+      document.querySelectorAll('.cat-pill').forEach((btn) => {
+        btn.addEventListener('click', () => filterCategory(btn.dataset.cat));
+      });
+
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          searchQuery = e.target.value.trim();
+          renderNews();
+        });
+      }
+
+      document.getElementById('themeToggle').addEventListener('click', () => {
+        applyTheme(!document.documentElement.classList.contains('dark'));
+      });
+
+      document.getElementById('ttsBtn').addEventListener('click', toggleSpeech);
+    });
+  </script>
+</body>
+</html>
