@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: WhatsApp Nachricht senden
         env:
-          PHONE: ${{ secrets.WHATSAPP_PHONE }}
-          APIKEY: ${{ secrets.CALLMEBOT_APIKEY }}
+          PHONE: "491704131865"
+          APIKEY: "DEIN_API_KEY"
           URL: "https://salkin180.github.io/agent-nachrichten-goedecke/"
         run: |
           TODAY=$(date '+%A, %d. %B %Y')
