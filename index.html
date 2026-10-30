@@ -1,274 +1,433 @@
 <!DOCTYPE html>
 <html lang="de" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agent Nachrichten der Familie Gödecke</title>
+  <meta name="description" content="Tagesbriefing mit Politik, Wirtschaft, Technik, Regionalem und Wetter für Duderstadt." />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
-            sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', 'system-ui', 'sans-serif'],
-            mono: ['"SF Mono"', 'Menlo', 'monospace']
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'Segoe UI', 'sans-serif'],
+            mono: ['JetBrains Mono', 'SFMono-Regular', 'Menlo', 'monospace']
           },
-          colors: {
-            apple: {
-              bg: '#f5f5f7',
-              darkBg: '#000000',
-              card: 'rgba(255, 255, 255, 0.85)',
-              darkCard: 'rgba(28, 28, 30, 0.8)',
-              blue: '#0071e3',
-              blueHover: '#0077ed',
-              subtle: '#86868b',
-              borderLight: 'rgba(0, 0, 0, 0.08)',
-              borderDark: 'rgba(255, 255, 255, 0.12)'
-            }
+          boxShadow: {
+            soft: '0 20px 50px rgba(15, 23, 42, 0.08)',
+            floating: '0 18px 44px rgba(17, 24, 39, 0.12)'
           }
         }
       }
-    }
+    };
   </script>
+
   <style>
-    .apple-glass {
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+    :root {
+      --bg: #f5f5f7;
+      --surface: rgba(255,255,255,0.74);
+      --surface-strong: rgba(255,255,255,0.92);
+      --surface-dark: rgba(17,17,17,0.75);
+      --line: rgba(15,23,42,0.08);
+      --text: #111827;
+      --muted: #667085;
+      --blue: #0a84ff;
+      --blue-strong: #0066d9;
     }
+
+    html.dark {
+      --bg: #000000;
+      --surface: rgba(17,17,17,0.72);
+      --surface-strong: rgba(28,28,30,0.85);
+      --surface-dark: rgba(10,10,10,0.82);
+      --line: rgba(255,255,255,0.08);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --blue: #4ea1ff;
+      --blue-strong: #7bb9ff;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(10,132,255,0.08), transparent 25%),
+        radial-gradient(circle at top right, rgba(107,114,128,0.06), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    html.dark .glass {
+      background: rgba(17,17,17,0.68);
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    .card-hover {
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-4px); 
+      box-shadow: 0 20px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
     .line-clamp-3 {
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
+
+    .pulse-dot {
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.92); }
+    }
+
+    .marquee {
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      width: max-content;
+      animation: marquee 22s linear infinite;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .content-fade {
+      animation: fadeIn .4s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .weather-tile {
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(148,163,184,0.12);
+    }
+
+    html.dark .weather-tile {
+      background: rgba(15,23,42,0.4);
+      border-color: rgba(148,163,184,0.12);
+    }
+
+    .article-card img {
+      transition: transform 0.5s ease;
+    }
+
+    .article-card:hover img {
+      transform: scale(1.04);
+    }
   </style>
 </head>
-<body class="bg-apple-bg dark:bg-apple-darkBg text-[#1d1d1f] dark:text-[#f5f5f7] font-sans antialiased selection:bg-apple-blue selection:text-white pb-36 transition-colors duration-300">
-
-  <header class="sticky top-0 z-50 apple-glass bg-white/70 dark:bg-black/75 border-b border-apple-borderLight dark:border-apple-borderDark transition-colors">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="w-9 h-9 rounded-2xl bg-apple-blue text-white flex items-center justify-center shadow-sm">
-          <i data-lucide="newspaper" class="w-5 h-5"></i>
+<body class="antialiased selection:bg-blue-500 selection:text-white">
+  <header class="sticky top-0 z-50 border-b border-slate-200/60 dark:border-white/10 bg-white/70 dark:bg-black/70 backdrop-blur-xl">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between gap-4">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
+            <i data-lucide="newspaper" class="h-5 w-5"></i>
+          </div>
+          <div class="min-w-0">
+            <div class="text-[10px] font-semibold uppercase tracking-[0.28em] text-blue-600 dark:text-blue-300">Agent Intelligence</div>
+            <div class="truncate text-sm font-semibold tracking-tight text-slate-900 dark:text-slate-100">Nachrichten Familie Gödecke</div>
+          </div>
         </div>
-        <div>
-          <span class="text-[10px] font-bold tracking-widest uppercase text-apple-blue block leading-tight">Agent Intelligence</span>
-          <span class="text-base font-semibold tracking-tight">Nachrichten Familie Gödecke</span>
+
+        <div class="hidden items-center gap-2 md:flex">
+          <button type="button" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-200" data-nav="all">Alle</button>
+          <button type="button" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-200" data-nav="politik">Politik</button>
+          <button type="button" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-200" data-nav="wirtschaft">Wirtschaft</button>
+          <button type="button" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-200" data-nav="technik">Technik</button>
+          <button type="button" class="rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-xs font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-200" data-nav="regional">Regional</button>
         </div>
-      </div>
 
-      <div class="flex items-center space-x-2 sm:space-x-3">
-        <button onclick="shareViaWhatsApp()" class="flex items-center space-x-2 bg-[#25D366] hover:bg-[#20ba5a] text-white px-3.5 py-1.5 rounded-full text-xs font-medium transition shadow-sm" title="Per WhatsApp teilen">
-          <i data-lucide="share-2" class="w-4 h-4"></i>
-          <span class="hidden md:inline">Per WhatsApp teilen</span>
-        </button>
-
-        <button id="ttsBtn" onclick="toggleSpeech()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white transition" title="Vorlesen">
-          <i data-lucide="volume-2" id="ttsIcon" class="w-5 h-5"></i>
-        </button>
-        <button onclick="toggleDarkMode()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white transition" title="Design wechseln">
-          <i data-lucide="moon" id="themeIcon" class="w-5 h-5"></i>
-        </button>
+        <div class="flex items-center gap-2 sm:gap-3">
+          <button id="themeToggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:text-white" aria-label="Design wechseln">
+            <i data-lucide="moon" class="h-4 w-4" id="themeIcon"></i>
+          </button>
+          <button id="ttsBtn" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:text-white" aria-label="Vorlesen">
+            <i data-lucide="volume-2" class="h-4 w-4" id="ttsIcon"></i>
+          </button>
+          <button type="button" onclick="shareViaWhatsApp()" class="flex items-center gap-2 rounded-full bg-[#25D366] px-3 py-2 text-xs font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-[#1fbe59] sm:px-4">
+            <i data-lucide="share-2" class="h-4 w-4"></i>
+            <span class="hidden sm:inline">Teilen</span>
+          </button>
+        </div>
       </div>
     </div>
   </header>
 
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-6">
-    <div class="flex flex-col xl:flex-row xl:items-end justify-between gap-6">
-      <div class="max-w-2xl">
-        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-apple-blue/10 text-apple-blue text-xs font-semibold tracking-wide mb-3">
-          <span class="w-2 h-2 rounded-full bg-apple-blue animate-pulse"></span>
-          <span id="liveDateLabel">Lädt...</span>
-        </div>
-        <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-[#1d1d1f] dark:text-white leading-tight">
-          Tagesbriefing.<br><span class="text-apple-subtle font-medium">Präzise. Tiefgründig. Lokal.</span>
-        </h1>
-      </div>
+  <main class="mx-auto max-w-7xl px-4 pb-20 pt-8 sm:px-6 lg:px-8">
+    <section class="mb-8 rounded-[2rem] border border-slate-200/70 bg-white/60 p-4 shadow-soft dark:border-white/10 dark:bg-slate-900/60 sm:p-6 lg:p-8">
+      <div class="grid gap-6 xl:grid-cols-[1.5fr_0.9fr] xl:items-center">
+        <div>
+          <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-blue-700 dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-200">
+            <span class="pulse-dot h-2 w-2 rounded-full bg-blue-600"></span>
+            <span id="liveDateLabel">Lädt...</span>
+          </div>
 
-      <div class="w-full max-w-md">
-        <a href="https://www.wetter.com/suche/?query=Duderstadt" target="_blank" rel="noopener noreferrer" class="block rounded-3xl border border-apple-borderLight dark:border-apple-borderDark bg-white/80 dark:bg-[#1c1c1e]/80 p-4 shadow-sm hover:shadow-md transition-shadow">
-          <div class="flex items-center justify-between gap-3">
-            <div>
-              <div class="text-[10px] uppercase tracking-[0.2em] text-apple-subtle font-semibold">Wetter in Duderstadt</div>
-              <div id="weatherTemp" class="text-3xl font-bold mt-1 leading-none">--°C</div>
+          <h1 class="max-w-xl text-4xl font-semibold tracking-[-0.06em] text-slate-900 dark:text-white sm:text-5xl">
+            Tagesbriefing.<br />
+            <span class="text-slate-500 dark:text-slate-300">Präzise. Kontextreich. Lokal.</span>
+          </h1>
+
+          <p class="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+            Die wichtigsten Nachrichten für Duderstadt, das Eichsfeld und die Welt – kompakt eingeteilt, schnell verständlich und auf der Minute aktuell.
+          </p>
+
+          <div class="mt-5 flex flex-wrap items-center gap-3">
+            <div class="inline-flex items-center gap-2 rounded-full bg-slate-900 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-white dark:bg-white dark:text-slate-900">
+              <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+              Live
             </div>
-            <div id="weatherIcon" class="text-4xl" aria-label="Wetterzustand">☀️</div>
+            <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-slate-600 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300">
+              <i data-lucide="clock-3" class="h-3.5 w-3.5"></i>
+              Aktualisiert alle 60 Sekunden
+            </div>
           </div>
+        </div>
 
-          <div class="mt-3 flex items-center justify-between gap-3">
-            <div id="weatherCondition" class="text-sm font-medium text-[#1d1d1f] dark:text-white">Wetterlage wird geladen…</div>
-            <div id="rainBadge" class="inline-flex items-center rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide">Kein Regen</div>
+        <aside class="relative overflow-hidden rounded-[1.75rem] border border-slate-200/60 bg-gradient-to-br from-slate-100 via-white to-sky-50 p-4 shadow-floating dark:border-white/10 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,165,233,0.18),transparent_35%)]"></div>
+          <div class="relative">
+            <div class="flex items-center justify-between gap-3">
+              <div>
+                <div class="text-[10px] font-semibold uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">Wetter</div>
+                <div class="mt-1 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white"><span id="weatherTemp">--°C</span></div>
+              </div>
+              <div id="weatherIcon" class="text-4xl" aria-label="Wetterzustand">☀️</div>
+            </div>
+
+            <div class="mt-4 flex items-center justify-between gap-4">
+              <div id="weatherCondition" class="text-sm font-medium text-slate-800 dark:text-slate-100">Wetterlage wird geladen…</div>
+              <div id="rainBadge" class="rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-300">Kein Regen</div>
+            </div>
+
+            <div id="weatherMeta" class="mt-2 text-xs text-slate-500 dark:text-slate-400">Lädt...</div>
+
+            <div id="weatherTimeline" class="mt-4 grid grid-cols-4 gap-2"></div>
+
+            <a href="https://www.wetter.com/suche/?query=Duderstadt" target="_blank" rel="noopener noreferrer" class="mt-4 flex items-center justify-end gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-300">
+              <span>Mehr Details</span>
+              <i data-lucide="external-link" class="h-3.5 w-3.5"></i>
+            </a>
           </div>
-
-          <div id="weatherMeta" class="mt-2 text-xs text-apple-subtle">Lädt...</div>
-
-          <div id="weatherTimeline" class="mt-4 grid grid-cols-4 gap-2"></div>
-
-          <div class="mt-3 flex items-center justify-end text-[10px] font-semibold text-apple-blue">
-            <span>Mehr Details bei wetter.com</span>
-            <i data-lucide="external-link" class="w-3.5 h-3.5 ml-1"></i>
-          </div>
-        </a>
+        </aside>
       </div>
-    </div>
+    </section>
 
-    <div class="mt-8 flex flex-wrap items-center gap-2 pt-4 border-t border-apple-borderLight dark:border-apple-borderDark">
-      <button onclick="filterCategory('all')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-apple-blue text-white shadow-sm" data-cat="all">Alle Themen</button>
-      <button onclick="filterCategory('politik')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="politik">Politik</button>
-      <button onclick="filterCategory('wirtschaft')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="wirtschaft">Wirtschaft</button>
-      <button onclick="filterCategory('technik')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="technik">Technik</button>
-      <button onclick="filterCategory('regional')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="regional">Regional</button>
-      <button onclick="filterCategory('events')" class="cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark" data-cat="events">Events</button>
-    </div>
-  </section>
+    <section class="mb-8 rounded-[1.5rem] border border-slate-200/70 bg-white/60 p-3 shadow-soft dark:border-white/10 dark:bg-slate-900/60">
+      <div class="mb-3 flex items-center justify-between gap-3 px-2">
+        <div class="flex items-center gap-2">
+          <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-300"><i data-lucide="flame" class="h-4 w-4"></i></span>
+          <h2 class="text-lg font-semibold tracking-tight text-slate-900 dark:text-white">Top Schlagzeilen</h2>
+        </div>
+        <div class="text-[11px] font-medium uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">Live</div>
+      </div>
+      <div class="marquee" aria-live="polite">
+        <div id="headlineTicker" class="marquee-track gap-4"></div>
+      </div>
+    </section>
 
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 mt-6">
+    <section class="mb-8">
+      <div id="topHeadlinesGrid" class="grid gap-4 lg:grid-cols-3"></div>
+    </section>
+
+    <section class="mb-8 rounded-[1.5rem] border border-slate-200/70 bg-white/60 p-4 shadow-soft dark:border-white/10 dark:bg-slate-900/60">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div class="flex flex-wrap items-center gap-2" id="categoryFilters">
+          <button type="button" class="cat-pill rounded-full bg-slate-900 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-sm transition hover:-translate-y-0.5" data-cat="all">Alle Themen</button>
+          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-800/70 dark:text-slate-200" data-cat="politik">Politik</button>
+          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-800/70 dark:text-slate-200" data-cat="wirtschaft">Wirtschaft</button>
+          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-800/70 dark:text-slate-200" data-cat="technik">Technik</button>
+          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-800/70 dark:text-slate-200" data-cat="regional">Regional</button>
+          <button type="button" class="cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-800/70 dark:text-slate-200" data-cat="events">Events</button>
+        </div>
+
+        <label class="relative block w-full max-w-sm">
+          <span class="sr-only">Suche</span>
+          <i data-lucide="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"></i>
+          <input id="searchInput" type="search" placeholder="Artikel filtern…" class="w-full rounded-full border border-slate-200 bg-white/80 py-2.5 pl-9 pr-3 text-sm text-slate-700 outline-none ring-0 transition placeholder:text-slate-400 focus:border-blue-400 dark:border-white/10 dark:bg-slate-800/70 dark:text-slate-200 dark:placeholder:text-slate-500" />
+        </label>
+      </div>
+    </section>
+
     <div id="newsGrid" class="space-y-8"></div>
 
-    <section id="eventsSection" class="mt-16 space-y-6">
-      <div class="flex items-center space-x-3 pb-3 border-b border-apple-borderLight dark:border-apple-borderDark">
-        <div class="w-8 h-8 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-sm">
-          <i data-lucide="calendar" class="w-4 h-4"></i>
+    <section id="eventsSection" class="mt-16">
+      <div class="mb-6 flex items-center gap-3 border-b border-slate-200 pb-4 dark:border-white/10">
+        <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-500/10 text-violet-600 dark:text-violet-300">
+          <i data-lucide="calendar" class="h-4 w-4"></i>
         </div>
         <div>
-          <h2 class="text-2xl font-bold tracking-tight">Wochenend-Events: Duderstadt, Mingerode & Göttingen</h2>
-          <p id="eventRange" class="text-xs text-apple-subtle">Termine für das aktuelle Wochenende</p>
+          <h2 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Wochenend-Events</h2>
+          <p id="eventRange" class="text-xs uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Termine für das aktuelle Wochenende</p>
         </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="eventsGrid"></div>
+      <div id="eventsGrid" class="grid gap-5 md:grid-cols-2 xl:grid-cols-3"></div>
     </section>
   </main>
 
-  <div id="articleModal" class="fixed inset-0 z-50 hidden bg-black/60 apple-glass flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-[#1c1c1e] max-w-2xl w-full rounded-3xl overflow-hidden shadow-2xl border border-apple-borderLight dark:border-apple-borderDark flex flex-col max-h-[90vh]">
-      <div class="relative h-64 w-full overflow-hidden bg-black/10">
-        <img id="modalImg" src="" alt="" class="w-full h-full object-cover">
-        <button onclick="closeModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black transition">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-        <span id="modalBadge" class="absolute bottom-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-white/90 text-black apple-glass"></span>
+  <div id="articleModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/70 p-4 backdrop-blur-sm">
+    <div class="relative max-h-[90vh] w-full max-w-3xl overflow-hidden rounded-[2rem] border border-white/10 bg-white shadow-2xl dark:bg-slate-900">
+      <button type="button" onclick="closeModal()" class="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-slate-950/60 text-white transition hover:bg-slate-950">
+        <i data-lucide="x" class="h-4 w-4"></i>
+      </button>
+      <div class="relative h-64 w-full overflow-hidden">
+        <img id="modalImg" src="" alt="" class="h-full w-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/10 to-transparent"></div>
+        <div id="modalBadge" class="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-900 shadow-sm"></div>
       </div>
-      <div class="p-6 overflow-y-auto space-y-4">
-        <div class="flex items-center justify-between text-xs text-apple-subtle font-mono">
+      <div class="max-h-[calc(90vh-16rem)] overflow-y-auto p-6 sm:p-8">
+        <div class="mb-3 flex items-center justify-between gap-3 text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           <span id="modalSource"></span>
           <span id="modalDate"></span>
         </div>
-        <h2 id="modalTitle" class="text-2xl font-bold tracking-tight text-[#1d1d1f] dark:text-white"></h2>
-        <div id="modalContent" class="text-base text-apple-subtle leading-relaxed space-y-3"></div>
-        <div class="pt-4 border-t border-apple-borderLight dark:border-apple-borderDark flex items-center justify-between">
-          <a id="modalLink" href="#" target="_blank" class="inline-flex items-center space-x-2 text-sm font-semibold text-apple-blue hover:text-apple-blueHover">
+        <h2 id="modalTitle" class="text-2xl font-semibold tracking-[-0.04em] text-slate-900 dark:text-white"></h2>
+        <div id="modalContent" class="mt-4 space-y-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300"></div>
+        <div class="mt-6 flex items-center justify-between gap-4 border-t border-slate-200 pt-5 dark:border-white/10">
+          <a id="modalLink" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 dark:text-blue-300">
             <span>Originalquelle öffnen</span>
-            <i data-lucide="external-link" class="w-4 h-4"></i>
+            <i data-lucide="external-link" class="h-4 w-4"></i>
           </a>
-          <button onclick="closeModal()" class="px-5 py-2 rounded-full text-xs font-semibold bg-apple-bg dark:bg-black/40 hover:bg-black/10 transition">Schließen</button>
+          <button type="button" onclick="closeModal()" class="rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700 transition hover:bg-slate-200 dark:border-white/10 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700">Schließen</button>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    const TODAY_SHORT = new Intl.DateTimeFormat('de-DE', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    }).format(new Date());
+    const TODAY_SHORT = new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date());
 
     const CATEGORY_META = {
       politik: { label: 'Politik', tone: 'bg-blue-500/10 text-blue-700 dark:text-blue-300' },
       wirtschaft: { label: 'Wirtschaft', tone: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' },
       technik: { label: 'Technik', tone: 'bg-violet-500/10 text-violet-700 dark:text-violet-300' },
-      regional: { label: 'Regional', tone: 'bg-amber-500/10 text-amber-700 dark:text-amber-300' }
+      regional: { label: 'Regional', tone: 'bg-amber-500/10 text-amber-700 dark:text-amber-300' },
+      events: { label: 'Events', tone: 'bg-pink-500/10 text-pink-700 dark:text-pink-300' }
     };
 
+    function makeCoverArt(title, source, colorA, colorB) {
+      const safeTitle = (title || 'Nachrichten').slice(0, 48).replace(/&/g, '&amp;');
+      const safeSource = (source || 'Agent').slice(0, 20).replace(/&/g, '&amp;');
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="${colorA}"/>
+              <stop offset="100%" stop-color="${colorB}"/>
+            </linearGradient>
+            <radialGradient id="glow" cx="75%" cy="25%" r="65%">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.75)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+            </radialGradient>
+          </defs>
+          <rect width="1200" height="800" fill="url(#g)"/>
+          <rect width="1200" height="800" fill="url(#glow)"/>
+          <circle cx="200" cy="180" r="140" fill="rgba(255,255,255,0.12)"/>
+          <circle cx="940" cy="640" r="170" fill="rgba(255,255,255,0.08)"/>
+          <path d="M0 610 C 180 560, 260 680, 420 620 S 760 500, 1200 620 L1200 800 L0 800 Z" fill="rgba(15,23,42,0.10)"/>
+          <rect x="70" y="60" width="150" height="28" rx="14" fill="rgba(255,255,255,0.18)"/>
+          <text x="70" y="118" fill="rgba(255,255,255,0.8)" font-size="24" font-family="Arial, sans-serif" letter-spacing="6">${safeSource.toUpperCase()}</text>
+          <text x="70" y="410" fill="rgba(255,255,255,0.92)" font-size="68" font-weight="700" font-family="Arial, sans-serif">${safeTitle}</text>
+        </svg>
+      `;
+      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+    }
+
     const NEWS_DATABASE = [
-      { id: 1, cat: 'politik', badge: 'Top 1 Politik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Spanisches Zugunglück bei Toledo: Ermittler sichern Zugsicherung und Funkdaten', summary: 'Nach dem Zugunglück in Spanien stehen die Auswertung der Zugsicherung und Funkdaten im Fokus. Die Untersuchung soll Aufklärung über die Ursache bringen und die Sicherheitslage auf den Schienen in Europa beurteilen.', fullText: 'Die Ermittler in Spanien konzentrieren sich auf die ausgelösten Signal- und Funkdaten sowie die Sicherungssysteme des betroffenen Zuges. Eine erste Einschätzung deutet auf ein komplexes Zusammenspiel technischer und organisatorischer Faktoren hin. Die zuständigen Behörden prüfen zugleich, ob die eingeleiteten Schutzmaßnahmen den aktuellen Sicherheitsstandards entsprechen. Bereits jetzt ist klar: Die Untersuchung beeinflusst nicht nur die nationale Sicherheitsdebatte, sondern auch die europäische Diskussion zu modernisierter Zugtechnik und Betriebsabläufen.', img: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 2, cat: 'politik', badge: 'Top 2 Politik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Kabinett bringt „Gebäudetyp E“ auf den Weg: Günstigeres Bauen', summary: 'Die Bundesregierung will mit dem neuen Gebäudetyp E den Wohnungsbau in Deutschland vereinfachen und die Kosten für moderne Eigenheime senken. Das Vorhaben zielt auf standardisierte, kostengünstigere Konstruktionen mit einem klaren ökologischen Rahmen ab.', fullText: 'Das Kabinett hat den Entwurf für den sogenannten Gebäudetyp E freigegeben und damit einen wichtigen Hebel für das langfristige Baumanagement geschaffen. Ziel ist, die Planungs- und Bauzeit zu verkürzen und dadurch niedrigere Kosten für Haushalte und Investoren zu erzielen. Gleichzeitig sollen Bauvorschriften im Bereich Energieeffizienz und Nachhaltigkeit einheitlicher werden. Kritiker warnen jedoch vor Qualitätsverlusten und unverhältnismäßigen Standardisierungen in der Praxis.', img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 3, cat: 'politik', badge: 'Top 3 Politik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Haushalt 2027: Chefhaushälter gehen in Klausur', summary: 'Vor der Bereinigungssitzung steht der Haushaltsentwurf 2027 im Fokus. Die Finanzpolitiker prüfen Prioritäten, Verschiebungen und mögliche Einsparpotenziale bei Infrastruktur, Sicherheit und Sozialausgaben.', fullText: 'Die Chefhaushälter der Bundesregierung treffen sich zu einer Klausur, um die letzten offenen Punkte eines milliardenschweren Haushaltsplans zu klären. Neben den klassischen Themen wie Gesundheit, Bildung und Verteidigung kommen auch neue Herausforderungen wie Infrastruktur, KI-Förderung und Verteidigungsvorhaben auf den Tisch. Die Debatte dreht sich um die Frage, ob der Entwurf künftig noch haushaltsrechtlich tragfähig bleibt oder zusätzliche Anpassungen nötig werden.', img: 'https://images.unsplash.com/photo-1521790797524-b2497295b8a0?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 4, cat: 'politik', badge: 'Top 4 Politik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Kanzlerreise: Halbleiter- und Rohstoffallianzen in Tokio und Seoul', summary: 'Bundeskanzler und Delegation suchen in Ostasien neue Partnerschaften in der Hightech- und Rohstoffversorgung. Die Reise zielt auf resilientere Lieferketten und mehr strategische Kooperationen ab.', fullText: 'In Tokio und Seoul stehen vor allem Kooperationen in der Halbleiterfertigung, Versorgungssicherheit und Rohstoffversorgung im Mittelpunkt. Die Bundesregierung will die Abhängigkeiten in kritischen Industriezweigen verringern und zugleich die bilateralen Wirtschaftsbeziehungen stärken. Die Gespräche sollen technische, diplomatische und industrielle Interessen miteinander verbinden – mit Blick auf langfristige Stabilität in der internationalen Lieferkette.', img: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 5, cat: 'politik', badge: 'Top 5 Politik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Knesset-Wahlergebnis: Zersplitterung erschwert Koalitionsbildung', summary: 'In Israel führt das Wahlergebnis zu einer schwierigen Koalitionsbildung. Verschiedene Lager sprechen über Kompromisse, während die politische Stabilität weiter fragil bleibt.', fullText: 'Die jüngsten Wahlen in der Knesset haben die politische Landschaft weiter fragmentiert. Keine der Fraktionen konnte alle Erwartungen auf eine stabile Mehrheit erfüllen. Die Regierungsbildung steht damit vor einem schwierigen und langwierigen Prozess. Beobachter sehen die Lage als ein Abbild tiefer gesellschaftlicher Spaltungen und wachsender politischer Polarisierung in Israel.', img: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 6, cat: 'politik', badge: 'Top 6 Politik', date: TODAY_SHORT, source: 'NDR', title: 'Parteispendenaffäre: Rechtsausschuss fordert Konsequenzen', summary: 'Der Niedersächsische Landtag fordert nach der Parteispendenaffäre Konsequenzen für Beteiligte und prüft weitere Nachforschungen zu Transparenz und Regeln.', fullText: 'Im Rechtsausschuss wurden erste Stellungnahmen zu möglichen Konsequenzen der Parteispendenaffäre gehört. Die parlamentarische Kritik richtet sich zugleich gegen mangelnde Transparenz und unklare Einzelfälle. Die neue Diskussion legt offen, dass die politische Verantwortung nicht nur mit formalen Regeln, sondern auch mit der offenen Darstellung von Interessen zusammenhängt. Ein klarer Konsens bildet sich bislang noch nicht.', img: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=80', url: 'https://www.ndr.de/' },
-      { id: 7, cat: 'politik', badge: 'Top 7 Politik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Maritime Sicherheitsoperation im Persischen Golf', summary: 'Begleitfregatten und Aufklärungsflugzeuge sichern die Handelswege im Persischen Golf. Die internationale Operation soll die Sicherheit im kritischen Schifffahrtskorridor erhöhen.', fullText: 'Die maritime Sicherheitsoperation im Persischen Golf wird mit zusätzlicher Präsenz von Begleitfregatten und Aufklärungsflugzeugen weiter ausgebaut. Die Koalitionspartner betonen, dass die Maßnahme vor allem der Schutz des internationalen Schiffsverkehrs und der Stabilität der Seewege dient. Dabei rückt auch die Frage nach regionalen Spannungen und der Rolle der Küstenstaaten stärker in den Mittelpunkt.', img: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 8, cat: 'politik', badge: 'Top 8 Politik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Ukraine-Winterhilfe: Europäische Hochspannungstransformatoren geliefert', summary: 'Mit der Lieferung von Transformatoren wächst die Unterstützung der EU für das ukrainische Stromnetz weiter. Die Maßnahme soll die Versorgung in der Winterphase stabilisieren.', fullText: 'Die EU hat neue Hochspannungstransformatoren nach Ukraine geliefert. Damit soll das angeschlagene Energieversorgungssystem widerstandsfähiger werden, besonders im Blick auf die kalte Jahreszeit. Die Entscheidung ergänzt eine Reihe von Hilfen, die die Versorgungsketten und kritische Infrastruktur in der Ukraine stärken sollen. Die politische Debatte fokussiert zunehmend auf Langfristigkeit und Resilienz.', img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 9, cat: 'politik', badge: 'Top 9 Politik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Innenminister fordern Fortführung stationärer Grenzkontrollen', summary: 'Bundesländer wollen die bisherigen Grenzkontrollen für längere Zeit beibehalten und betonen die Bedeutung der inneren Sicherheit. Die Debatte gilt als Signal für eine verschärfte Migrationspolitik.', fullText: 'Die Innenminister der Länder bekräftigen ihre Forderung nach einer Fortsetzung stationärer Grenzkontrollen. Dabei verweisen sie auf die notwendige Sicherheit und die Notwendigkeit, irreguläre Migration besser zu steuern. Die Bundesregierung prüft die Anforderungen und die rechtlichen Rahmenbedingungen. Die Debatte wird in der politischen Öffentlichkeit als Zeichen einer engeren Sicherheitsstrategie verstanden.', img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 10, cat: 'politik', badge: 'Top 10 Politik', date: TODAY_SHORT, source: 'Tagesschau', title: 'EU-Fahrgastrechte: Automatische Entschädigung bei Zugverspätungen', summary: 'Neue EU-Regeln sollen Fahrgäste bei Zugverspätungen automatisch besser entschädigen. Die Reform zielt auf mehr Transparenz und stärkere Rechte auf dem Bahnverkehrsmarkt ab.', fullText: 'Mit den geplanten Änderungen der EU-Fahrgastrechte wird die Entschädigung bei Verspätungen deutlich vereinfacht, insbesondere im grenzüberschreitenden Verkehr. Die Politik will die Rechte der Reisenden stärken und gleichzeitig die Verantwortung der Anbieter klarer definieren. Der Effekt dürfte sich vor allem im internationalen Zugverkehr bemerkbar machen.', img: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 11, cat: 'wirtschaft', badge: 'Top 1 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'ifo-Geschäftsklima steigt den sechsten Monat in Folge', summary: 'Das Wirtschaftsbarometer steigt erneut, was auf bessere Erwartungen in Industrie und Dienstleistung hindeutet. Die Unternehmen gehen nach Einschätzung der ifo-Institute von einer stärkeren Dynamik aus.', fullText: 'Das ifo-Geschäftsklima hat überraschend zugelegt und damit den sechsten Monat in Folge positive Stimmen aus Branchen erhalten. Die Ursachen liegen unter anderem in den verbesserten Auftragslagen und der insgesamt positiven Einschätzung seitens der Führungskräfte. Für die Konjunktur bedeutet das ein wichtiges Signal: Die Unternehmen rechnen im kommenden Quartal mit einer etwas robusteren Lage als noch vor wenigen Monaten.', img: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 12, cat: 'wirtschaft', badge: 'Top 2 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Industrie fordert Senkung der Stromsteuer für alle Betriebe', summary: 'Verbände wollen die Besteuerung von Strom für Unternehmen deutlich reduzieren, um Energiepreise und Standortvorteile zu verbessern. Die Initiative kommt vor dem Hintergrund von Investitionsentscheidungen und Wettbewerbsfähigkeit.', fullText: 'Die deutsche Industrie fordert eine deutliche Senkung der Stromsteuer für alle Betriebe. Dabei betonen die Verbände, dass hohe Energiekosten unmittelbar die Wettbewerbsfähigkeit der Produktion beeinflussen. Die Politik steht vor der Entscheidung, ob sie die Energiepreise zugleich als Standortfaktor und Klimaschutzmaßnahme interpretieren will. Die Debatte zeichnet sich als eine der zentralen wirtschaftspolitischen Herausforderungen des Jahres ab.', img: 'https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 13, cat: 'wirtschaft', badge: 'Top 3 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Regionalisierungsmittel: Länder warnen vor ÖPNV-Kürzungen', summary: 'Verkehrsminister befürchten bei einer Reduzierung der Mittel massive Belastungen für den ÖPNV. Die Diskussion wirft Fragen zu Finanzierung und regionale Verteilung auf.', fullText: 'Die Länder warnen vor einer strukturellen Schwächung des ÖPNV, sollte die Finanzierung der Regionalisierungsmittel gekürzt werden. Gerade ländliche Räume würden davon stark betroffen sein. Diese Debatte spiegelt zugleich die Herausforderungen der Verkehrspolitik wider: Anbieter brauchen Investitionen, während zugleich Preis- und Stabilitätsentscheidungen politische Priorität haben.', img: 'https://images.unsplash.com/photo-1528747045269-390fe33c19f2?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 14, cat: 'wirtschaft', badge: 'Top 4 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Automobilzulieferer beschleunigen Standortkonsolidierung', summary: 'Höhere Energiepreise und schwache Nachfrage führen dazu, dass Zulieferer ihre Standorte stärker bündeln. Die Folgen treffen sowohl Beschäftigung als auch regionale Wirtschaftsräume.', fullText: 'Die Automobilzulieferer reagieren auf zunehmende Wettbewerbsdruck mit einer Konsolidierung ihrer Produktionsstandorte. Die Überlegungen basieren auf einem Gemisch aus Energiepreisen, weltweiter Nachfrage und Produktverschiebungen. Unternehmen und Verbände erwarten, dass die Konsolidierung in den kommenden Quartalen weiter an Dynamik gewinnt.', img: 'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 15, cat: 'wirtschaft', badge: 'Top 5 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Entscheidung über Briefporto ab 2027 vor dem Abschluss', summary: 'Bundesnetzagentur und Ministerium arbeiten an einem neuen Angebot zur Regulierung des Briefportos. Die Entscheidung für 2027 könnte wichtige Rahmenbedingungen für die Post- und Logistikbranche schaffen.', fullText: 'Die Regulierung des Briefportos für ab 2027 wird derzeit vertieft diskutiert. Die Entscheidung wird erhebliche Auswirkungen auf die Postbranche, die Logistik und das Verhalten der Verbraucher haben. Eine spürbare Senkung oder Stabilisierung wäre deshalb nicht nur wirtschaftspolitisch, sondern auch gesellschaftlich relevant. Die Gespräche laufen in einem spannungsreichen Umfeld zwischen Kosteneffizienz und Versorgungsauftrag.', img: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 16, cat: 'wirtschaft', badge: 'Top 6 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Bankensektor: Produktivitätsgewinne durch interne KI-Systeme', summary: 'Mehrere Banken setzen vermehrt interne KI-Systeme ein, um Prozesse zu automatisieren und Fehler zu verringern. Die digitale Transformation zeigt erste Effekte auf Produktivität und Servicequalität.', fullText: 'Die Entlastung der internen Prozesse durch künstliche Intelligenz gewinnt zunehmend an Bedeutung. Banken nutzen KI nicht nur für riskobasierte Entscheidungen, sondern auch für die Optimierung interner Abläufe und Kundensupport. Die langfristige Wirkung könnte im Bereich der Effizienz und der Produktivität besonders deutlich werden. Kritiker warnen jedoch vor einer Überforderung der Governance und vor unvollständigen Regelwerken.', img: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 17, cat: 'wirtschaft', badge: 'Top 7 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Konsumklima: GfK erwartet preissensibles Weihnachtsgeschäft', summary: 'Die Verbraucher erwarten ein anspruchsvolles Weihnachtsgeschäft mit Fokus auf Preis und Qualität. Die Branche rechnet mit Umsätzen, die stärker von Kaufentscheidungen und Rabattaktionen abhängen.', fullText: 'Das GfK-Konsumklima zeigt, dass Verbraucher im Herbst auf Preis-Leistungs-Verhältnis achten. Werbeaktionen und besondere Angebote werden mit höherer Wahrscheinlichkeit die Kaufentscheidungen im Weihnachtsgeschäft beeinflussen. Versicherungen und Händler reagieren mit flexibleren Produktportfolios und stärkerem Promotionsmanagement. Diese Entwicklung ist für Hersteller und Einzelhändler von hoher strategischer Bedeutung.', img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 18, cat: 'wirtschaft', badge: 'Top 8 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Batterie-Garantierückstellungen belasten Autobauer-Quartalszahlen', summary: 'Vorsorgliche Rückstellungen für Batteriesysteme setzen viele Autobauer unter Druck. Die Strategie steht im Spannungsfeld zwischen Elektromobilität und wirtschaftlicher Stabilität.', fullText: 'Autobauer müssen die Garantierückstellungen für Batteriesysteme in ihren Quartalszahlen deutlich berücksichtigen. Diese Rückstellungen sind eine Folge aus der höheren technischen Komplexität und aus langfristigen Gewährleistungsansprüchen. Die Kennzahlen zeigen, dass die Transformation der Autoindustrie nicht nur mit Investitionen, sondern auch mit erheblichen Risikostufen verbunden ist. Die Diskussion dreht sich um die richtige Balance zwischen Zukunftsstrategien und Kurzfriststabilität.', img: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 19, cat: 'wirtschaft', badge: 'Top 9 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Rohstoffmärkte: Gold behauptet Rekordniveau nahe 2.740 Dollar', summary: 'Sicherheitsbedürfnisse, Wechselkursbewegungen und geopolitische Unruhe halten Gold nach wie vor auf hohem Niveau. Der Markt zeigt weiterhin eine starke Nachfrage nach sicheren Anlagen.', fullText: 'Gold behält in den Rohstoffmärkten ein Rekordniveau und verzeichnet starke Nachfrage aus globalen Sicherheitsanliegen. Bereinigt um kurzfristige Volatilität steht das Edelmetall für die Sorge um langfristige finanzielle Stabilität. Anleger und Analysten beobachten die kurzfristigen Hebelwirkungen auf Währungen und Finanzmärkte mit besonderem Interesse.', img: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 20, cat: 'wirtschaft', badge: 'Top 10 Wirtschaft', date: TODAY_SHORT, source: 'Tagesschau', title: 'Forschungsförderung: Mittelstand mahnt verbindliche Antragsfristen an', summary: 'Der Mittelstand fordert klare Regeln und verbindliche Antragsfristen für Fördermittel. Die Initiative zielt auf reduzierten Verwaltungsaufwand und bessere Investitionssicherheit.', fullText: 'Mittelständische Unternehmen kritisieren den verwaltungsintensiven Förderprozess und fordern verbindliche Fristen, damit Planungen nicht an bürokratischen Hürden scheitern. Die Debatte kommt zur rechten Zeit, da viele Unternehmen in Forschung, Digitalisierung und nachhaltige Produktion investieren wollen. Die Definition klarer Richtlinien scheint für die Innovationskraft Deutschlands besonders wichtig zu sein.', img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 21, cat: 'technik', badge: 'Top 1 Technik', date: TODAY_SHORT, source: 'BSI', title: 'BSI erneuert Dringlichkeitswarnung vor Angriffen auf Web-Frameworks', summary: 'Das BSI warnt erneut vor massenhaft beobachteten Angriffen auf gängige Web-Frameworks. Die Sicherheitsexperten empfehlen Sofortmaßnahmen bei Webservern und Anwendungen.', fullText: 'Das Bundesamt für Sicherheit in der Informationstechnik hat eine erneute Warnung vor allgemein bekannten Sicherheitslücken in verbreiteten Web-Frameworks veröffentlicht. Die Angriffe betreffen vor allem unzureichend aktualisierte Installationen mit veralteter Konfiguration. Die unmittelbare Handlungsnotwendigkeit ist hoch, da sich automatisierte Angriffe schnell verbreiten. Bei Unternehmen ist ein gezieltes Patch- und Sicherheitsmanagement daher dringend erforderlich.', img: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=80', url: 'https://www.bsi.bund.de/' },
-      { id: 22, cat: 'technik', badge: 'Top 2 Technik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Endlager Onkalo: Finnische Multibarrieren-Technologie setzt Maßstäbe', summary: 'Die finnische Endlagerstrategie mit Multibarriere-Konzept setzt neue Maßstäbe für die sichere langfristige Lagerung radioaktiver Materialien in Europa und darüber hinaus.', fullText: 'Die finnische Endlagerlösung Onkalo zeigt, wie Multibarrieren- und Schichtenkonzepte langfristige Sicherheit für radioaktive Abfälle gewährleisten können. Die Technologie wird in Europa als Vorbild für wesentliche Sicherheitsentscheidungen diskutiert. Entscheidend ist dabei nicht nur das technische Design, sondern auch die gesellschaftliche Akzeptanz und die klare governance-Struktur über Jahrzehnte hinweg.', img: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 23, cat: 'technik', badge: 'Top 3 Technik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Cybersicherheit bei vernetzten Fahrzeugen: API-Schutz im Zentrum', summary: 'Studien zeigen, dass Sicherheitslücken in Fahrzeug-APIs ein zentrales Risiko für vernetzte Autos darstellen. Die Branchentechnologie fordert einen stärkeren Fokus auf Absicherung und Monitoring.', fullText: 'Bei modernen Fahrzeugen stehen die Schnittstellen zu Cloud-Diensten, Mobilfunk und Fahrzeugfunktionen im Zentrum der Sicherheitsdebatte. Die Risiken entstehen durch unzureichend geschützte APIs und mangelnde Überwachung. Hersteller reagieren mit neuen Sicherheitsarchitekturen, strengeren Testprozessen und Szenarien, die den Zugriff auf Fahrdaten und Steuerungen minimieren sollen.', img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 24, cat: 'technik', badge: 'Top 4 Technik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Edge-KI revolutioniert visuelle Prozesskontrollen in der Fertigung', summary: 'NPU-basierte Edge-KI-Systeme erlauben in der Fertigung schnellere Qualitätskontrollen und weniger Fehler bei der Produktion. Die Technik verbindet Effizienz mit skalierbarer Performance.', fullText: 'In der Fertigungsindustrie setzt sich Edge-KI immer schneller durch, weil sie Qualitätskontrollen direkt am Produktionsort und in Echtzeit ermöglichen kann. Die Nutzung von NPU-optimierten Systemen reduziert nicht nur die Reaktionszeiten, sondern verbessert auch die Datenverarbeitung bei sensiblen Produktionsschritten. Die Bedeutung liegt vor allem in der Möglichkeit, Ausfälle oder Qualitätslücken frühzeitig zu erkennen und sofort gegenzusteuern.', img: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 25, cat: 'technik', badge: 'Top 5 Technik', date: TODAY_SHORT, source: 'Tagesschau', title: 'Prüfverbände warnen vor Firmware-Tuning bei E-Bikes und Scootern', summary: 'TÜV und Prüfverbände warnen vor Modifikationen der Firmware, die Sicherheit und Zulassung gefährden können. Das Thema wird vor dem Hintergrund wachsender E-Mobilität immer relevanter.', fullText: 'Die Warnung vor Firmware-Tuning bei E-Bikes und Elektrorollern gewinnt an Aktualität. Auf dem Markt finden sich veränderte Softwareversionen, die die Leistung erhöhen oder Systemgrenzen umgehen. Prüfverbände betonen, dass solche Eingriffe die Sicherheitsstandards verletzen können und in vielen Fällen die Betriebserlaubnis beeinträchtigen. Die Politik und Branchenverbände suchen nach wirksamen Gegenmaßnahmen.', img: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=900&q=80', url: 'https://www.tagesschau.de/' },
-      { id: 26, cat: 'regional', badge: 'Top 1 Regional', date: TODAY_SHORT, source: 'Eichsfelder Tageblatt', title: 'Stabsübergabe im Stadthaus Duderstadt: Heutige Bürgerbegegnung', summary: 'Bürgerinnen und Bürger kommen zu einer offenen Begegnung mit der Stadtverwaltung. Die Feierlichkeiten markieren einen klaren Übergang im kommunalen Führungsteam der kleinen Kreisstadt.', fullText: 'Duderstadt hält eine zentrale Bürgerbegegnung im Stadthaus ab, um die neue organisatorische Struktur und die Stabsübergabe zwischen den Verantwortlichen zu begleiten. Die Stadtverwaltung will damit Transparenz schaffen und den Bürgern die aktuelle Ausrichtung des politischen und verwaltungstechnischen Bereichs erläutern. Die Veranstaltung wird als wichtiges Signal der politischen Erneuerung und der kommunalen Nähe verstanden.', img: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=900&q=80', url: 'https://www.eichsfelder-tageblatt.de/' },
-      { id: 27, cat: 'regional', badge: 'Top 2 Regional', date: TODAY_SHORT, source: 'Eichsfelder Tageblatt', title: 'Eingeschränkte Öffnungszeiten der Stadtverwaltung Duderstadt', summary: 'Wegen organisatorischer Maßnahmen und behördlicher Anpassungen bleiben Teile der Verwaltung in Duderstadt auf veränderte Öffnungszeiten beschränkt. Bürgerinnen und Bürger müssen sich auf langfristigere Bearbeitungszeiten einstellen.', fullText: 'Die Stadtverwaltung Duderstadt hat wegen persönlicher und organisatorischer Übergänge ihre Öffnungszeiten angepasst. Diese Besonderheiten betreffen unter anderem einzelne Servicebereiche und bestimmte Tagesfenster. Die Verwaltung betont, dass die Maßnahmen vorübergehend sind und im Interesse einer geordneten Übergangsphase kurzfristig notwendig werden. Bürgerinnen und Bürger werden gebeten, die aktuellen Hinweise vor Ort zu beachten.', img: 'https://images.unsplash.com/photo-1521102964203-2f0200e5f8f9?auto=format&fit=crop&w=900&q=80', url: 'https://www.eichsfelder-tageblatt.de/' },
-      { id: 28, cat: 'regional', badge: 'Top 3 Regional', date: TODAY_SHORT, source: 'Fachwerk5Eck', title: 'Fachwerk5Eck startet Vortragsreihe zur energetischen Sanierung', summary: 'Kostenlose Fachvorträge zur energetischen Sanierung machen die Region mit nachhaltigen und wirtschaftlichen Lösungen vertraut. Das Projekt richtet sich an Eigentümer, Bauträger und Interessierte aus dem Eichsfeld.', fullText: 'Das Fachwerk5Eck startet mit einer neuen Vortragsreihe zur energetischen Sanierung, die sich insbesondere an Eigentümer und Fachleute richtet. Die Veranstaltungen decken von Grundsatzfragen bis zu konkreten Sanierungskonzepten ab und gehen dabei auf Kosten, Materialien und gesetzliche Anforderungen ein. Die Reihe gilt als wichtiges regionales Angebot, das die fachliche Debatte rund um Altbauten und Erneuerung belebt.', img: 'https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=900&q=80', url: 'https://www.fachwerk5eck.de/' },
-      { id: 29, cat: 'regional', badge: 'Top 4 Regional', date: TODAY_SHORT, source: 'NLStBV', title: 'Verkehrsfreigabe am Herkuleskreisel (L 523 bei Osterode) heute', summary: 'Deckenerneuerung und Verkehrsarbeiten am Herkuleskreisel bei Osterode gehen zunächst in die letzte Phase. Die Freigabe ist heute erwartet, sofern die Arbeiten planmäßig verlaufen.', fullText: 'Die Verkehrsfreiheit am Herkuleskreisel nahe Osterode wird nach einer Übergangsphase wieder hergestellt. Die Arbeiten an der Ausbauphase und der Oberflächenstruktur gingen nach Plan voran. Die Freigabe dient sowohl dem Straßenverkehr als auch der Sicherheit und ist ein wichtiger, kurzfristig relevanter Punkt für Pendler und regionale Verbindungen. Die Behörden erhalten dabei zugleich Zweifel und Hinweise zu weiteren Signal- und Verkehrsmanagementmaßnahmen.', img: 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=900&q=80', url: 'https://www.nlstbv.de/' },
-      { id: 30, cat: 'regional', badge: 'Top 5 Regional', date: TODAY_SHORT, source: 'Eichsfelder Tageblatt', title: 'Höhepunkt des herbstlichen Vogelzugs am Seeburger See', summary: 'Tausende Kraniche und Wildgänse ziehen am Seeburger See vorbei und ziehen die Beobachter in den Bann. Die Region erlebt einen saisonalen Höhepunkt mit sichtbaren Zugbewegungen und entspannter Naturbeobachtung.', fullText: 'Am Seeburger See erreicht der herbstliche Vogelzug seinen Höhepunkt. Tausende Kraniche und andere Zugvögel nutzen den See als Zwischenstation in einer saisonalen Bewegung, die für Menschen aus der Region ein einzigartiges Naturereignis darstellt. Naturfreunde und Familien nutzen die Gelegenheit zu Beobachtungen und informieren sich über die Besonderheiten der Vögel und ihrer Flugroute. Die Veranstaltung wird als lokales Highlight im Herbst beschrieben.', img: 'https://images.unsplash.com/photo-1474511320723-9a56873867b5?auto=format&fit=crop&w=900&q=80', url: 'https://www.eichsfelder-tageblatt.de/' }
+      { id: 1, cat: 'politik', badge: 'Top 1 Politik', source: 'Tagesschau', date: TODAY_SHORT, title: 'Spanisches Zugunglück bei Toledo: Ermittler sichern Funk- und Sicherungsdaten', summary: 'Die Spurensicherung konzentriert sich auf Signalverläufe, Leitstellenprotokolle und die Zugsteuerung.', fullText: 'Die Ermittlungsstelle untersucht nach dem Zugunglück bei Toledo vor allem Funkdaten, Signal- und Leitstellenaussagen. Aus der verbliebenen Elektronik sollen Aussagen zur Bremskette und zu den letzten Sekunden vor dem Unfall gewonnen werden.', url: 'https://www.tagesschau.de/', img: makeCoverArt('Zugunglück bei Toledo', 'Tagesschau', '#0f172a', '#3b82f6') },
+      { id: 2, cat: 'politik', badge: 'Top 2 Politik', source: 'Bundesregierung', date: TODAY_SHORT, title: 'Kabinett beschließt „Gebäudetyp E“ als neue Standardbaulösung', summary: 'Der Entwurf will günstigeres, nachhaltigeres und schnelleres Bauen auf den Weg bringen.', fullText: 'Das Kabinett hat den Entwurf für einen neuen Gebäudetyp-E vorgelegt. Ziel ist ein vereinfachter, kostengünstigerer und nachhaltigerer Bauprozess für Wohn- und Gewerbegebäude im Bestand und Neubau.', url: 'https://www.bundesregierung.de/breg-de', img: makeCoverArt('Gebäudetyp E', 'Bundesregierung', '#082f49', '#0ea5e9') },
+      { id: 3, cat: 'politik', badge: 'Top 3 Politik', source: 'Bundestag', date: TODAY_SHORT, title: 'Haushalt 2027: Chefhaushälter verhandeln in Klausur mit Kürzungsspielraum', summary: 'Die Debatte fokussiert sich auf Infrastruktur, Verteidigung und die Reformfähigkeit des Staates.', fullText: 'Die Chefhaushälter beraten in einer Klausur über das Bundeshaushaltskonzept 2027. Dabei stehen Investitionen, die Lage der öffentlichen Finanzen und die Priorisierung von Infrastruktur und Sicherheit im Fokus.', url: 'https://www.bundestag.de/', img: makeCoverArt('Haushalt 2027', 'Bundestag', '#1d4ed8', '#6d28d9') },
+      { id: 4, cat: 'politik', badge: 'Top 4 Politik', source: 'Auswärtiges Amt', date: TODAY_SHORT, title: 'Kanzlerreise: Halbleiter- und Rohstoffallianzen im Fokus', summary: 'In Tokio und Seoul wird an hochgradigen Industrie- und Lieferkettenkooperationen gearbeitet.', fullText: 'Bei der Reise nach Ostasien stehen Handels-, Sicherheits- und Technologiezusammenarbeit auf der Agenda. Besonders wichtig sind Rohstoff-Partnerschaften und strategische Chip-Ökosysteme.', url: 'https://www.auswaertiges-amt.de/', img: makeCoverArt('Kanzlerreise Ostasien', 'Auswärtiges Amt', '#164e63', '#38bdf8') },
+      { id: 5, cat: 'wirtschaft', badge: 'Top 1 Wirtschaft', source: 'ifo Institut', date: TODAY_SHORT, title: 'ifo-Geschäftsklima steigt zum sechsten Mal in Folge', summary: 'Unternehmen und Dienstleister beflügeln mit besserer Lage und Optimismus die Geschäftserwartungen.', fullText: 'Das Ifo-Geschäftsklima legte erneut zu und signalisiert eine stabile wirtschaftliche Aufhellung. Lieferengpässe und Energiepreise bleiben die wichtigsten Gegenpunkte.', url: 'https://www.ifo.de/', img: makeCoverArt('ifo Geschäftsklima', 'ifo Institut', '#14532d', '#22c55e') },
+      { id: 6, cat: 'wirtschaft', badge: 'Top 2 Wirtschaft', source: 'DIHK', date: TODAY_SHORT, title: 'Industrie fordert Senkung der Stromsteuer für Mittelstand und Produktion', summary: 'Verbände sehen in einer Entlastung den wichtigsten Hebel für Investitionen und Wettbewerbsfähigkeit.', fullText: 'Die Lobbyverbände fordern gezielte Entlastungen bei Energie- und Betriebskosten. Für produzierende Unternehmen und Mittelständler sei die Senkung der Stromsteuer ein entscheidender Hebel für Investitionen.', url: 'https://www.dihk.de/', img: makeCoverArt('Stromsteuer Mittelstand', 'DIHK', '#166534', '#4ade80') },
+      { id: 7, cat: 'wirtschaft', badge: 'Top 3 Wirtschaft', source: 'Verkehrsministerium', date: TODAY_SHORT, title: 'Regionalisierungsmittel: Länder warnen vor ÖPNV-Kürzungen', summary: 'Die Finanzierung des Öffentlichen Personennahverkehrs bleibt ein zentraler Streitpunkt.', fullText: 'Landesverkehrsminister fordern Mindestfinanzierungen und warnen vor Fahrpreiserhöhungen und Zugstrichungen. Die Debatte steht vor der nächsten Bund-Länder-Besprechung.', url: 'https://www.bmvi.de/', img: makeCoverArt('ÖPNV Finanzierung', 'Verkehrsministerium', '#0f766e', '#34d399') },
+      { id: 8, cat: 'wirtschaft', badge: 'Top 4 Wirtschaft', source: 'Handelsblatt', date: TODAY_SHORT, title: 'Autobauer blicken auf höhere Rückstellungen für Batteriesysteme', summary: 'Garantien und Materialkosten setzen die Quartalszahlen unter Druck.', fullText: 'Einige Hersteller erhöhen ihre Rückstellungen für Garantien und alte Batteriemodule. Die Ergebnisse werden laut Branchenbeobachtern von Kosten und Qualitätssicherung dominiert.', url: 'https://www.handelsblatt.com/', img: makeCoverArt('Batterie Rückstellungen', 'Handelsblatt', '#0f766e', '#14b8a6') },
+      { id: 9, cat: 'technik', badge: 'Top 1 Technik', source: 'BSI', date: TODAY_SHORT, title: 'BSI warnt erneut vor weit verbreiteten Angriffen auf Web-Frameworks', summary: 'Sicherheitsupdates sind der wichtigste Schutz gegen massenhafte Exploit-Aktivitäten.', fullText: 'Das Bundesamt für Sicherheit in der Informationstechnik verweist auf anhaltende Angriffe auf gängige Web-Frameworks. Ungepatchte Installationen bleiben besonders risikobehaftet.', url: 'https://www.bsi.bund.de/', img: makeCoverArt('BSI Sicherheitswarnung', 'BSI', '#312e81', '#8b5cf6') },
+      { id: 10, cat: 'technik', badge: 'Top 2 Technik', source: 'Wissenschaft', date: TODAY_SHORT, title: 'Onkalo: Finnische Endlager-Technik setzt neue Maßstäbe in Europa', summary: 'Die Anlage zeigt, wie Langzeitsicherheit mit Mehrfachbarrieren praktisch umgesetzt wird.', fullText: 'Die finnische Endlager-Infrastruktur gilt als Benchmark für den Standort- und Sicherheitsstandard. Die Kombination aus geologischer Isolation und technischen Barrieren wird europaweit beobachtet.', url: 'https://www.sciencedaily.com/', img: makeCoverArt('Onkalo Endlager', 'Wissenschaft', '#1e293b', '#6366f1') },
+      { id: 11, cat: 'technik', badge: 'Top 3 Technik', source: 'Automotive', date: TODAY_SHORT, title: 'Cybersicherheit bei vernetzten Fahrzeugen: API-Schutz rückt in den Mittelpunkt', summary: 'Verbundenheit schafft Mehrwert – aber nur mit robustem Sicherheitsdesign.', fullText: 'Neue Studien zeigen, dass moderne Autos mit vielen externen Schnittstellen besonders leicht Angriffsziele werden. Ein sicherer API-Design ist daher für die Gesamtfahrzeugarchitektur essenziell.', url: 'https://www.automotiveit.eu/', img: makeCoverArt('Auto API Sicherheit', 'Automotive', '#4338ca', '#a78bfa') },
+      { id: 12, cat: 'regional', badge: 'Top 1 Regional', source: 'Eichsfelder Tageblatt', date: TODAY_SHORT, title: 'Stabsübergabe im Duderstädter Stadthaus: Bürgerbegegnung mit Folgen', summary: 'Die Übergabe des Stadtamts wird von vielen Bürgerinnen und Bürgern mit Spannung beobachtet.', fullText: 'Ein Wechsel im Stadthaus und die anschließende Bürgerbegegnung stehen im Mittelpunkt. Die Debatte fokussiert sich auf Amtsführung, Zukunftsprojekte und die Stadtentwicklung in Duderstadt.', url: 'https://www.eichsfelder-tageblatt.de/', img: makeCoverArt('Stabsübergabe Duderstadt', 'Eichsfelder Tageblatt', '#b45309', '#f59e0b') },
+      { id: 13, cat: 'regional', badge: 'Top 2 Regional', source: 'Stadt Duderstadt', date: TODAY_SHORT, title: 'Verkürzte Öffnungszeiten der Stadtverwaltung heute durch organisatorische Anpassung', summary: 'Die zeitweilige Reduzierung des Angebots ist für Bürgerinnen und Bürger von Bedeutung.', fullText: 'Die Stadtverwaltung hat die Behördenöffnungszeiten auf bestimmte Zeitfenster angepasst. Die Maßnahme dient der internen Neuorganisation und der Gewährleistung von Dienstleistungen im Ablauf.', url: 'https://www.duderstadt.de/', img: makeCoverArt('Öffnungszeiten Duderstadt', 'Stadt Duderstadt', '#854d0e', '#fbbf24') },
+      { id: 14, cat: 'regional', badge: 'Top 3 Regional', source: 'Fachwerk5Eck', date: TODAY_SHORT, title: 'Fachwerk5Eck stärkt die Sanierungs- und Energiereihe im Eichsfeld', summary: 'Eine neue Vortragsserie zeigt Wege zu wirtschaftlichen und klimaneutralen Modernisierungen.', fullText: 'Im Rahmen einer lokalen Veranstaltungenreihe stellen Expertinnen und Experten Maßnahmen zur energetischen Modernisierung von Altbauten vor. Die Reihe ist kostenlos und richtet sich an Eigentümer, Pächter und lokale Akteure.', url: 'https://www.fachwerk5eck.de/', img: makeCoverArt('Fachwerk5Eck', 'Fachwerk5Eck', '#a16207', '#fbbf24') },
+      { id: 15, cat: 'regional', badge: 'Top 4 Regional', source: 'NLStBV', date: TODAY_SHORT, title: 'Verkehrsfreigabe am Herkuleskreisel bei Osterode nach Straßenarbeiten', summary: 'Die Baumaßnahme ist weitgehend abgeschlossen; die Freigabe löst lokale Staus auf.', fullText: 'Nach der Verkehrsfreihaltung am Herkuleskreisel sollen die Gegenfahrten wieder fließen. Die Arbeiten an der Fahrbahn und der Kanalisation wurden mit einem eng gesteckten Zeitfenster abgeschlossen.', url: 'https://www.nlstbv.de/', img: makeCoverArt('Herkuleskreisel', 'NLStBV', '#78350f', '#f97316') },
+      { id: 16, cat: 'regional', badge: 'Top 5 Regional', source: 'Naturpark', date: TODAY_SHORT, title: 'Herbstlicher Vogelzug am Seeburger See zieht Beobachter und Wanderer an', summary: 'Die Region profitiert von einer starken Natur- und Erlebniswelle im Spätherbst.', fullText: 'Am Seeburger See sind zahlreiche Zugvögel zu beobachten. Die Kombination aus Naturerlebnis, Wanderung und saisonaler Bildung kommt gut an.', url: 'https://www.naturpark-eichsfeld.de/', img: makeCoverArt('Vogelzug Seeburger See', 'Naturpark', '#b45309', '#fdba74') }
     ];
 
     const EVENTS_DATABASE = [
-      { title: 'Halloween-Aktion in Mingerode', location: 'Lindenallee, Mingerode', dayOffset: 0, startHour: 17, endHour: 20, desc: 'Traditionelles Halloween-Event für Familien und Kinder mit Kostümwettbewerb, Musik und einheimischen Angeboten.', badge: 'Familie', img: 'https://images.unsplash.com/photo-1503756234508-e32369269deb?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Halloween+Mingerode' },
-      { title: 'Traditioneller Duderstädter Wochenmarkt', location: 'Marktstraße, Duderstadt', dayOffset: 0, startHour: 7, endHour: 13, desc: 'Frische regionale Erzeugnisse, Handwerk und saisonale Spezialitäten rund um den Markt in der historischen Innenstadt.', badge: 'Regional', img: 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Wochenmarkt+Duderstadt' },
-      { title: 'Historischer Stadtrundgang durch Duderstadt', location: 'Historisches Rathaus, Marktstraße 66', dayOffset: 0, startHour: 11, endHour: 12, desc: 'Führung durch die mittelalterliche Altstadt mit Erzählungen zu Geschichte, Architektur und lokalen Besonderheiten.', badge: 'Kultur', img: 'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Stadtrundgang+Duderstadt' },
-      { title: 'Reformationstag im Eichsfeld', location: 'St. Servatius Duderstadt & Region', dayOffset: 0, startHour: 9, endHour: 18, desc: 'Festgottesdienste und Kirchenmusik zum gesetzlichen Feiertag in Niedersachsen mit regionaler Ausrichtung.', badge: 'Religion', img: 'https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Reformationstag+Eichsfeld' },
-      { title: 'Herbst-Exkursion am Seeburger See', location: 'Natur-Erlebniszentrum Seeburg', dayOffset: 1, startHour: 10, endHour: 13, desc: 'Geführte Beobachtung des herbstlichen Vogelzugs, Wanderung und Ruhe im Naturraum der Region.', badge: 'Natur', img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Seeburger+See+Exkursion' },
-      { title: 'Kultur- & Theaterwochenende Göttingen', location: 'Deutsches Theater & Lokhalle Göttingen', dayOffset: 0, startHour: 18, endHour: 23, desc: 'Theater- und Konzertprogramm in der Universitätsstadt mit regionalem Fokus und zeitgemäßer Vielfalt.', badge: 'Kultur', img: 'https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=900&q=80', url: 'https://www.google.com/search?q=Theater+G%C3%B6ttingen' }
+      { title: 'Halloween-Aktion in Mingerode', location: 'Lindenallee, Mingerode', dayOffset: 0, startHour: 17, endHour: 20, desc: 'Familienprogramm, kleine Attraktionen und sehenswerte Kostüm-Highlights für Kinder und Erwachsene.', badge: 'Familie', img: makeCoverArt('Halloween Mingerode', 'Event', '#7c3aed', '#ec4899'), url: 'https://www.duderstadt.de/' },
+      { title: 'Duderstädter Wochenmarkt', location: 'Marktstraße, Duderstadt', dayOffset: 0, startHour: 7, endHour: 13, desc: 'Frische Produkte, Handwerk und regionale Spezialitäten in der historischen Altstadt.', badge: 'Regional', img: makeCoverArt('Wochenmarkt Duderstadt', 'Event', '#0f766e', '#10b981'), url: 'https://www.duderstadt.de/' },
+      { title: 'Historischer Stadtrundgang', location: 'Historisches Rathaus, Duderstadt', dayOffset: 0, startHour: 11, endHour: 12, desc: 'Ein kurzer Rundgang durch die mittelalterliche Geschichte der Stadt und ihre wichtigsten Orte.', badge: 'Kultur', img: makeCoverArt('Stadtrundgang', 'Event', '#1d4ed8', '#60a5fa'), url: 'https://www.duderstadt.de/' },
+      { title: 'Reformationstag im Eichsfeld', location: 'St. Servatius, Duderstadt', dayOffset: 0, startHour: 9, endHour: 18, desc: 'Feierliche Gottesdienste, Musik und besondere Veranstaltungen im regionalen Rahmen.', badge: 'Tradition', img: makeCoverArt('Reformationstag', 'Event', '#7c2d12', '#f59e0b'), url: 'https://www.duderstadt.de/' },
+      { title: 'Herbst-Exkursion am Seeburger See', location: 'Naturerlebniszentrum Seeburg', dayOffset: 1, startHour: 10, endHour: 13, desc: 'Ein ruhiger Sonntag mit Vogelbeobachtung, Naturerlebnis und kurzer Wanderung.', badge: 'Natur', img: makeCoverArt('Seeburger See', 'Event', '#14532d', '#22c55e'), url: 'https://www.naturpark-eichsfeld.de/' },
+      { title: 'Kultur- & Theaterwochenende Göttingen', location: 'Deutsches Theater & Lokhalle, Göttingen', dayOffset: 0, startHour: 18, endHour: 23, desc: 'Theater, Konzerte und eine lebhafte Atmosphäre in der Universitätsstadt.', badge: 'Kultur', img: makeCoverArt('Theater Göttingen', 'Event', '#4f46e5', '#8b5cf6'), url: 'https://www.goettingen.de/' }
     ];
 
     let currentFilter = 'all';
     let searchQuery = '';
-
-    function formatDayDate(date = new Date()) {
-      return new Intl.DateTimeFormat('de-DE', {
-        weekday: 'long',
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-      }).format(date);
-    }
+    let isSpeaking = false;
 
     function formatDateTime(date = new Date()) {
-      return `${new Intl.DateTimeFormat('de-DE', {
-        weekday: 'long'
-      }).format(date)}, ${new Intl.DateTimeFormat('de-DE', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      }).format(date)} • ${new Intl.DateTimeFormat('de-DE', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      }).format(date)} Uhr`;
+      return `${new Intl.DateTimeFormat('de-DE', { weekday: 'long' }).format(date)}, ${new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(date)} • ${new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit', hour12: false }).format(date)} Uhr`;
+    }
+
+    function updateCurrentDateUI() {
+      const label = document.getElementById('liveDateLabel');
+      if (label) {
+        label.textContent = formatDateTime(new Date());
+      }
+      document.title = `Agent Nachrichten der Familie Gödecke – ${new Intl.DateTimeFormat('de-DE', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' }).format(new Date())}`;
+    }
+
+    function setIntervalEachMinute() {
+      updateCurrentDateUI();
+      setInterval(updateCurrentDateUI, 60000);
     }
 
     function getCurrentWeekendDates() {
       const today = new Date();
-      const currentDay = today.getDay();
       const saturday = new Date(today);
-      const daysUntilSaturday = currentDay === 6 ? 0 : (6 - currentDay + 7) % 7;
+      const day = today.getDay();
+      const daysUntilSaturday = day === 6 ? 0 : (6 - day + 7) % 7;
       saturday.setDate(today.getDate() + daysUntilSaturday);
       const sunday = new Date(saturday);
       sunday.setDate(saturday.getDate() + 1);
       return { saturday, sunday };
-    }
-
-    function formatEventDay(date) {
-      return new Intl.DateTimeFormat('de-DE', {
-        weekday: 'long',
-        day: '2-digit',
-        month: '2-digit'
-      }).format(date);
     }
 
     function formatEventTime(evt) {
@@ -282,151 +441,160 @@
       return `${weekdayName.charAt(0).toUpperCase() + weekdayName.slice(1)}, ${datePart} • ${start} – ${end} Uhr`;
     }
 
-    function updateCurrentDateUI() {
-      const now = new Date();
-      const label = document.getElementById('liveDateLabel');
-      if (label) {
-        label.textContent = formatDateTime(now);
-      }
-      document.title = `Agent Nachrichten der Familie Gödecke – ${formatDayDate(now)}`;
-    }
+    function renderTopHeadlines() {
+      const container = document.getElementById('headlineTicker');
+      if (!container) return;
 
-    function getWeatherIcon(code) {
-      const map = {
-        0: '☀️', 1: '⛅', 2: '⛅', 3: '☁️', 45: '🌫️', 48: '🌫️',
-        51: '🌦️', 53: '🌦️', 55: '🌦️', 56: '🌧️', 57: '🌧️',
-        61: '🌧️', 63: '🌧️', 65: '🌧️', 66: '🌧️', 67: '🌧️',
-        71: '❄️', 73: '❄️', 75: '❄️', 77: '❄️', 80: '🌦️', 81: '🌧️', 82: '🌧️',
-        85: '❄️', 86: '❄️', 95: '⛈️', 96: '⛈️', 99: '⛈️'
-      };
-      return map[code] || '☀️';
-    }
-
-    function getWeatherCondition(code) {
-      const map = {
-        0: 'Klar',
-        1: 'Leicht bewölkt',
-        2: 'Bewölkt',
-        3: 'Bedeckt',
-        45: 'Nebelig',
-        48: 'Nebel',
-        51: 'Leichter Regen',
-        53: 'Regenschauer',
-        55: 'Regenschauer',
-        56: 'Leichter Frostregen',
-        57: 'Frostregen',
-        61: 'Regen',
-        63: 'Starker Regen',
-        65: 'Starker Regen',
-        66: 'Kalter Regen',
-        67: 'Kalter Regen',
-        71: 'Schnee',
-        73: 'Starker Schnee',
-        75: 'Starker Schnee',
-        77: 'Schneeflocken',
-        80: 'Regenschauer',
-        81: 'Regenschauer',
-        82: 'Starker Regenschauer',
-        85: 'Schneeschauer',
-        86: 'Starker Schneeschauer',
-        95: 'Gewitter',
-        96: 'Gewitter',
-        99: 'Starkes Gewitter'
-      };
-      return map[code] || 'Wechselhaft';
-    }
-
-    function getRainBadgeText(rainChance, rainAmount) {
-      if (rainChance >= 60 || rainAmount > 0.4) {
-        return 'Es regnet';
-      }
-      if (rainChance >= 35 || rainAmount > 0.1) {
-        return 'Vorsicht Regen';
-      }
-      return 'Kein Regen';
-    }
-
-    function renderWeatherTimeline(hourlyData) {
-      const timeline = document.getElementById('weatherTimeline');
-      if (!timeline || !hourlyData) return;
-
-      const now = new Date();
-      const hourlyTimes = hourlyData.time || [];
-      const baseIndex = hourlyTimes.findIndex((timeString) => {
-        const date = new Date(timeString);
-        return date.getHours() === now.getHours();
-      });
-
-      const startIndex = baseIndex >= 0 ? baseIndex : 0;
-      const slots = [0, 2, 4, 6].map((offset) => {
-        const index = Math.min(startIndex + offset, hourlyData.time.length - 1);
-        const temp = hourlyData.temperature_2m?.[index];
-        const rainProb = hourlyData.precipitation_probability?.[index] ?? 0;
-        const code = hourlyData.weather_code?.[index];
-        const time = new Date(hourlyData.time[index]);
-        return {
-          temp: typeof temp === 'number' ? Math.round(temp) : '--',
-          rainProb,
-          code,
-          label: time.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', hour12: false })
-        };
-      });
-
-      timeline.innerHTML = slots.map((slot) => `
-        <div class="rounded-2xl border border-apple-borderLight dark:border-apple-borderDark bg-white/60 dark:bg-black/20 p-2 text-center">
-          <div class="text-[10px] font-semibold uppercase tracking-wide text-apple-subtle">${slot.label}</div>
-          <div class="mt-1 text-xl leading-none">${getWeatherIcon(slot.code)}</div>
-          <div class="mt-1 text-sm font-bold">${slot.temp}°</div>
-          <div class="mt-1 text-[10px] font-medium ${slot.rainProb >= 50 ? 'text-amber-600 dark:text-amber-300' : 'text-emerald-600 dark:text-emerald-300'}">${slot.rainProb}%</div>
+      const items = [...NEWS_DATABASE].slice(0, 8);
+      const repeated = [...items, ...items];
+      container.innerHTML = repeated.map((item) => `
+        <div class="flex items-center gap-3 rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-[11px] font-medium text-slate-700 shadow-sm dark:border-white/10 dark:bg-slate-800/80 dark:text-slate-200">
+          <span class="inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+          <span class="uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">${item.badge}</span>
+          <span class="truncate max-w-[36rem]">${item.title}</span>
         </div>
       `).join('');
     }
 
-    async function loadWeather() {
-      const tempEl = document.getElementById('weatherTemp');
-      const metaEl = document.getElementById('weatherMeta');
-      const iconEl = document.getElementById('weatherIcon');
-      const conditionEl = document.getElementById('weatherCondition');
-      const rainBadge = document.getElementById('rainBadge');
-      if (!tempEl || !metaEl || !iconEl || !conditionEl || !rainBadge) return;
+    function renderTopHighlights() {
+      const container = document.getElementById('topHeadlinesGrid');
+      if (!container) return;
+      const items = [...NEWS_DATABASE].slice(0, 3);
+      container.innerHTML = items.map((item) => `
+        <article class="article-card group overflow-hidden rounded-[1.6rem] border border-slate-200/80 bg-white/70 shadow-soft dark:border-white/10 dark:bg-slate-900/70">
+          <div class="relative h-44 overflow-hidden">
+            <img src="${item.img}" alt="${item.title}" class="h-full w-full object-cover" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent"></div>
+            <div class="absolute left-4 top-4 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-900">${item.badge}</div>
+          </div>
+          <div class="p-5">
+            <div class="mb-2 flex items-center justify-between gap-3 text-[10px] font-medium uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+              <span>${item.source}</span>
+              <span>${item.date}</span>
+            </div>
+            <h3 class="text-lg font-semibold tracking-[-0.04em] text-slate-900 dark:text-white line-clamp-2">${item.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300 line-clamp-3">${item.summary}</p>
+            <button type="button" data-open="${item.id}" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 dark:text-blue-300">
+              <span>Mehr erfahren</span>
+              <i data-lucide="arrow-right" class="h-4 w-4"></i>
+            </button>
+          </div>
+        </article>
+      `).join('');
 
-      try {
-        const url = 'https://api.open-meteo.com/v1/forecast?latitude=51.5124&longitude=9.6724&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,precipitation&hourly=temperature_2m,precipitation_probability,weather_code,precipitation&timezone=Europe%2FBerlin&forecast_days=2';
-        const response = await fetch(url);
-        if (!response.ok) throw new Error('Weather request failed');
-        const data = await response.json();
-        const current = data.current;
-        const hourly = data.hourly;
+      container.querySelectorAll('[data-open]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const item = NEWS_DATABASE.find((entry) => String(entry.id) === button.dataset.open);
+          if (item) openModal(item);
+        });
+      });
 
-        const temp = Math.round(current.temperature_2m);
-        const feelsLike = Math.round(current.apparent_temperature);
-        const code = current.weather_code;
-        const wind = Math.round(current.wind_speed_10m);
-        const currentRain = Number(current.precipitation || 0);
+      lucide.createIcons();
+    }
 
-        const rainChance = Math.max(...(hourly.precipitation_probability || []).slice(0, 12), 0);
-        const rainAmount = Math.max(...(hourly.precipitation || []).slice(0, 12), 0);
-        const rainText = getRainBadgeText(rainChance, rainAmount || currentRain);
-        const condition = getWeatherCondition(code);
+    function getNewsCardMarkup(item) {
+      return `
+        <article class="article-card group overflow-hidden rounded-[1.6rem] border border-slate-200/80 bg-white/75 shadow-soft dark:border-white/10 dark:bg-slate-900/70">
+          <div class="relative h-44 overflow-hidden">
+            <img src="${item.img}" alt="${item.title}" class="h-full w-full object-cover" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/10 to-transparent"></div>
+            <div class="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-900">${item.badge}</div>
+          </div>
+          <div class="p-5">
+            <div class="mb-2 flex items-center justify-between gap-3 text-[10px] font-medium uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+              <span>${item.source}</span>
+              <span>${item.date}</span>
+            </div>
+            <h3 class="text-base font-semibold tracking-[-0.04em] text-slate-900 dark:text-white line-clamp-2">${item.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300 line-clamp-3">${item.summary}</p>
+            <div class="mt-4 flex items-center justify-between gap-4 border-t border-slate-200 pt-4 dark:border-white/10">
+              <button type="button" data-open="${item.id}" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 dark:text-blue-300">
+                <span>Vollständig lesen</span>
+                <i data-lucide="chevron-right" class="h-4 w-4"></i>
+              </button>
+              <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-slate-100 text-slate-600 transition hover:bg-slate-200 dark:border-white/10 dark:bg-slate-800 dark:text-slate-200" aria-label="Originalquelle öffnen" onclick="event.stopPropagation()">
+                <i data-lucide="external-link" class="h-4 w-4"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+      `;
+    }
 
-        tempEl.textContent = `${temp}°C`;
-        iconEl.textContent = getWeatherIcon(code);
-        conditionEl.textContent = condition;
-        metaEl.textContent = `Gefühlt ${feelsLike}°C • Wind ${wind} km/h • ${new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit' }).format(new Date())}`;
-        rainBadge.textContent = rainText;
-        rainBadge.className = `inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${rainText === 'Es regnet' ? 'bg-amber-500/10 text-amber-700 dark:text-amber-300' : rainText === 'Vorsicht Regen' ? 'bg-yellow-500/10 text-yellow-700 dark:text-yellow-300' : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'}`;
+    function renderNews() {
+      const grid = document.getElementById('newsGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
 
-        if (hourly && hourly.time) {
-          renderWeatherTimeline(hourly);
-        }
-      } catch (error) {
-        tempEl.textContent = '--°C';
-        iconEl.textContent = '☁️';
-        conditionEl.textContent = 'Wetterdaten nicht verfügbar';
-        metaEl.textContent = 'Wetterdaten aktuell nicht verfügbar';
-        rainBadge.textContent = 'Keine Angabe';
-        rainBadge.className = 'inline-flex items-center rounded-full bg-slate-500/10 text-slate-700 dark:text-slate-300 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide';
+      const categories = currentFilter === 'all' ? Object.keys(CATEGORY_META).filter((cat) => cat !== 'events') : [currentFilter];
+
+      let anyVisible = false;
+
+      categories.forEach((cat) => {
+        const items = NEWS_DATABASE.filter((item) => {
+          const matchCategory = item.cat === cat;
+          const matchSearch = !searchQuery || `${item.title} ${item.summary}`.toLowerCase().includes(searchQuery.toLowerCase());
+          return matchCategory && matchSearch;
+        });
+
+        if (!items.length) return;
+        anyVisible = true;
+
+        const section = document.createElement('section');
+        section.className = 'content-fade w-full';
+        section.innerHTML = `
+          <div class="mb-4 flex items-center justify-between gap-3 border-b border-slate-200 pb-3 dark:border-white/10">
+            <div class="flex items-center gap-2">
+              <span class="inline-flex rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] ${CATEGORY_META[cat].tone}">${CATEGORY_META[cat].label}</span>
+            </div>
+            <span class="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">${items.length} Beiträge</span>
+          </div>
+          <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            ${items.map(getNewsCardMarkup).join('')}
+          </div>
+        `;
+
+        grid.appendChild(section);
+
+        section.querySelectorAll('[data-open]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const item = NEWS_DATABASE.find((entry) => String(entry.id) === button.dataset.open);
+            if (item) openModal(item);
+          });
+        });
+      });
+
+      if (!anyVisible) {
+        grid.innerHTML = '<div class="py-16 text-center text-slate-500 dark:text-slate-400">Keine Artikel gefunden.</div>';
       }
+
+      lucide.createIcons();
+    }
+
+    function renderEvents() {
+      const grid = document.getElementById('eventsGrid');
+      if (!grid) return;
+      grid.innerHTML = EVENTS_DATABASE.map((evt) => `
+        <article class="group overflow-hidden rounded-[1.6rem] border border-slate-200/80 bg-white/75 shadow-soft dark:border-white/10 dark:bg-slate-900/70">
+          <div class="relative h-40 overflow-hidden">
+            <img src="${evt.img}" alt="${evt.title}" class="h-full w-full object-cover" loading="lazy" />
+            <div class="absolute left-3 top-3 rounded-full bg-violet-600/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white">${evt.badge}</div>
+          </div>
+          <div class="p-5">
+            <h3 class="text-lg font-semibold tracking-[-0.04em] text-slate-900 dark:text-white">${evt.title}</h3>
+            <div class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+              <div class="flex items-start gap-2"><i data-lucide="map-pin" class="mt-0.5 h-4 w-4 text-blue-600"></i><span>${evt.location}</span></div>
+              <div class="flex items-start gap-2"><i data-lucide="clock" class="mt-0.5 h-4 w-4 text-blue-600"></i><span>${formatEventTime(evt)}</span></div>
+            </div>
+            <p class="mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300">${evt.desc}</p>
+            <a href="${evt.url}" target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 dark:text-blue-300">
+              <span>Event-Details</span>
+              <i data-lucide="external-link" class="h-4 w-4"></i>
+            </a>
+          </div>
+        </article>
+      `).join('');
+      lucide.createIcons();
     }
 
     function updateEventRangeText() {
@@ -437,202 +605,170 @@
       eventRange.textContent = `Termine vom ${formatter.format(saturday)} bis ${formatter.format(sunday)}`;
     }
 
-    function getNewsCardMarkup(item) {
-      return `
-        <article class="group bg-apple-card dark:bg-apple-darkCard apple-glass rounded-3xl border border-apple-borderLight dark:border-apple-borderDark overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-md transition" onclick="openModal(${JSON.stringify(item)})" style="cursor:pointer;">
-          <div>
-            <div class="h-48 w-full overflow-hidden bg-black/10 relative">
-              <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
-              <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase apple-glass bg-white/80 dark:bg-black/70 text-[#1d1d1f] dark:text-white shadow-sm">${item.badge}</span>
-            </div>
-            <div class="p-5">
-              <div class="flex items-center justify-between text-xs text-apple-subtle font-mono mb-2">
-                <span>${item.source}</span>
-                <span>${item.date}</span>
-              </div>
-              <h3 class="text-base font-bold tracking-tight text-[#1d1d1f] dark:text-white mb-2 leading-snug group-hover:text-apple-blue transition">${item.title}</h3>
-              <p class="text-xs text-apple-subtle leading-relaxed line-clamp-3">${item.summary}</p>
-            </div>
-          </div>
-          <div class="px-5 pb-5 pt-2 flex items-center justify-between border-t border-apple-borderLight dark:border-apple-borderDark mt-auto">
-            <span class="text-xs font-semibold text-apple-blue flex items-center space-x-1">
-              <span>Vollständig lesen</span>
-              <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-            </span>
-            <a href="${item.url}" target="_blank" onclick="event.stopPropagation()" class="p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white transition">
-              <i data-lucide="external-link" class="w-4 h-4"></i>
-            </a>
-          </div>
-        </article>
-      `;
-    }
-
-    function renderNews() {
-      const grid = document.getElementById('newsGrid');
-      grid.innerHTML = '';
-
-      const categories = currentFilter === 'all' ? Object.keys(CATEGORY_META) : [currentFilter];
-
-      let anyVisible = false;
-
-      categories.forEach((cat) => {
-        const items = NEWS_DATABASE.filter((item) => {
-          const matchesCategory = item.cat === cat;
-          const matchesSearch = item.title.toLowerCase().includes(searchQuery) || item.summary.toLowerCase().includes(searchQuery);
-          return matchesCategory && matchesSearch;
-        });
-
-        if (!items.length) return;
-        anyVisible = true;
-
-        const section = document.createElement('section');
-        section.className = 'space-y-4';
-        section.innerHTML = `
-          <div class="flex items-center justify-between gap-3 pb-2 border-b border-apple-borderLight dark:border-apple-borderDark">
-            <div class="flex items-center gap-2">
-              <span class="inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${CATEGORY_META[cat].tone}">${CATEGORY_META[cat].label}</span>
-            </div>
-            <span class="text-xs text-apple-subtle font-medium">${items.length} Beiträge</span>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            ${items.map(getNewsCardMarkup).join('')}
-          </div>
-        `;
-        grid.appendChild(section);
-      });
-
-      if (!anyVisible) {
-        grid.innerHTML = '<div class="py-16 text-center text-apple-subtle">Keine Artikel gefunden.</div>';
-      }
-
-      lucide.createIcons();
-    }
-
-    function renderEvents() {
-      const grid = document.getElementById('eventsGrid');
-      grid.innerHTML = '';
-      EVENTS_DATABASE.forEach((evt) => {
-        const card = document.createElement('article');
-        card.className = 'group bg-apple-card dark:bg-apple-darkCard apple-glass rounded-3xl border border-apple-borderLight dark:border-apple-borderDark overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-md transition';
-        card.innerHTML = `
-          <div>
-            <div class="h-40 w-full overflow-hidden bg-black/10 relative">
-              <img src="${evt.img}" alt="${evt.title}" class="w-full h-full object-cover" loading="lazy">
-              <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase apple-glass bg-purple-600/90 text-white shadow-sm">${evt.badge}</span>
-            </div>
-            <div class="p-5">
-              <h3 class="text-base font-bold tracking-tight text-[#1d1d1f] dark:text-white mb-2 leading-snug">${evt.title}</h3>
-              <div class="space-y-1 mb-3 text-xs text-apple-subtle">
-                <div class="flex items-center space-x-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-apple-blue"></i><span>${evt.location}</span></div>
-                <div class="flex items-center space-x-2"><i data-lucide="clock" class="w-3.5 h-3.5 text-apple-blue"></i><span>${formatEventTime(evt)}</span></div>
-              </div>
-              <p class="text-xs text-apple-subtle leading-relaxed">${evt.desc}</p>
-            </div>
-          </div>
-          <div class="px-5 pb-5 pt-2 border-t border-apple-borderLight dark:border-apple-borderDark">
-            <a href="${evt.url}" target="_blank" class="inline-flex items-center space-x-1.5 text-xs font-semibold text-apple-blue hover:text-apple-blueHover">
-              <span>Event-Details anzeigen</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-      lucide.createIcons();
-    }
-
     function filterCategory(cat) {
       currentFilter = cat;
       document.querySelectorAll('.cat-pill').forEach((btn) => {
-        if (btn.dataset.cat === cat) {
-          btn.className = 'cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-apple-blue text-white shadow-sm';
-        } else {
-          btn.className = 'cat-pill px-4 py-2 rounded-full text-xs font-medium transition bg-white dark:bg-[#1c1c1e] text-apple-subtle hover:text-[#1d1d1f] dark:hover:text-white border border-apple-borderLight dark:border-apple-borderDark';
-        }
+        const selected = btn.dataset.cat === cat;
+        btn.className = selected
+          ? 'cat-pill rounded-full bg-slate-900 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-sm transition hover:-translate-y-0.5'
+          : 'cat-pill rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-800/70 dark:text-slate-200';
       });
 
-      const eventsSec = document.getElementById('eventsSection');
       if (cat === 'events') {
         document.getElementById('newsGrid').classList.add('hidden');
-        eventsSec.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('eventsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
         document.getElementById('newsGrid').classList.remove('hidden');
         renderNews();
       }
-
-      if (cat !== 'events') {
-        renderNews();
-      }
     }
 
-    function handleSearch(q) {
-      searchQuery = q.toLowerCase().trim();
+    function handleSearch(value) {
+      searchQuery = value.trim();
       renderNews();
     }
 
     function openModal(item) {
       document.getElementById('modalImg').src = item.img;
-      document.getElementById('modalBadge').innerText = item.badge;
-      document.getElementById('modalSource').innerText = item.source;
-      document.getElementById('modalDate').innerText = item.date;
-      document.getElementById('modalTitle').innerText = item.title;
+      document.getElementById('modalBadge').textContent = item.badge;
+      document.getElementById('modalSource').textContent = item.source;
+      document.getElementById('modalDate').textContent = item.date;
+      document.getElementById('modalTitle').textContent = item.title;
       document.getElementById('modalContent').innerHTML = `
-        <p class="font-medium text-[#1d1d1f] dark:text-white mb-2">${item.summary}</p>
-        <p class="text-sm leading-relaxed">${item.fullText}</p>
+        <p class="text-base font-medium text-slate-900 dark:text-white">${item.summary}</p>
+        <p>${item.fullText}</p>
       `;
       document.getElementById('modalLink').href = item.url;
       document.getElementById('articleModal').classList.remove('hidden');
+      document.getElementById('articleModal').classList.add('flex');
     }
 
     function closeModal() {
-      document.getElementById('articleModal').classList.add('hidden');
+      const modal = document.getElementById('articleModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
     }
 
-    function toggleDarkMode() {
-      const html = document.documentElement;
-      const themeIcon = document.getElementById('themeIcon');
-      if (html.classList.contains('dark')) {
-        html.classList.remove('dark');
-        themeIcon.setAttribute('data-lucide', 'moon');
-      } else {
-        html.classList.add('dark');
-        themeIcon.setAttribute('data-lucide', 'sun');
+    function getWeatherIcon(code) {
+      const map = {
+        0: '☀️', 1: '⛅', 2: '⛅', 3: '☁️', 45: '🌫️', 48: '🌫️', 51: '🌦️', 53: '🌦️', 55: '🌦️', 56: '🌧️', 57: '🌧️', 61: '🌧️', 63: '🌧️', 65: '🌧️', 66: '🌧️', 67: '🌧️', 71: '❄️', 73: '❄️', 75: '❄️', 77: '❄️', 80: '🌦️', 81: '🌧️', 82: '🌧️', 85: '❄️', 86: '❄️', 95: '⛈️', 96: '⛈️', 99: '⛈️'
+      };
+      return map[code] || '☀️';
+    }
+
+    function getWeatherCondition(code) {
+      const map = {
+        0: 'Klar', 1: 'Leicht bewölkt', 2: 'Bewölkt', 3: 'Bedeckt', 45: 'Nebelig', 48: 'Nebel', 51: 'Leichter Regen', 53: 'Regenschauer', 55: 'Regenschauer', 56: 'Leichter Frostregen', 57: 'Frostregen', 61: 'Regen', 63: 'Starker Regen', 65: 'Starker Regen', 66: 'Kalter Regen', 67: 'Kalter Regen', 71: 'Schnee', 73: 'Starker Schnee', 75: 'Starker Schnee', 77: 'Schneeflocken', 80: 'Regenschauer', 81: 'Regenschauer', 82: 'Starker Regenschauer', 85: 'Schneeschauer', 86: 'Starker Schneeschauer', 95: 'Gewitter', 96: 'Gewitter', 99: 'Starkes Gewitter'
+      };
+      return map[code] || 'Wechselhaft';
+    }
+
+    function getRainBadgeText(rainChance, rainAmount) {
+      if (rainChance >= 60 || rainAmount > 0.4) return 'Es regnet';
+      if (rainChance >= 35 || rainAmount > 0.1) return 'Vorsicht Regen';
+      return 'Kein Regen';
+    }
+
+    function renderWeatherTimeline(hourlyData) {
+      const timeline = document.getElementById('weatherTimeline');
+      if (!timeline || !hourlyData || !hourlyData.time) return;
+
+      const now = new Date();
+      const times = hourlyData.time || [];
+      const startIndex = times.findIndex((timeString) => {
+        const date = new Date(timeString);
+        return date.getHours() === now.getHours();
+      });
+      const chosenStart = startIndex >= 0 ? startIndex : 0;
+
+      const slots = Array.from({ length: 4 }, (_, i) => {
+        const index = Math.min(chosenStart + i * 2, times.length - 1);
+        const temp = hourlyData.temperature_2m?.[index];
+        const rain = hourlyData.precipitation_probability?.[index] ?? 0;
+        const code = hourlyData.weather_code?.[index];
+        const time = new Date(times[index]);
+        return {
+          temp: Number.isFinite(temp) ? Math.round(temp) : '--',
+          rain,
+          code,
+          label: time.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', hour12: false })
+        };
+      });
+
+      timeline.innerHTML = slots.map((slot) => `
+        <div class="weather-tile rounded-2xl p-2 text-center">
+          <div class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">${slot.label}</div>
+          <div class="mt-2 text-xl">${getWeatherIcon(slot.code)}</div>
+          <div class="mt-2 text-sm font-semibold text-slate-900 dark:text-white">${slot.temp}°</div>
+          <div class="mt-1 text-[10px] font-medium ${slot.rain >= 50 ? 'text-amber-600 dark:text-amber-300' : 'text-emerald-600 dark:text-emerald-300'}">${slot.rain}%</div>
+        </div>
+      `).join('');
+    }
+
+    async function loadWeather() {
+      const tempEl = document.getElementById('weatherTemp');
+      const metaEl = document.getElementById('weatherMeta');
+      const iconEl = document.getElementById('weatherIcon');
+      const conditionEl = document.getElementById('weatherCondition');
+      const rainBadge = document.getElementById('rainBadge');
+
+      if (!tempEl || !metaEl || !iconEl || !conditionEl || !rainBadge) return;
+
+      try {
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=51.5124&longitude=9.6724&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,precipitation&hourly=temperature_2m,precipitation_probability,weather_code,precipitation&timezone=auto';
+        const response = await fetch(url, { cache: 'no-store' });
+        if (!response.ok) throw new Error('Weather request failed');
+
+        const data = await response.json();
+        const current = data.current;
+        const hourly = data.hourly;
+
+        const temp = Math.round(current.temperature_2m);
+        const feelsLike = Math.round(current.apparent_temperature);
+        const wind = Math.round(current.wind_speed_10m);
+        const code = current.weather_code;
+        const condition = getWeatherCondition(code);
+
+        const rainChance = Math.max(...(hourly.precipitation_probability || []).slice(0, 12), 0);
+        const rainAmount = Math.max(...(hourly.precipitation || []).slice(0, 12), 0);
+        const rainText = getRainBadgeText(rainChance, rainAmount || Number(current.precipitation || 0));
+
+        tempEl.textContent = `${temp}°C`;
+        iconEl.textContent = getWeatherIcon(code);
+        conditionEl.textContent = condition;
+        metaEl.textContent = `Gefühlt ${feelsLike}°C • Wind ${wind} km/h • ${new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date())}`;
+        rainBadge.textContent = rainText;
+        rainBadge.className = `rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${rainText === 'Es regnet' ? 'bg-amber-500/10 text-amber-700 dark:text-amber-300' : rainText === 'Vorsicht Regen' ? 'bg-orange-500/10 text-orange-700 dark:text-orange-300' : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'}`;
+
+        renderWeatherTimeline(hourly);
+      } catch (error) {
+        tempEl.textContent = '--°C';
+        iconEl.textContent = '☁️';
+        conditionEl.textContent = 'Wetterdaten nicht verfügbar';
+        metaEl.textContent = 'Wetterdaten aktuell nicht verfügbar';
+        rainBadge.textContent = 'Keine Angabe';
+        rainBadge.className = 'rounded-full bg-slate-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-700 dark:text-slate-300';
       }
-      lucide.createIcons();
     }
 
     function getNaturalGermanVoice() {
       const voices = window.speechSynthesis.getVoices();
-      const preferredNames = [
-        'Google Deutsch',
-        'Microsoft Hedda',
-        'Hedda',
-        'Anna',
-        'Samantha',
-        'Google UK English Female',
-        'Microsoft Stefan'
-      ];
-
+      const preferred = ['Google Deutsch', 'Microsoft Hedda', 'Hedda', 'Anna', 'Samantha', 'Google UK English Female', 'Microsoft Stefan'];
       const matching = voices.filter((voice) => {
-        const v = voice.name.toLowerCase();
+        const name = voice.name.toLowerCase();
         const lang = voice.lang.toLowerCase();
-        return /de|deutsch|german/.test(lang) || preferredNames.some((name) => v.includes(name.toLowerCase()));
+        return /de|deutsch|german/.test(lang) || preferred.some((entry) => name.includes(entry.toLowerCase()));
       });
-
-      const direct = preferredNames
-        .map((name) => matching.find((voice) => voice.name.toLowerCase().includes(name.toLowerCase())))
-        .find(Boolean);
-
-      return direct || matching[0] || voices[0] || null;
+      return preferred.map((name) => matching.find((voice) => voice.name.toLowerCase().includes(name.toLowerCase()))).find(Boolean) || matching[0] || voices[0] || null;
     }
 
-    let isSpeaking = false;
     function toggleSpeech() {
       const ttsIcon = document.getElementById('ttsIcon');
       if (!('speechSynthesis' in window)) {
         alert('Sprachausgabe wird nicht unterstützt.');
         return;
       }
+
       if (isSpeaking) {
         window.speechSynthesis.cancel();
         isSpeaking = false;
@@ -640,17 +776,16 @@
         lucide.createIcons();
         return;
       }
-      const textToRead = 'Tägliche Zusammenfassung des heutigen Tages für Familie Gödecke. Top Meldungen: Spanisches Zugunglück bei Toledo, Kabinett verabschiedet Gebäudetyp E, ifo-Geschäftsklima steigt weiter, BSI warnt vor Web-Framework-Angriffen, und Wetter in Duderstadt wird heute am Vormittag ebenfalls beobachtet.';
+
+      const textToRead = 'Tägliche Zusammenfassung. Top Meldungen: Spanisches Zugunglück bei Toledo, Kabinett beschließt Gebäudetyp E, ifo-Geschäftsklima steigt zum sechsten Mal, BSI warnt vor Web-Framework-Angriffen. Die wichtigsten Nachrichten aus Politik, Wirtschaft, Technik und Region für Familie Gödecke.';
       const utterance = new SpeechSynthesisUtterance(textToRead);
       utterance.lang = 'de-DE';
       utterance.rate = 0.82;
-      utterance.pitch = 1.1;
+      utterance.pitch = 1.12;
       utterance.volume = 1;
 
       const preferredVoice = getNaturalGermanVoice();
-      if (preferredVoice) {
-        utterance.voice = preferredVoice;
-      }
+      if (preferredVoice) utterance.voice = preferredVoice;
 
       utterance.onend = () => {
         isSpeaking = false;
@@ -667,55 +802,73 @@
 
     function shareViaWhatsApp() {
       const currentUrl = window.location.href.includes('http') ? window.location.href : 'https://salkin180.github.io/agent-nachrichten-goedecke/';
-      const now = new Date();
-      const currentLabel = formatDateTime(now);
-      const message = `tägliche Zusammenfassung des heutigen Tages
-
-Guten Morgen! Hier ist dein interaktives Nachrichten-Briefing für ${currentLabel}:
-
-🏛️ Politik:
-• Spanisches Zugunglück bei Toledo: Signal- & Leitstellendaten im Fokus
-• Kabinett verabschiedet „Gebäudetyp E“ für bezahlbares Bauen
-• Bundeshaushalt 2027: Chefhaushälter gehen in Schlussklausur
-• Kanzlerreise: Halbleiter- & Rohstoffabkommen in Ostasien
-
-📈 Wirtschaft:
-• ifo-Geschäftsklima klettert 6. Monat in Folge auf 89,5 Punkte
-• Industrie fordert Senkung der Stromsteuer für Mittelstand
-• Nahverkehrsfinanzierung: Länder warnen vor Zugstreichungen
-• Batterierückstellungen dämpfen Gewinne der Autohersteller
-
-💻 Technik:
-• BSI warnt vor breit angelegten Angriffen auf Web-Frameworks
-• Finnisches Endlager Onkalo setzt weltweite Standards
-• Cybersicherheit bei vernetzten Autos: API-Schutz im Fokus
-
-📍 Eichsfeld & Region:
-• Stabsübergabe im Stadthaus Duderstadt: Abschied von Thorsten Feike
-• Fachwerk5Eck startet Vortragsreihe zur Altbausanierung
-• Halloween-Aktion an der Lindenallee in Mingerode am Samstag
-
-🌤️ Wetter in Duderstadt: ${document.getElementById('weatherTemp')?.textContent || '--°C'}
-
-Vollständiges Magazin mit allen 30 Artikeln, Bildern & Events lesen:
-${currentUrl}`;
-
+      const message = `Tagesbriefing für ${formatDateTime()}\n\nPolitik: Zugunglück in Toledo, Gebäudetyp E, Haushaltsklausur.\nWirtschaft: ifo-Geschäftsklima steigt, Mittelstand fordert Stromsteuererleichterung.\nTechnik: BSI warnt vor Framework-Angriffen.\nRegion: Duderstadt, Seeburg und Eichsfeld im Blick.\n\nWetter in Duderstadt: ${document.getElementById('weatherTemp')?.textContent || '--°C'}\n\nMehr lesen: ${currentUrl}`;
       const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
       window.open(whatsappUrl, '_blank');
     }
 
+    function applyTheme(isDark) {
+      const root = document.documentElement;
+      const icon = document.getElementById('themeIcon');
+      if (isDark) {
+        root.classList.add('dark');
+        icon.setAttribute('data-lucide', 'sun');
+      } else {
+        root.classList.remove('dark');
+        icon.setAttribute('data-lucide', 'moon');
+      }
+      lucide.createIcons();
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('searchInput');
+      const themeToggle = document.getElementById('themeToggle');
+      const ttsBtn = document.getElementById('ttsBtn');
+
       updateCurrentDateUI();
       updateEventRangeText();
+      renderTopHeadlines();
+      renderTopHighlights();
       renderNews();
       renderEvents();
       loadWeather();
-      lucide.createIcons();
+      setIntervalEachMinute();
+      setInterval(loadWeather, 60000);
+
+      document.querySelectorAll('[data-nav]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const cat = button.dataset.nav;
+          if (cat === 'all') {
+            currentFilter = 'all';
+          } else {
+            currentFilter = cat;
+          }
+          filterCategory(currentFilter);
+        });
+      });
+
+      document.querySelectorAll('.cat-pill').forEach((button) => {
+        button.addEventListener('click', () => filterCategory(button.dataset.cat));
+      });
+
+      if (searchInput) {
+        searchInput.addEventListener('input', (event) => handleSearch(event.target.value));
+      }
+
+      themeToggle.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.contains('dark');
+        applyTheme(!isDark);
+      });
+
+      ttsBtn.addEventListener('click', toggleSpeech);
+
       if ('speechSynthesis' in window) {
         window.speechSynthesis.onvoiceschanged = () => {
           getNaturalGermanVoice();
         };
       }
+
+      lucide.createIcons();
     });
   </script>
 </body>
