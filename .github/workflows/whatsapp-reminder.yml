@@ -2,7 +2,8 @@ name: Tägliche WhatsApp-Zusammenfassung
 
 on:
   schedule:
-    - cron: '0 7 * * *'
+    - cron: '30 12 * * *'
+    - cron: '15 20 * * *'
   workflow_dispatch:
 
 jobs:
@@ -18,11 +19,19 @@ jobs:
           URL: "https://salkin180.github.io/agent-nachrichten-goedecke/"
         run: |
           TODAY=$(date '+%A, %d. %B %Y')
+          HOUR=$(date '+%H')
+          MINUTE=$(date '+%M')
+
+          if [ "$HOUR:$MINUTE" = "20:15" ]; then
+            GREETING="Guten Abend!"
+          else
+            GREETING="Guten Morgen!"
+          fi
 
           MESSAGE=$(cat <<EOF
           tägliche Zusammenfassung des heutigen Tages
 
-          Guten Morgen! Hier ist dein interaktives Nachrichten-Briefing für ${TODAY}:
+          ${GREETING} Hier ist dein interaktives Nachrichten-Briefing für ${TODAY}:
 
           🏛️ Politik: Zugunglück bei Toledo | Gebäudetyp E beschlossen | Kanzlerreise Asien
           📈 Wirtschaft: ifo-Geschäftsklima klettert | Stromsteuerdebatte | Nahverkehrsfinanzierung
