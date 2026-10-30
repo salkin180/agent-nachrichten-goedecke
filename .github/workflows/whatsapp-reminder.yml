@@ -2,9 +2,9 @@ name: Tägliche WhatsApp-Zusammenfassung
 
 on:
   schedule:
-    # 07:00 UTC entspricht 08:00 Uhr deutscher Winterzeit (MEZ)
+    # 07:00 UTC entspricht 08:00 Uhr MEZ (Winterzeit)
     - cron: '0 7 * * *'
-  workflow_dispatch: # Ermöglicht den manuellen Test-Button unter "Actions"
+  workflow_dispatch:
 
 jobs:
   send-whatsapp:
@@ -12,10 +12,25 @@ jobs:
     steps:
       - name: WhatsApp Nachricht senden
         run: |
-          PHONE="491701234567"      # Deine Handynummer (mit 49, ohne führende Null und ohne +)
-          APIKEY="DEIN_API_KEY"      # Dein CallMeBot-API-Key
+          PHONE="491701234567"      # Deine Handynummer (mit 49, ohne + und ohne 0)
+          APIKEY="DEIN_API_KEY"      # Dein CallMeBot API-Key
           URL="https://salkin180.github.io/agent-nachrichten-goedecke/"
           
-          TEXT="tägliche Zusammenfassung des heutigen Tages%0A%0AGuten Morgen! Dein interaktives Briefing steht bereit:%0A${URL}"
-          
-          curl -s "https://api.callmebot.com/whatsapp.php?phone=${PHONE}&text=${TEXT}&apikey=${APIKEY}"
+          MESSAGE="tägliche Zusammenfassung des heutigen Tages
+
+Guten Morgen! Hier ist dein interaktives Nachrichten-Briefing für Freitag, 30. Oktober 2026:
+
+🏛️ Politik: Zugunglück bei Toledo | Gebäudetyp E beschlossen | Kanzlerreise Asien
+📈 Wirtschaft: ifo-Geschäftsklima klettert | Stromsteuerdebatte | Nahverkehrsfinanzierung
+💻 Technik: BSI-Warnung vor Web-Exploits | Endlager Onkalo | Connected-Car-APIs
+📍 Region: Amtswechsel im Stadthaus Duderstadt | Sanierungsreihe Fachwerk5Eck | Halloween Mingerode
+
+Vollständiges Magazin mit allen Details & Events:
+${URL}"
+
+          # Sauberes Senden ohne URL-Syntaxfehler
+          curl -s -G "https://api.callmebot.com/whatsapp.php" \
+            --data-urlencode "phone=${PHONE}" \
+            --data-urlencode "text=${MESSAGE}" \
+            --data-urlencode "apikey=${APIKEY}" \
+            --fail
