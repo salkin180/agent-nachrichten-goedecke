@@ -209,8 +209,8 @@
           <button id="themeToggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">
             <i data-lucide="moon" class="h-4 w-4" id="themeIcon"></i>
           </button>
-          <button id="ttsBtn" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">
-            <i data-lucide="volume-2" class="h-4 w-4" id="ttsIcon"></i>
+          <button id="ttsBtn" type="button" aria-label="Tagesschau Podcast öffnen" class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">
+            <i data-lucide="headphones" class="h-4 w-4" id="ttsIcon"></i>
           </button>
           <button type="button" onclick="shareViaWhatsApp()" class="flex items-center gap-2 rounded-full bg-[#25D366] px-3 py-2 text-xs font-semibold text-white shadow-sm transition hover:-translate-y-0.5">
             <i data-lucide="share-2" class="h-4 w-4"></i>
@@ -947,32 +947,14 @@ Schema für jedes Objekt:
     }
 
     function toggleSpeech() {
+      const podcastUrl = 'https://www.tagesschau.de/tagesschau_in_100_sekunden/audio-3568144.html';
+      window.open(podcastUrl, '_blank', 'noopener,noreferrer');
+
       const ttsIcon = document.getElementById('ttsIcon');
-      if (!('speechSynthesis' in window)) return;
-
-      if (isSpeaking) {
-        window.speechSynthesis.cancel();
-        isSpeaking = false;
-        ttsIcon.setAttribute('data-lucide', 'volume-2');
+      if (ttsIcon) {
+        ttsIcon.setAttribute('data-lucide', 'headphones');
         lucide.createIcons();
-        return;
       }
-
-      const topItems = (NEWS_DATABASE || []).slice(0, 4);
-      const text = `Tagesbriefing. ${topItems.map((item) => `${item.title}`).join('. ')}.`;
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'de-DE';
-      utterance.onend = () => {
-        isSpeaking = false;
-        ttsIcon.setAttribute('data-lucide', 'volume-2');
-        lucide.createIcons();
-      };
-
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utterance);
-      isSpeaking = true;
-      ttsIcon.setAttribute('data-lucide', 'square');
-      lucide.createIcons();
     }
 
     function shareViaWhatsApp() {
