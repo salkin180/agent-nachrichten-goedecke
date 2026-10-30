@@ -118,7 +118,7 @@
     .marquee-track {
       display: inline-flex;
       width: max-content;
-      animation: marquee 22s linear infinite;
+      animation: marquee 38s linear infinite;
     }
 
     @keyframes marquee {
@@ -342,6 +342,17 @@
       events: { label: 'Events', tone: 'bg-pink-500/10 text-pink-700 dark:text-pink-300' }
     };
 
+    const HEADLINE_FEED = [
+      { source: 'Tagesschau', title: 'Spanisches Zugunglück: Sicherungsdaten und Kommunikation im Fokus' },
+      { source: 'Reuters', title: 'Bundesregierung setzt neue Investitionspläne im Ausbauprogramm um' },
+      { source: 'Handelsblatt', title: 'Industrie fordert spürbare Entlastung bei Energie- und Stromkosten' },
+      { source: 'BSI', title: 'Bundesamt warnt erneut vor massiven Web-Framework-Angriffen' },
+      { source: 'Duderstadt', title: 'Stadtverwaltung passt Öffnungszeiten an und setzt Serviceabläufe neu' },
+      { source: 'FAZ', title: 'Kanzlerreise nach Tokio und Seoul stärkt Rohstoff- und Chip-Partnerschaften' },
+      { source: 'Eichsfeld', title: 'Herbstlicher Vogelzug und Naturerlebnisse ziehen Gäste in die Region' },
+      { source: 'NDR', title: 'Landespolitik verschärft Debatte um ÖPNV-Finanzierung und Streckenausbau' }
+    ];
+
     function makeCoverArt(title, source, colorA, colorB) {
       const safeTitle = (title || 'Nachrichten').slice(0, 48).replace(/&/g, '&amp;');
       const safeSource = (source || 'Agent').slice(0, 20).replace(/&/g, '&amp;');
@@ -373,7 +384,7 @@
     const NEWS_DATABASE = [
       { id: 1, cat: 'politik', badge: 'Top 1 Politik', source: 'Tagesschau', date: TODAY_SHORT, title: 'Spanisches Zugunglück bei Toledo: Ermittler sichern Funk- und Sicherungsdaten', summary: 'Die Spurensicherung konzentriert sich auf Signalverläufe, Leitstellenprotokolle und die Zugsteuerung.', fullText: 'Die Ermittlungsstelle untersucht nach dem Zugunglück bei Toledo vor allem Funkdaten, Signal- und Leitstellenaussagen. Aus der verbliebenen Elektronik sollen Aussagen zur Bremskette und zu den letzten Sekunden vor dem Unfall gewonnen werden.', url: 'https://www.tagesschau.de/', img: makeCoverArt('Zugunglück bei Toledo', 'Tagesschau', '#0f172a', '#3b82f6') },
       { id: 2, cat: 'politik', badge: 'Top 2 Politik', source: 'Bundesregierung', date: TODAY_SHORT, title: 'Kabinett beschließt „Gebäudetyp E“ als neue Standardbaulösung', summary: 'Der Entwurf will günstigeres, nachhaltigeres und schnelleres Bauen auf den Weg bringen.', fullText: 'Das Kabinett hat den Entwurf für einen neuen Gebäudetyp-E vorgelegt. Ziel ist ein vereinfachter, kostengünstigerer und nachhaltigerer Bauprozess für Wohn- und Gewerbegebäude im Bestand und Neubau.', url: 'https://www.bundesregierung.de/breg-de', img: makeCoverArt('Gebäudetyp E', 'Bundesregierung', '#082f49', '#0ea5e9') },
-      { id: 3, cat: 'politik', badge: 'Top 3 Politik', source: 'Bundestag', date: TODAY_SHORT, title: 'Haushalt 2027: Chefhaushälter verhandeln in Klausur mit Kürzungsspielraum', summary: 'Die Debatte fokussiert sich auf Infrastruktur, Verteidigung und die Reformfähigkeit des Staates.', fullText: 'Die Chefhaushälter beraten in einer Klausur über das Bundeshaushaltskonzept 2027. Dabei stehen Investitionen, die Lage der öffentlichen Finanzen und die Priorisierung von Infrastruktur und Sicherheit im Fokus.', url: 'https://www.bundestag.de/', img: makeCoverArt('Haushalt 2027', 'Bundestag', '#1d4ed8', '#6d28d9') },
+      { id: 3, cat: 'politik', badge: 'Top 3 Politik', source: 'Bundestag', date: TODAY_SHORT, title: 'Haushalt 2027: Chefhaushälter verhandeln mit Kürzungsspielraum', summary: 'Die Debatte fokussiert sich auf Infrastruktur, Verteidigung und die Reformfähigkeit des Staates.', fullText: 'Die Chefhaushälter beraten in einer Klausur über das Bundeshaushaltskonzept 2027. Dabei stehen Investitionen, die Lage der öffentlichen Finanzen und die Priorisierung von Infrastruktur und Sicherheit im Fokus.', url: 'https://www.bundestag.de/', img: makeCoverArt('Haushalt 2027', 'Bundestag', '#1d4ed8', '#6d28d9') },
       { id: 4, cat: 'politik', badge: 'Top 4 Politik', source: 'Auswärtiges Amt', date: TODAY_SHORT, title: 'Kanzlerreise: Halbleiter- und Rohstoffallianzen im Fokus', summary: 'In Tokio und Seoul wird an hochgradigen Industrie- und Lieferkettenkooperationen gearbeitet.', fullText: 'Bei der Reise nach Ostasien stehen Handels-, Sicherheits- und Technologiezusammenarbeit auf der Agenda. Besonders wichtig sind Rohstoff-Partnerschaften und strategische Chip-Ökosysteme.', url: 'https://www.auswaertiges-amt.de/', img: makeCoverArt('Kanzlerreise Ostasien', 'Auswärtiges Amt', '#164e63', '#38bdf8') },
       { id: 5, cat: 'wirtschaft', badge: 'Top 1 Wirtschaft', source: 'ifo Institut', date: TODAY_SHORT, title: 'ifo-Geschäftsklima steigt zum sechsten Mal in Folge', summary: 'Unternehmen und Dienstleister beflügeln mit besserer Lage und Optimismus die Geschäftserwartungen.', fullText: 'Das Ifo-Geschäftsklima legte erneut zu und signalisiert eine stabile wirtschaftliche Aufhellung. Lieferengpässe und Energiepreise bleiben die wichtigsten Gegenpunkte.', url: 'https://www.ifo.de/', img: makeCoverArt('ifo Geschäftsklima', 'ifo Institut', '#14532d', '#22c55e') },
       { id: 6, cat: 'wirtschaft', badge: 'Top 2 Wirtschaft', source: 'DIHK', date: TODAY_SHORT, title: 'Industrie fordert Senkung der Stromsteuer für Mittelstand und Produktion', summary: 'Verbände sehen in einer Entlastung den wichtigsten Hebel für Investitionen und Wettbewerbsfähigkeit.', fullText: 'Die Lobbyverbände fordern gezielte Entlastungen bei Energie- und Betriebskosten. Für produzierende Unternehmen und Mittelständler sei die Senkung der Stromsteuer ein entscheidender Hebel für Investitionen.', url: 'https://www.dihk.de/', img: makeCoverArt('Stromsteuer Mittelstand', 'DIHK', '#166534', '#4ade80') },
@@ -445,12 +456,11 @@
       const container = document.getElementById('headlineTicker');
       if (!container) return;
 
-      const items = [...NEWS_DATABASE].slice(0, 8);
-      const repeated = [...items, ...items];
+      const repeated = [...HEADLINE_FEED, ...HEADLINE_FEED];
       container.innerHTML = repeated.map((item) => `
         <div class="flex items-center gap-3 rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-[11px] font-medium text-slate-700 shadow-sm dark:border-white/10 dark:bg-slate-800/80 dark:text-slate-200">
           <span class="inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
-          <span class="uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">${item.badge}</span>
+          <span class="uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">${item.source}</span>
           <span class="truncate max-w-[36rem]">${item.title}</span>
         </div>
       `).join('');
