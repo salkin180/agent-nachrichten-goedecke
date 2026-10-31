@@ -209,9 +209,6 @@
           <button id="themeToggle" type="button" class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">
             <i data-lucide="moon" class="h-4 w-4" id="themeIcon"></i>
           </button>
-          <button id="ttsBtn" type="button" aria-label="Tagesschau Podcast öffnen" class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-600 transition hover:-translate-y-0.5 hover:border-slate-300 dark:border-white/10 dark:bg-slate-900/80 dark:text-slate-200">
-            <i data-lucide="headphones" class="h-4 w-4" id="ttsIcon"></i>
-          </button>
           <button type="button" onclick="shareViaWhatsApp()" class="flex items-center gap-2 rounded-full bg-[#25D366] px-3 py-2 text-xs font-semibold text-white shadow-sm transition hover:-translate-y-0.5">
             <i data-lucide="share-2" class="h-4 w-4"></i>
             <span class="hidden sm:inline">Teilen</span>
@@ -285,7 +282,7 @@
           <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-300"><i data-lucide="play-circle" class="h-4 w-4"></i></span>
           <h2 class="text-lg font-semibold tracking-tight text-slate-900 dark:text-white">Tagesschau in 100 Sekunden</h2>
         </div>
-        <a href="https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1675222.html" target="_blank" rel="noopener noreferrer" class="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Mehr</a>
+        <a href="https://www.tagesschau.de/tagesschau_in_100_sekunden" target="_blank" rel="noopener noreferrer" class="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Mehr</a>
       </div>
       <iframe
         src="https://www.tagesschau.de/tagesschau_in_100_sekunden/video-1675222~player.html"
@@ -407,7 +404,6 @@
     let DYNAMIC_EVENTS = [];
     let currentFilter = 'all';
     let searchQuery = '';
-    let isSpeaking = false;
 
     function makeCoverArt(title, source, colorA, colorB) {
       const safeTitle = (title || 'Bericht').slice(0, 48).replace(/&/g, '&amp;');
@@ -946,17 +942,6 @@ Schema für jedes Objekt:
       }
     }
 
-    function toggleSpeech() {
-      const podcastUrl = 'https://www.tagesschau.de/tagesschau_in_100_sekunden/audio-3568144.html';
-      window.open(podcastUrl, '_blank', 'noopener,noreferrer');
-
-      const ttsIcon = document.getElementById('ttsIcon');
-      if (ttsIcon) {
-        ttsIcon.setAttribute('data-lucide', 'headphones');
-        lucide.createIcons();
-      }
-    }
-
     function shareViaWhatsApp() {
       const currentUrl = window.location.href.includes('http') ? window.location.href : 'https://salkin180.github.io/agent-nachrichten-goedecke/';
       const topItems = (NEWS_DATABASE || []).slice(0, 3).map((item) => `${item.source}: ${item.title}`).join(' • ');
@@ -1018,11 +1003,6 @@ Schema für jedes Objekt:
           document.documentElement.classList.toggle('dark');
           applyTheme(document.documentElement.classList.contains('dark'));
         });
-      }
-
-      const ttsBtn = document.getElementById('ttsBtn');
-      if (ttsBtn) {
-        ttsBtn.addEventListener('click', toggleSpeech);
       }
     });
   </script>
